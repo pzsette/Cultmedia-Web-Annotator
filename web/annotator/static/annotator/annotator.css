@@ -1,0 +1,264 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/*#cultmedia {margin: 0 auto; width: 1024px;}*/
+
+
+
+.cultmedia-videocomponent {position:relative;}
+
+
+video, .timeline {
+  max-width: 50em;
+  width: 100%;
+  height: auto;;
+}
+
+.timeline {
+  width: 100%;
+  height: 20px;
+  background-color: black;
+  cursor: pointer;
+  position: relative;
+  top:20px;
+}
+
+/* Here is the dragger that I will use to move the video 
+* current time forward or backward.
+* I have added a background color for you to see it
+* but just remove it in production.
+*/
+
+.timeline__drag {
+  width: 2px;
+  height: 30px;
+  top: -10px;
+  background-color: yellow;
+  position: absolute;
+  z-index: 2;
+  transform-origin: 0 0;
+}
+
+.timeline__progress {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  margin-top: 2em;
+}
+
+.controls {
+	margin: 10px 0 20px;
+	position:relative;
+	border-bottom: 1px dashed #636363;
+
+}
+
+.video-list {
+	position: absolute;
+	left:35px;
+	top:-2px;
+}
+
+.controls .play-pause {
+	position: relative;
+	min-height: 20px;
+}
+
+.controls i {
+	margin: 0px 10px 0 0;
+	
+}
+
+.play, .pause {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.play {
+	z-index: 10;
+	display: block;
+}
+
+.annotations {
+	min-height: 100px;
+	text-align: center;
+	padding: 10px;
+}
+
+#video__annotations {
+	text-align: center;
+}
+
+.annotations .start__screen, .annotations .end__screen{
+	border: 2px solid #636363;
+	border-radius: 4px;
+}
+
+.annotations p {text-align: center; font-size: 12px; color: #636363; margin:0;}
+
+.time__bar {
+	height:1px;
+}
+
+.time__bar .bar {
+	border-top: 2px dashed #636363;
+	margin: 45px auto;
+}
+
+.list {
+  font-family:sans-serif;
+}
+td {
+  padding:10px; 
+  border:solid 1px #eee;
+}
+
+
+#flat-slider-arousal .ui-slider-range { background: #ef2929; }
+#flat-slider-arousal .ui-slider-handle { border-color: #ef2929; }
+#flat-slider-valence .ui-slider-range { background: #8ae234; }
+#flat-slider-valence .ui-slider-handle { border-color: #8ae234; }
+
+#flat-slider-arousal .ui-state-default, #flat-slider-arousal .ui-widget-content #flat-slider-arousal .ui-state-default { background: #ef2929; outline-width: 0px !important;}
+
+#flat-slider-valence .ui-state-default, #flat-slider-valence .ui-widget-content #flat-slider-valence .ui-state-default { background: #8ae234; outline-width: 0px !important;}
+
+#flat-slider-arousal {margin-top:20px;}
+
+#flat-slider-valence {margin-top:28px;}
+
+#custom-handle-valence, #custom-handle-arousal {
+    width: 2em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+  }
+
+button  {
+	margin-top: 20px !important;
+	min-height: 50px !important;
+	outline-width: 0px !important;
+}
+
+.emotions__container label {
+	margin-top:12px !important;
+}
+
+table {
+	font-size:80%;
+}
+
+
+
+table td, table th {padding:5px;}
+
+.list-container {
+ width: 100%;
+ height: 400px !important;
+ overflow: auto !important;
+ border-bottom: 3px solid #636363;
+ border-top: 3px solid #636363;
+}
+
+input {
+  border:solid 1px #ccc;
+  border-radius: 5px;
+  padding:7px 14px;
+  margin-bottom:10px
+}
+input:focus {
+  outline:none;
+  border-color:#aaa;
+}
+.sort {
+  padding:0px 30px;
+  border-radius: 6px;
+  border:none;
+  display:inline-block;
+  color:#fff;
+  text-decoration: none;
+  background-color: #28a8e0;
+  height:30px;
+  margin:0 auto 20px;
+}
+.sort:hover {
+  text-decoration: none;
+  background-color:#1b8aba;
+}
+.sort:focus {
+  outline:none;
+}
+.sort:after {
+  display:inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  content:"";
+  position: relative;
+  top:-10px;
+  right:-5px;
+}
+.sort.asc:after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #fff;
+  content:"";
+  position: relative;
+  top:4px;
+  right:-5px;
+}
+.sort.desc:after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #fff;
+  content:"";
+  position: relative;
+  top:-4px;
+  right:-5px;
+}
+
+.video-list {
+  display: inline-block;
+  margin-left:50px;
+  width:500px;
+}
+
+.filters-panel {
+  border: 1px solid #636363;
+  z-index:6000;
+  position:absolute; 
+  bottom: 30px;
+  background: #FFF;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border-top-left-radius: 0;
+  padding:0 12px;
+  overflow: auto !important;
+  height: 300px;
+}
+
+
+
+

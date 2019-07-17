@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.LogoUnifi{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left: 1%;
+    top: 1%;
+}
+
+.brand-logo{
+  top: 4%;
+  left: 1%;
+}
+
+
+body{
+  background: ghostwhite;
+  font-family: Roboto;
+}
+
+.NavbarSito{
+  background-color: lightblue;
+}
+
+#search{
+position: absolute;
+top: 16%;
+left: 15%;
+width: 40%;
+background-color: rgb(248, 248, 255);
+border: 1px;
+border-bottom: 1px solid rgba(0,0,0,0.87);
+border-radius: 5px;
+text-indent: 10px;
+padding: 0px 0px 0px 50px;
+}
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #999999;
+    text-indent: 10px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+  position: absolute;
+  top: 3%;
+  left: 16%;
+  color: black;
+}
+
+.browser-default{
+  position: absolute;
+  left: 63%;
+  top: 16%;
+  width: 15%;
+  border-bottom: 1px solid rgba(0,0,0,0.87);
+  background-color: rgb(248, 248, 255);
+}
+
+.others{
+  color: black;
+}
+
+.DefaultChoose{
+  color: #999999;
+}
+
+#scroller-wrapper{
+  background-color: lightblue;
+  position: absolute;
+  bottom: 1%;
+  height: 300px;
+  width: 99%;
+  left: 0.5%;
+  overflow-x: scroll;
+  border: 2px solid #005077;
+  border-radius: 5px;
+  box-shadow: 2px 2px #053248;
+
+}
+
+#scroller{
+  position: absolute;
+  height: 100%;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.elem{
+  height: 154px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: auto;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.elem:last-child{
+  padding-right: 10px;
+}
+
+#effects{
+  top:0px;
+  left: 0px;
+  width: 65px;
+  height: 40px;
+  font-size: 10px;
+  border: 1px solid rgba(0,0,0,0.87);
+  background-color: #005077;
+  color: white;
+  position: relative;
+  display: inline;
+}
+
+#boxed{
+  border: 2px solid #005077;
+  border-radius: 15px;
+  width: 266px;
+  height: 100%;
+}
+
+#boxed img{
+  border-radius: 13px;
+}
+
+.btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  background-color: #005077;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border: 2px solid #005077;
+  border-radius: 5px;
+  box-shadow: 2px 2px #053248;
+}
+.btn:hover{
+  background-color: RoyalBlue;
+}
+
+.btn:focus{
+  background-color: #005077;
+}
+
+.btn:active{
+  background-color: #005077;
+  transform: translateY(2px);
+}
+
+#loading{
+  position: absolute;
+  top: 50.5%;
+  right: 170px;
+  height: 30px;
+  width: 30px;
+}
+
+.disappeared{
+  display: none;
+}
+
+.spinner-blue-only {
+  border-color: #005077;
+}
+
+#search-wrapper{
+  background-color: lightblue;
+  position: absolute;
+  top: 12%;
+  height: 200px;
+  width: 99%;
+  left: 0.5%;
+  overflow-x: scroll;
+  border: 2px solid #005077;
+  border-radius: 5px;
+  box-shadow: 2px 2px #053248;
+
+}
+
+#search-scroller{
+  position: absolute;
+  height: 100%;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.search-elem{
+  height: 150px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: auto;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.search-elem:last-child{
+  padding-right: 10px;
+}

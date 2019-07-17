@@ -1,0 +1,31 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: cultmedia_web
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+  web:
+    build: ./web/.
+    #command: python manage.py runserver 0.0.0.0:8000
+    command: ./run_web.sh
+    volumes:
+      - ./web:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=cultmedia_web
+      - DB_ROOT_PASSWORD=root
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

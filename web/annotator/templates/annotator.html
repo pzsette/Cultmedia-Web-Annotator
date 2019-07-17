@@ -1,0 +1,122 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>CULTMEDIA | Video Annotation UI Widget</title>
+
+<!--
+        <script type="text/javascript" src="js/lib/jquery/jquery-2.0.3.js"></script>
+        <script type="text/javascript" src="js/lib/jquery/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="js/lib/jquery/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/lib/jquery/jquery.ui.effects.js"></script>
+-->
+		<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+                
+<!-- plus a jQuery UI theme, here I use "flick" -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!--
+        <script type="text/javascript" src="js/lib/jquery/jquery.ui.mouse.js"></script>
+        <script type="text/javascript" src="js/lib/jquery/jquery.ui.draggable.js"></script>
+        <script type="text/javascript" src="js/lib/jquery/jquery.ui.droppable.js"></script>
+-->
+        <script type="text/javascript" src="js/TweenMax.min.js"></script>
+        <script type="text/javascript" src="js/Draggable.min.js"></script>
+        <script type="text/javascript" src="js/list.min.js"></script>
+        
+<!--
+        <script type="text/javascript" src="js/jquery-ui-slider-pips.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui-slider-pips.css" />
+-->
+        
+<!--       <link href="css/mt-range-slider.css" rel="stylesheet">-->
+
+
+    	
+        
+        <!-- Bootstrap Core CSS -->
+    	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+       
+<!--		<link rel="stylesheet" type="text/css" href="js/lib/jquery/jquery-ui.css" />-->
+		
+
+		
+		
+		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		
+		<script type="text/javascript" src="jquery.ui.videocomponent.js"></script>
+<!--        <script type="text/javascript" src="js/lib/editinplace/jquery.editinplace.js"></script>-->
+
+		<link rel="stylesheet" type="text/css" href="{% static 'annotator/annotator.css' %}" />
+		<script type="text/javascript">
+		
+			
+			function loadPlayer(){
+				var showData = false;
+				var editData = false;
+				
+				$('.examplewidget').videocomponent({
+					sourceId : "1",
+					width : 640,
+					height : 480,
+					themeColor: "0xdddddd",
+					textColor: "0x001100",
+					highlightBg: "0xaa0000",
+					highlightText: "0xffffff"
+//					serverOwner : "unifi",
+//					showData: true,
+//					allowEdit: true,
+//					sessionId: "1",
+//					searchResultPerPage: 5,
+//					duration: "5000",
+//					type: "annotations",
+//					dataPosition: "overlay",
+//					similaritySearch: true,
+//					startPoint: 0
+				})
+			}
+			
+		
+			$(document).ready(function(){
+				// instantiate our plugin on every element with certain class type
+				loadPlayer();
+			});
+			
+			
+		</script>
+	</head>
+	<body id="sketch container">
+		<div class="row"> <!-- starts row -->
+			<div id="cultmedia" class="col-xs-6 col-xs-offset-2">
+				<div class="examplewidget"></div>
+				<div class="serverResponse"></div>
+			</div>
+			<div class="col-xs-2">
+				<div id="video__annotations">
+					<h3>Annotazioni</h3>
+<!--					<input class="search" placeholder="Search" />-->
+					<button class="sort" data-sort="start">Ordina per inizio</button>
+					<div class="list-container">
+					<table class="table">
+						<!-- IMPORTANT, class="list" have to be at tbody -->
+						<thead>
+							<tr><th></th><th class="start">Inizio</th><th class="end">Fine</th><th class="arousal">C</th><th class="valence">P</th></tr>
+						</thead>
+						<tbody class="list">
+						
+						</tbody>
+					</table>
+					</div>
+  				</div>
+			</div>
+		</div><!-- ends row -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+<!--    <script src="js/jquery.mtRangeSlider.js" type="text/javascript"></script>-->
+	</body>
+</html>
