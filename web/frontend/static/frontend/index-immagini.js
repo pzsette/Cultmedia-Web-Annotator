@@ -15,8 +15,6 @@ $(document).ready(function() {
                 console.log(data);
                 var url = data.results[i].uri.split("/").pop();
 
-
-
                 content += "<img id=\""+ url+"\" draggable=true ondragstart=drag(event) ondragend=dragend(event) src=\"" + img + "\" width='262' height='100%'>"
                 content += "</div>"
             }

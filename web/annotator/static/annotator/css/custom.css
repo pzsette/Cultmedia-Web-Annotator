@@ -1,0 +1,28 @@
+/* CSS Document */
+
+body {
+    padding-top: 50px; /* Padding for .navbar-fixed-top. Change value if navbar height changes. Remove if using .navbar-static-top. */
+}
+
+
+.footer-blurb {
+    padding: 30px 0;
+	text-align: center;
+    background-color: lightskyblue;
+	
+}
+
+.footer-blurb-item {
+    padding: 30px 0;
+    }
+
+.footer-blurb h3 {
+    color: midnightblue;
+    }
+	
+.copyright {
+	background-color: #fff;
+	text-align: center;
+	padding: 30px 0;
+}
+

@@ -58,6 +58,9 @@ class ShotViewSet(viewsets.ModelViewSet):
         q = self.request.query_params.get('q', None)
         if q is not None:
             queryset = queryset.filter(Q(video__title__icontains=q) | Q(video__keywords__icontains=q))
+        id = self.request.query_params.get('id', None)
+        if id is not None:
+            queryset = queryset.filter(Q(id=id))
         mood = self.request.query_params.get('mood', None)
         if mood is not None:
             if mood == '0':

@@ -17,9 +17,6 @@ $(document).ready(function() {
                 console.log(data);
                 var url = data.results[i].uri.split("/").pop();
 
-
-
-
                 // content += "<img id=\""+ url+"\" draggable=true ondragstart=drag(event) ondragend=dragend(event) src=\"" + img + "\" width='262' height='100%'>"
                 // content += "</div>"
 
@@ -95,12 +92,8 @@ $(document).ready(function() {
 
           req.send();
 
-
         }})
     })
-
-
-
 });
 
 function allowDrop(ev) {
@@ -136,12 +129,10 @@ function drop(ev) {
     } else {
         ev.target.appendChild(nodeCopy);
     }
-
 }
 
 function dragend(ev){
     if(ev.dataTransfer.dropEffect=== 'none' && ev.target.id.endsWith('_timeline')){
         ev.target.parentElement.removeChild(ev.target.parentElement.childNodes[0]);
-
     }
 }
