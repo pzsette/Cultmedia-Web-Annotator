@@ -29,7 +29,7 @@ $.widget( "ui.videocomponent", {
 	endScreen : null,
 	endScreenContext : null,
 	annotationsList : null,
-	videoList : null,
+	videosList : null,
 	currentScreen : 1,
 	currentVideoId : null,
 	currentShotStart : 0,
@@ -167,7 +167,6 @@ $.widget( "ui.videocomponent", {
   			valueNames: [ 'start', 'end', 'arousal', 'valence', 'id' ],
 			item: '<tr><td class="id" style="display:none;"></td><td class="remove"><button class="remove-item-btn"><i class="fas fa-backspace"></i></button></td><td class="start"></td><td class="end"></td><td class="arousal"></td><td class="valence"></td></tr>'
 		};
-
 		self.annotationsList = new List('video__annotations', options, annotationsData);
 		self.addListCallbacks();
 //		self.annotationsList.add({
@@ -193,11 +192,13 @@ $.widget( "ui.videocomponent", {
   		// Needed to add new buttons to jQuery-extended object
   		$(document).on('click', '.video-item', function() {
 			var itemId = $(this).closest('tr').find('.id').text();
+			console.log("tendina");
 //			self.annotationsList.remove('id', itemId);
 			console.log(itemId);
 			self.updateWidget(itemId, 'sourceId');
 	  	});
 	},
+
 	
 	_loadPlayer: function(videoData) {
 		console.log("VIDEO DATA")
@@ -207,8 +208,30 @@ $.widget( "ui.videocomponent", {
 		var opts = self.options;		
 		//autoplay muted
 		var videoElement = "<video class='video-player'  ></video>";
-		var controls = "<div class='controls'><div class='play-pause'><i class='far fa-play-circle play'></i><i class='far fa-pause-circle pause'></i></div><div class='video-list' id='video__list'><i class='fas fa-th-list video-list-button'></i><div class='filters-panel filters-hide'><table class='table'><thead><tr><th class='id'>Id</th><th class='title'>Titolo</th><th class='path'>Percorso</th></tr></thead><tbody class='list'></tbody></table></div></div></div>";
-		
+		var controls = "<div class='controls'>" +
+							"<div class='play-pause'>" +
+								"<i class='far fa-play-circle play'></i>" +
+								"<i class='far fa-pause-circle pause'></i>" +
+							"</div><div class='video-list' id='video__list'>" +
+								"<i class='fas fa-th-list video-list-button'></i>" +
+							"<div class='filters-panel filters-hide'>" +
+								"<table class='table'>" +
+									"<thead>" +
+										"<tr>" +
+											"<th class='id'>Id</th>" +
+											"<th class='title'>Titolo</th>" +
+											"<th class='path'>Percorso</th></tr>" +
+									"</thead>" +
+									"<tbody class='list'>" +
+						"</tbody></table></div></div></div>";
+
+		/*var tabella = document.getElementById('table');
+		var row = tabella.insertRow(0)
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = videoData[0][4];
+		cell2.innerHTML = videoData[0][5];*/
+
 		var annotations = "<div class='annotations row'>" +
 			
 			"<div class='screen__container col-xs-2'><p>Inizio</p><div class='start__screen'><canvas width='100' height='100'></canvas></div><p class='timecode'>Istante<p></div>" +
@@ -220,13 +243,9 @@ $.widget( "ui.videocomponent", {
 			"<div class='emotions__container col-xs-4'><div id='flat-slider-arousal'><div id='custom-handle-arousal' class='ui-slider-handle'></div><label>Coinvolgimento</label></div><div id='flat-slider-valence'><div id='custom-handle-valence' class='ui-slider-handle'></div><label>Positivit&agrave;</label></div></div>" +
 			
 			"<div class='button__container col-xs-2'><button class='btn btn-success btn-lg btn-block add_annotation'><i class='far fa-plus-square'></i></button></div>" +
-
 			
 			"</div>";
 		var timeline = "<div class='timeline'><div class='timeline__drag'></div><span class='timeline__progress'></span></div>";
-		
-		
-		
 		
 		element.append(videoElement);
 //		element.append(toolsContainer)
@@ -240,7 +259,7 @@ $.widget( "ui.videocomponent", {
 		var id_selected_video = videoData[0].id
 		
 		self.currentVideoId = id_selected_video;
-		var videoSource = "<source src='videos/" + filepath_selected_video + "' type='video/mp4'>";
+		var videoSource = "<source src='../"+"frontend/" + filepath_selected_video + "' type='video/mp4'>";
 		$('.video-player').append(videoSource);
 		
 		self.video = document.getElementsByTagName('video')[0],
@@ -431,15 +450,19 @@ $.widget( "ui.videocomponent", {
 		var self = this;
 		var opts = self.options;
 		var sourceId = opts.sourceId;
+		console.log ("LOLO");
 		console.log(sourceId);
 		self.getVideoDetail(sourceId);
 	},
 	
 	getVideosList : function(){
 		var self = this;
-		$.getJSON(domain_root + '/api/shots', function (data) {
+		$.getJSON(domain_root+'/api/shots', function (data) {
+
+
 
 			self.parseVideosList(data.results);
+
 		})
 
 		/*var self = this;
@@ -462,16 +485,19 @@ $.widget( "ui.videocomponent", {
 		});*/
 	},
 	
-	parseVideosList : function(data){
-		console.log(data.type);
+	parseVideosList : function(data) {
+		console.log(data);
+		console.log(data[0]);
 		self = this;
 		var options = {
-  			valueNames: [ 'id', 'title', 'path' ],
-			item: '<tr class="video-item"><td class="id"></td><td class="title"></td><td class="path"></td></tr>'
+  			valueNames: [ 'id', 'thumbnail', 'uri' ],
+			item: '<tr class="video-item"><td class="id"></td><td class="thumbnail"></td><td class="uri"></td></tr>'
 		};
 		setTimeout(function(){
 			self.videosList = new List('video__list', options, data);
-			console.log("ciao");
+			console.log("777");
+			console.log(self.videosList);
+			console.log("888");
 			self.addVideosListCallbacks();
 		}, 1000)
 		
@@ -479,6 +505,7 @@ $.widget( "ui.videocomponent", {
 	
 	getVideoDetail(sourceId){
 		var self = this;
+		console.log(domain_root);
 		$.getJSON(domain_root + '/api/shots?id='+sourceId, function (data) {
 			self.parseVideoDetail(data.results);
 		})
