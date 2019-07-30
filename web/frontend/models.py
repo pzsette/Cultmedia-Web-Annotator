@@ -23,6 +23,7 @@ class Video(models.Model):
 
 class Shot(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    title = models.CharField(u'Shot Title', help_text=u'Shot Title', blank=True, null=True, max_length=30)
     start = models.CharField(u'Shot Start', help_text=u'Shot Start', blank=True, null=True, max_length=10)
     end = models.CharField(u'Shot End', help_text=u'Shot End', blank=True, null=True, max_length=10)
     thumbnail = models.TextField(blank=True, null=True)

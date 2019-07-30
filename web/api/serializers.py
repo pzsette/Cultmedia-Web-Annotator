@@ -10,4 +10,4 @@ class ShotSerializer(serializers.ModelSerializer):
     #video = VideosSerializer(many=False, read_only=True)
     class Meta:
         model = Shot
-        fields = ('id', 'video', 'start', 'end', 'thumbnail', 'arousal', 'valence','uri')
+        fields = ('id','title', 'video', 'start', 'end', 'thumbnail', 'arousal', 'valence','uri')

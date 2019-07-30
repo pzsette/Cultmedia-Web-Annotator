@@ -490,8 +490,8 @@ $.widget( "ui.videocomponent", {
 		console.log(data[0]);
 		self = this;
 		var options = {
-  			valueNames: [ 'id', 'thumbnail', 'uri' ],
-			item: '<tr class="video-item"><td class="id"></td><td class="thumbnail"></td><td class="uri"></td></tr>'
+  			valueNames: [ 'id', 'title', 'uri' ],
+			item: '<tr class="video-item"><td class="id"></td><td class="title"></td><td class="uri"></td></tr>'
 		};
 		setTimeout(function(){
 			self.videosList = new List('video__list', options, data);
