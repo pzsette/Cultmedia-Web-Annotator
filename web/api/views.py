@@ -84,6 +84,9 @@ class ShotViewSet(viewsets.ModelViewSet):
                 queryset = queryset.filter(c1 | c2 | c3)
         return queryset
 
+    #def update(self):
+
+
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideosSerializer

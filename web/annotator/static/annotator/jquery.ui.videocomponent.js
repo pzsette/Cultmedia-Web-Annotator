@@ -459,10 +459,7 @@ $.widget( "ui.videocomponent", {
 		var self = this;
 		$.getJSON(domain_root+'/api/shots', function (data) {
 
-
-
 			self.parseVideosList(data.results);
-
 		})
 
 		/*var self = this;
@@ -581,7 +578,22 @@ $.widget( "ui.videocomponent", {
 	saveAnnotation: function(videoId, start, end, arousal, valence){
 		request_type = "insert";
 		var self = this;
-		var request = $.ajax({
+
+		var http = new XMLHttpRequest();
+		var url = domain_root + '/api/shots/'+ videoId+'/';
+		var params = 'arousal='+arousal+'&valence='+valence;
+		http.open('PATCH', url, true);
+		http.responseType='json';
+
+		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {
+			if(http.readyState == 4 && http.status == 200) {
+				self.parseAnnotation(http.response);
+			}
+		};
+		http.send(params);
+		/*var request = $.ajax({
 			url: 'server/actions.php',
 			type: "POST",
 			data: {
@@ -593,23 +605,30 @@ $.widget( "ui.videocomponent", {
 				"valence": valence
 			},
 			dataType: "json",
-		});
+		});*/
+
+
 	 
-		request.done(function(data) {
+		/*request.done(function(data) {
 			self.parseAnnotation(data.results);
 		});
 	 
 		request.fail(
 			function(jqXHR, textStatus) {
 				alert( "Request failed: " + textStatus );
-		});
+		});*/
 	},
 	
 	parseAnnotation: function(data){
 		console.log('parseAnnotation');
 		console.log(data);
+		//console.log
 		
-		var annotation = data.annotations[0];
+		var annotation = data;
+
+		self.annotationsList.clear();
+
+		//console.log(self.annotationsList);
 		
 		self.annotationsList.add({
 			id: annotation.id,
@@ -672,11 +691,9 @@ $.widget( "ui.videocomponent", {
 			break;
 		}
 		self._create();
-		
 	},
 	
 });
-
 
 $.extend( $.ui.videocomponent, { version: "@VERSION" })
 

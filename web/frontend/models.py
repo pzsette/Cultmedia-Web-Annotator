@@ -27,8 +27,8 @@ class Shot(models.Model):
     start = models.CharField(u'Shot Start', help_text=u'Shot Start', blank=True, null=True, max_length=10)
     end = models.CharField(u'Shot End', help_text=u'Shot End', blank=True, null=True, max_length=10)
     thumbnail = models.TextField(blank=True, null=True)
-    arousal = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=0, validators=[MaxValueValidator(1), MinValueValidator(-1)])
-    valence = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=0, validators=[MaxValueValidator(1), MinValueValidator(-1)])
+    arousal = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
+    valence = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
     uri = models.TextField(blank=True, null=True)
     processed = models.BooleanField(default=False)
 
