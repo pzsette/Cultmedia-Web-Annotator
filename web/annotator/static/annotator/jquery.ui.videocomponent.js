@@ -586,7 +586,6 @@ $.widget( "ui.videocomponent", {
 		http.responseType='json';
 
 		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
 		http.onreadystatechange = function() {
 			if(http.readyState == 4 && http.status == 200) {
 				self.parseAnnotation(http.response);
@@ -620,8 +619,8 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	parseAnnotation: function(data){
-		console.log('parseAnnotation');
-		console.log(data);
+		//console.log('parseAnnotation');
+		//console.log(data);
 		//console.log
 		
 		var annotation = data;
@@ -644,7 +643,22 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	deleteAnnotation: function(annotationId){
-		request_type = "delete";
+
+		var http = new XMLHttpRequest();
+		var url = domain_root + '/api/shots/'+annotationId+'/';
+		var params = 'arousal=&valence=';
+		http.open('PATCH', url, true);
+		http.responseType='json';
+
+		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		http.onreadystatechange = function() {
+			if(http.readyState == 4 && http.status == 200) {
+				self.parseDeleteResponse(http.response);
+			}
+		};
+		http.send(params);
+
+		/*request_type = "delete";
 		var self = this;
 		var request = $.ajax({
 			url: 'server/actions.php',
@@ -663,20 +677,18 @@ $.widget( "ui.videocomponent", {
 		request.fail(
 			function(jqXHR, textStatus) {
 				alert( "Request failed: " + textStatus );
-		});
+		});*/
 	},
 	
 	parseDeleteResponse: function(data){
 		self = this;
 		console.log('parseDeleteResponse');
-		console.log(data);
-		if (data.deleted) {
-			var id
-			//var itemId = self.deleteTarget.closest('tr').find('.id').text();
-			self.annotationsList.remove('id', data.id);
-		}
-		
-		
+		//console.log(data);
+		//console.log(self.annotationsList)
+		//if (data.deleted) {
+		//var itemId = self.deleteTarget.closest('tr').find('.id').text();
+		self.annotationsList.remove('id', data.id);
+		//}
 	},
 	
 	updateWidget : function(param, type) {

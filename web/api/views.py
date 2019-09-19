@@ -27,7 +27,6 @@ def process_videos(request):
             fade_in = ''
             fade_out = ''
 
-
             if index == 0:
                 if effects[index] == '1':
                     fade_out = ',reverse,fade=d=' + duration + ',reverse'
