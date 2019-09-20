@@ -551,27 +551,49 @@ $.widget( "ui.videocomponent", {
 //		var valence = self.currentShotValence;
 
 		
-		console.log("video_id: " + video_id);
+		/*console.log("video_id: " + video_id);
 		console.log("start: " + start);
 		console.log("end: " + end);
 		console.log("arousal: " + arousal);
-		console.log("valence: " + valence);
+		console.log("valence: " + valence);*/
 		
-		if(video_id && (start >=0) && (end >=0) && arousal && valence) {
+		//if(video_id && (start >=0) && (end >=0) && arousal && valence) {
 			console.log("video_id: " + video_id);
 			console.log("start: " + start);
 			console.log("end: " + end);
 			console.log("arousal: " + arousal);
 			console.log("valence: " + valence);
-			self.saveAnnotation(video_id, start, end, arousal, valence);
-		} else {
+			var arousalValue;
+			if (arousal < 4) {
+				console.log("dentro")
+				arousalValue = -1;
+			} else if (arousal < 8) {
+				arousalValue = 0;
+			} else {
+				arousalValue = 1;
+			}
+
+			var valenceValue;
+
+			if (valence <4) {
+				valenceValue = -1;
+			} else if (valence <8) {
+				valenceValue = 0;
+			} else {
+				valenceValue = 1;
+			}
+			console.log("######")
+			console.log('arousal '+arousalValue);
+			console.log('valence '+valenceValue);
+			self.saveAnnotation(video_id, start, end, arousalValue, valenceValue);
+		/*} else {
 			console.log("SOMETHING MISSING");
 			console.log("video_id: " + video_id);
 			console.log("start: " + start);
 			console.log("end: " + end);
 			console.log("arousal: " + arousal);
 			console.log("valence: " + valence);
-		}
+		}*/
 		
 	},
 	

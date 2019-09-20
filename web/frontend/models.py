@@ -27,8 +27,8 @@ class Shot(models.Model):
     start = models.CharField(u'Shot Start', help_text=u'Shot Start', blank=True, null=True, max_length=10)
     end = models.CharField(u'Shot End', help_text=u'Shot End', blank=True, null=True, max_length=10)
     thumbnail = models.TextField(blank=True, null=True)
-    arousal = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
-    valence = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=0, validators=[MaxValueValidator(10), MinValueValidator(0)])
+    arousal = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=None, validators=[MaxValueValidator(1), MinValueValidator(-1)])
+    valence = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=None, validators=[MaxValueValidator(1), MinValueValidator(-1)])
     uri = models.TextField(blank=True, null=True)
     processed = models.BooleanField(default=False)
 
@@ -46,7 +46,7 @@ class Shot(models.Model):
 
             print("filename: " + filename)
             print("filename[:-3]: " + filename[:-3])
-            cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./videoferracani/" + filename, o = "./videoferracani/" + filename[:-3] + "jpg")
+            cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./videoferracani/" + filename, o="./videoferracani/" + filename[:-3] + "jpg")
             subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
             self.thumbnail = filename[:-3] + "jpg"
         super(Shot, self).save(*args, **kwargs)
