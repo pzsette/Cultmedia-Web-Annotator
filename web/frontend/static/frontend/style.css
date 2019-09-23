@@ -365,6 +365,31 @@ padding: 0px 0px 0px 50px;
   transform: translateY(2px);
 }
 
+.btn2 {
+  position: absolute;
+  right: 200px;
+  top: 50%;
+  background-color: #005077;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border: 2px solid #005077;
+  border-radius: 5px;
+  box-shadow: 2px 2px #053248;
+}
+.btn2:hover{
+  background-color: RoyalBlue;
+}
+
+.btn2:focus{
+  background-color: #005077;
+}
+
+.btn2:active{
+  background-color: #005077;
+  transform: translateY(2px);
+}
+
 #loading{
   position: absolute;
   top: 50.5%;

@@ -538,7 +538,6 @@ $.widget( "ui.videocomponent", {
 	errorVideoInfo: function(data) {
 	},
 	
-	
 	addAnnotation: function(video_id, start, end, arousal, valence)  {
 //		var self = this;
 //		console.log(self.currentShotStart)
@@ -582,9 +581,6 @@ $.widget( "ui.videocomponent", {
 			} else {
 				valenceValue = 1;
 			}
-			console.log("######")
-			console.log('arousal '+arousalValue);
-			console.log('valence '+valenceValue);
 			self.saveAnnotation(video_id, start, end, arousalValue, valenceValue);
 		/*} else {
 			console.log("SOMETHING MISSING");
@@ -594,7 +590,6 @@ $.widget( "ui.videocomponent", {
 			console.log("arousal: " + arousal);
 			console.log("valence: " + valence);
 		}*/
-		
 	},
 	
 	saveAnnotation: function(videoId, start, end, arousal, valence){
