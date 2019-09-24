@@ -3,12 +3,11 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from rest_framework import generics
-from .serializers import ShotSerializer
 from django.db.models import Q
 import subprocess
-from frontend.models import Video, Shot
+from frontend.models import Video, Shot, Annotation
 from rest_framework import viewsets
-from .serializers import VideosSerializer
+from .serializers import VideosSerializer, AnnotationSerializer, ShotSerializer
 
 
 def process_videos(request):
@@ -66,20 +65,20 @@ class ShotViewSet(viewsets.ModelViewSet):
                 queryset = queryset
             if mood == '1':
 
-                c1 = (Q(arousal=1) & Q(valence=0))
-                c2 = (Q(arousal=1) & Q(valence=1))
-                c3 = (Q(arousal=0) & Q(valence=1))
+                c1 = (Q(arousal_avg=1) & Q(valence_avg=0))
+                c2 = (Q(arousal_avg=1) & Q(valence_avg=1))
+                c3 = (Q(arousal_avg=0) & Q(valence_avg=1))
                 queryset = queryset.filter(c1 | c2 | c3)
 
             if mood == '2':
-                c1 = Q(arousal=1) & Q(valence=-1)
-                c2 = Q(arousal=0) & Q(valence=0)
-                c3 = Q(arousal=-1) & Q(valence=1)
+                c1 = Q(arousal_avg=1) & Q(valence_avg=-1)
+                c2 = Q(arousal_avg=0) & Q(valence_avg=0)
+                c3 = Q(arousal_avg=-1) & Q(valence_avg=1)
                 queryset = queryset.filter(c1 | c2 | c3)
             if mood == '3':
-                c1 = Q(arousal=-1) & Q(valence=0)
-                c2 = Q(arousal=-1) & Q(valence=-1)
-                c3 = Q(arousal=0) & Q(valence=-1)
+                c1 = Q(arousal_avg=-1) & Q(valence_avg=0)
+                c2 = Q(arousal_avg=-1) & Q(valence_avg=-1)
+                c3 = Q(arousal_avg=0) & Q(valence_avg=-1)
                 queryset = queryset.filter(c1 | c2 | c3)
         return queryset
 
@@ -89,3 +88,12 @@ class ShotViewSet(viewsets.ModelViewSet):
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideosSerializer
+
+class AnnotationViewSet(viewsets.ModelViewSet):
+    serializer_class = AnnotationSerializer
+    def get_queryset(self):
+        queryset = Annotation.objects.all()
+        shot_id = self.request.query_params.get('shot_id', None)
+        if shot_id is not None:
+            queryset = queryset.filter(Q(shot__id=shot_id))
+        return queryset

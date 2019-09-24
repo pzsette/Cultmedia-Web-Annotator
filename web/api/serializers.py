@@ -7,13 +7,11 @@ class VideosSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'duration', 'uri', 'keywords')
 
 class ShotSerializer(serializers.ModelSerializer):
-    #video = VideosSerializer(many=False, read_only=True)
     class Meta:
         model = Shot
-        fields = ('id','title', 'video', 'start', 'end', 'thumbnail', 'arousal', 'valence','uri')
+        fields = ('id','title', 'video', 'thumbnail', 'arousal_avg', 'valence_avg','uri')
 
-#class AdminShotSerializer(serializers.ModelSerializer):
-#    # video = VideosSerializer(many=False, read_only=True)
-#    class Meta:
-#        model = Annotation
-#        fields = ('id', 'start', 'end','arousal', 'valence')
+class AnnotationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Annotation
+        fields = ('id','shot', 'startAnnotation', 'endAnnotation','arousal', 'valence')

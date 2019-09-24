@@ -7,7 +7,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'shots', views.ShotViewSet, 'shots')
 router.register(r'videos', views.VideoViewSet, 'videos')
-#router.register(r'annotation', views.AnnotationViewSet, 'annotation')
+router.register(r'annotation', views.AnnotationViewSet, 'annotation')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

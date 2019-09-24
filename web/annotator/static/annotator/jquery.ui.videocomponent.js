@@ -164,8 +164,8 @@ $.widget( "ui.videocomponent", {
 	_initializeAnnotations : function(annotationsData){
 		self = this;
 		var options = {
-  			valueNames: [ 'start', 'end', 'arousal', 'valence', 'id' ],
-			item: '<tr><td class="id" style="display:none;"></td><td class="remove"><button class="remove-item-btn"><i class="fas fa-backspace"></i></button></td><td class="start"></td><td class="end"></td><td class="arousal"></td><td class="valence"></td></tr>'
+  			valueNames: [ 'startAnnotation', 'endAnnotation', 'arousal', 'valence', 'id' ],
+			item: '<tr><td class="id" style="display:none;"></td><td class="remove"><button class="remove-item-btn"><i class="fas fa-backspace"></i></button></td><td class="startAnnotation"></td><td class="endAnnotation"></td><td class="arousal"></td><td class="valence"></td></tr>'
 		};
 		self.annotationsList = new List('video__annotations', options, annotationsData);
 		self.addListCallbacks();
@@ -504,7 +504,7 @@ $.widget( "ui.videocomponent", {
 		var self = this;
 		console.log(domain_root);
 		$.getJSON(domain_root + '/api/shots?id='+sourceId, function (data) {
-			self.parseVideoDetail(data.results);
+			self.parseVideoDetail(data.results, sourceId);
 		})
 
 		/*request_type = "load";
@@ -526,13 +526,20 @@ $.widget( "ui.videocomponent", {
 		});*/
 	},
 	
-	parseVideoDetail: function(data) {
+	parseVideoDetail: function(data, sourceId) {
 		console.log("parseVideoInfo");
 		console.log(data);
-		
+
 		this._loadPlayer(data);
-		self._initializeAnnotations(data);
-		self._initializeSliders();
+		$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId, function (data) {
+			console.log("load player")
+			console.log(data)
+			console.log(sourceId)
+			self._initializeAnnotations(data.results);
+			self._initializeSliders();
+		})
+		//self._initializeAnnotations(data);
+		//self._initializeSliders();
 	},
 	
 	errorVideoInfo: function(data) {
@@ -562,9 +569,7 @@ $.widget( "ui.videocomponent", {
 			console.log("end: " + end);
 			console.log("arousal: " + arousal);
 			console.log("valence: " + valence);
-			var arousalValue;
-			if (arousal < 4) {
-				console.log("dentro")
+			/*if (arousal < 4) {
 				arousalValue = -1;
 			} else if (arousal < 7) {
 				arousalValue = 0;
@@ -580,8 +585,8 @@ $.widget( "ui.videocomponent", {
 				valenceValue = 0;
 			} else {
 				valenceValue = 1;
-			}
-			self.saveAnnotation(video_id, start, end, arousalValue, valenceValue);
+			}*/
+			self.saveAnnotation(video_id, start, end, arousal, valence);
 		/*} else {
 			console.log("SOMETHING MISSING");
 			console.log("video_id: " + video_id);
@@ -593,13 +598,13 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	saveAnnotation: function(videoId, start, end, arousal, valence){
-		request_type = "insert";
+		//var request_type = "insert";
 		var self = this;
 
 		var http = new XMLHttpRequest();
-		var url = domain_root + '/api/shots/'+ videoId+'/';
-		var params = 'arousal='+arousal+'&valence='+valence;
-		http.open('PATCH', url, true);
+		var url = domain_root + '/api/annotation/';
+		var params = 'shot='+videoId+'&startAnnotation='+start+'&endAnnotation='+end+'&arousal='+arousal+'&valence='+valence;
+		http.open('POST', url, true);
 		http.responseType='json';
 
 		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
