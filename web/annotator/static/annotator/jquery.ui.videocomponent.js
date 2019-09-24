@@ -566,7 +566,7 @@ $.widget( "ui.videocomponent", {
 			if (arousal < 4) {
 				console.log("dentro")
 				arousalValue = -1;
-			} else if (arousal < 8) {
+			} else if (arousal < 7) {
 				arousalValue = 0;
 			} else {
 				arousalValue = 1;

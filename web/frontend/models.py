@@ -18,6 +18,19 @@ class Video(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     uri = models.TextField(blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+
+        if "frontend/videoferracani/" not in self.uri:
+            filename = self.uri.split('/')[-1]
+            try:
+                print("Downloading starts...\n")
+                urllib.request.urlretrieve(self.uri, './frontend/videoferracani/' + filename)
+                print("Download completed..!!")
+                self.uri = "videoferracani/"+filename
+            except Exception as e:
+                print(e)
+        super(Video, self).save(*args, **kwargs)
+
     def __str__(self):
         return "%s %s" % (self.title, self.uri)
 
@@ -37,12 +50,12 @@ class Shot(models.Model):
 
             filename = self.uri.split('/')[-1]
 
-            try:
-                print("Downloading starts...\n")
-                urllib.request.urlretrieve(self.uri, './frontend/videoferracani/' + filename)
-                print("Download completed..!!")
-            except Exception as e:
-                print(e)
+            #try:
+            #    print("Downloading starts...\n")
+            #    urllib.request.urlretrieve(self.uri, './frontend/videoferracani/' + filename)
+            #   print("Download completed..!!")
+            #except Exception as e:
+            #    print(e)
 
             print("filename: " + filename)
             print("filename[:-3]: " + filename[:-3])
@@ -56,3 +69,10 @@ class Shot(models.Model):
 
     class Meta:
         ordering = ('id',)
+
+class Annotation(models.Model):
+    #shot = models.ForeignKey(Shot, on_delete=models.CASCADE)
+    startAnnotation = models.CharField(u'Annotation Start', help_text=u'Annotation Start', blank=True, null=True, max_length=10)
+    endAnnotation = models.CharField(u'Annotation End', help_text=u'Annotation End', blank=True, null=True, max_length=10)
+    arousal = models.IntegerField(u'Annotation Arousal', help_text=u'Annotation Arousal', blank=True, null=True, default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
+    valence = models.IntegerField(u'Annotation Valence', help_text=u'Annotation Valence', blank=True, null=True, default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])

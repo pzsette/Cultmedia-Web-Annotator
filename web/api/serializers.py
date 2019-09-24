@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from frontend.models import Video, Shot
+from frontend.models import Video, Shot, Annotation
 
 class VideosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +11,9 @@ class ShotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shot
         fields = ('id','title', 'video', 'start', 'end', 'thumbnail', 'arousal', 'valence','uri')
+
+#class AdminShotSerializer(serializers.ModelSerializer):
+#    # video = VideosSerializer(many=False, read_only=True)
+#    class Meta:
+#        model = Annotation
+#        fields = ('id', 'start', 'end','arousal', 'valence')
