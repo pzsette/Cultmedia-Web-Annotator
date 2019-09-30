@@ -177,3 +177,9 @@ LOGIN_REDIRECT_URL = '/annotator/'
 LOGOUT_REDIRECT_URL = '/frontend/'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'cultmediausermoderation@gmail.com'
+EMAIL_HOST_PASSWORD = 'passCultmedia123'
+EMAIL_USE_TLS = True
