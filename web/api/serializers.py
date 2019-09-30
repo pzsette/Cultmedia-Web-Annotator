@@ -14,4 +14,4 @@ class ShotSerializer(serializers.ModelSerializer):
 class AnnotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Annotation
-        fields = ('id','shot', 'startAnnotation', 'endAnnotation','arousal', 'valence')
+        fields = ('id','shot', 'startAnnotation', 'endAnnotation','arousal', 'valence', 'user')

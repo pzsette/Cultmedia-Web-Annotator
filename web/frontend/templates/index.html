@@ -28,7 +28,12 @@
 			var domain_root = "{{ request.scheme }}://{{ request.META.HTTP_HOST}}";
 
 			var full_path = "{{ request.path }}";
-		</script>
+  </script>
+    <script>
+      function fileUpload() {
+            document.getElementById("upload").click();
+      }
+    </script>
 </head>
 <body>
 <nav class="NavbarSito">
@@ -49,6 +54,13 @@
           <option value="3" class="others">Sad</option>
         </select>
       </li>
+      <li>
+          <!--<button id="upload" class="btn2 waves-effect waves-light"><i class="fa fa-download"></i> Upload</button>-->
+          <!--<button id="upload" class="btn2 waves-effect waves-light"><i class="fas fa-file-upload"></i> Upload</button>-->
+          <!--<button id="upload" class="btn2 waves-effect waves-light"><i class="fa fa-cloud-upload"></i> Upload</button>-->
+          <!--<input type="file" id="upload" />-->
+          <button id="uploadButton" class="btn2 waves-effect waves-light"><i class="fa fa-cloud-upload"></i> Upload</button>
+      </li>
     </ul>
   </div>
 </nav>
@@ -56,7 +68,7 @@
   <div id="search-scroller"></div>
 </div>
 
-<button id="upload" class="btn2 waves-effect waves-light"><i class="fa fa-download"></i> Upload</button>
+<!--<button id="upload" class="btn2 waves-effect waves-light"><i class="fa fa-download"></i> Upload</button> -->
 <button id="download" class="btn waves-effect waves-light"><i class="fa fa-download"></i> Download</button>
 
 <div class="preloader-wrapper small active disappeared" id="loading">

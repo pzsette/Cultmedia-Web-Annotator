@@ -38,7 +38,8 @@ $.widget( "ui.videocomponent", {
 	currentShotValence : 5,
 
 	_create: function() {
-		var self = this; 
+		var self = this;
+
 		var opts = self.options;
 		var el = self.element;
 		el
@@ -58,7 +59,6 @@ $.widget( "ui.videocomponent", {
 		console.log("create");		 
 		self._initializePreloader();
 		self.getVideoInfo();
-		console.log("prova function");
 		self.getVideosList();
 		
 		return false;
@@ -201,8 +201,6 @@ $.widget( "ui.videocomponent", {
 
 	
 	_loadPlayer: function(videoData) {
-		console.log("VIDEO DATA")
-		console.log(videoData);
 		var self = this;
 		var element = self.element;
 		var opts = self.options;		
@@ -368,7 +366,6 @@ $.widget( "ui.videocomponent", {
 			
 		}
 	},
-		
 	
  	togglePlay : function() {
 	  	if (self.video.paused) {
@@ -450,18 +447,14 @@ $.widget( "ui.videocomponent", {
 		var self = this;
 		var opts = self.options;
 		var sourceId = opts.sourceId;
-		console.log ("LOLO");
-		console.log(sourceId);
 		self.getVideoDetail(sourceId);
 	},
 	
 	getVideosList : function(){
 		var self = this;
 		$.getJSON(domain_root+'/api/shots', function (data) {
-
 			self.parseVideosList(data.results);
 		})
-
 		/*var self = this;
 		request_type = "load";
 		var self = this;
@@ -483,8 +476,6 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	parseVideosList : function(data) {
-		console.log(data);
-		console.log(data[0]);
 		self = this;
 		var options = {
   			valueNames: [ 'id', 'title', 'uri' ],
@@ -492,9 +483,6 @@ $.widget( "ui.videocomponent", {
 		};
 		setTimeout(function(){
 			self.videosList = new List('video__list', options, data);
-			console.log("777");
-			console.log(self.videosList);
-			console.log("888");
 			self.addVideosListCallbacks();
 		}, 1000)
 		
@@ -506,7 +494,6 @@ $.widget( "ui.videocomponent", {
 		$.getJSON(domain_root + '/api/shots?id='+sourceId, function (data) {
 			self.parseVideoDetail(data.results, sourceId);
 		})
-
 		/*request_type = "load";
 		var self = this;
 		var request = $.ajax({
@@ -527,109 +514,92 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	parseVideoDetail: function(data, sourceId) {
-		console.log("parseVideoInfo");
-		console.log(data);
-
 		this._loadPlayer(data);
+		//$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId+'&user_id='+loggedUserId, function (data) {
 		$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId, function (data) {
-			console.log("load player")
-			console.log(data)
-			console.log(sourceId)
 			self._initializeAnnotations(data.results);
 			self._initializeSliders();
 		})
 		//self._initializeAnnotations(data);
 		//self._initializeSliders();
 	},
-	
 	errorVideoInfo: function(data) {
 	},
 	
 	addAnnotation: function(video_id, start, end, arousal, valence)  {
-//		var self = this;
 //		console.log(self.currentShotStart)
 //		console.log('ADD ANNOTATION');
 
-//		var video_id = self.currentVideoId;
-//		var start = self.currentShotStart;
-//		var end = self.currentShotEnd;
-//		var arousal = self.currentShotArousal;
-//		var valence = self.currentShotValence;
-
-		
 		/*console.log("video_id: " + video_id);
 		console.log("start: " + start);
 		console.log("end: " + end);
 		console.log("arousal: " + arousal);
 		console.log("valence: " + valence);*/
 		
-		//if(video_id && (start >=0) && (end >=0) && arousal && valence) {
+		if((start != null) && (end != null)) {
 			console.log("video_id: " + video_id);
 			console.log("start: " + start);
 			console.log("end: " + end);
 			console.log("arousal: " + arousal);
 			console.log("valence: " + valence);
-			/*if (arousal < 4) {
-				arousalValue = -1;
-			} else if (arousal < 7) {
-				arousalValue = 0;
-			} else {
-				arousalValue = 1;
-			}
-
-			var valenceValue;
-
-			if (valence <4) {
-				valenceValue = -1;
-			} else if (valence <8) {
-				valenceValue = 0;
-			} else {
-				valenceValue = 1;
-			}*/
 			self.saveAnnotation(video_id, start, end, arousal, valence);
-		/*} else {
+		} else {
 			console.log("SOMETHING MISSING");
 			console.log("video_id: " + video_id);
 			console.log("start: " + start);
 			console.log("end: " + end);
 			console.log("arousal: " + arousal);
 			console.log("valence: " + valence);
-		}*/
+		}
 	},
 	
 	saveAnnotation: function(videoId, start, end, arousal, valence){
-		//var request_type = "insert";
-		var self = this;
 
-		var http = new XMLHttpRequest();
-		var url = domain_root + '/api/annotation/';
-		var params = 'shot='+videoId+'&startAnnotation='+start+'&endAnnotation='+end+'&arousal='+arousal+'&valence='+valence;
-		http.open('POST', url, true);
-		http.responseType='json';
+		self = this
 
-		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		http.onreadystatechange = function() {
-			if(http.readyState == 4 && http.status == 200) {
-				self.parseAnnotation(http.response);
-			}
-		};
-		http.send(params);
-		/*var request = $.ajax({
-			url: 'server/actions.php',
-			type: "POST",
-			data: {
-				"action" : request_type,
-				"videoId": videoId,
-				"start": start,
-				"end": end,
-				"arousal": arousal,
-				"valence": valence
+		const Url = domain_root + '/api/annotation/';
+		/*const data = {
+			shot:videoId,
+			startAnnotation:start,
+			endAnnotation:end,
+			arousal:arousal,
+			valence:valence,
+		};*/
+
+		var csrftoken = $.cookie('csrftoken');
+
+		function csrfSafeMethod(method) {
+    		// these HTTP methods do not require CSRF protection
+    		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+
+		$.ajaxSetup({
+    		beforeSend: function(xhr, settings) {
+        		if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            	xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        		}
+    		}
+		});
+
+		var request = $.ajax({
+  			type: "POST",
+  			url: Url,
+  			data: {
+				"shot":videoId,
+				"startAnnotation":start,
+				"endAnnotation":end,
+				"arousal":arousal,
+				"valence":valence,
+				"user":parseInt(loggedUserId),
 			},
-			dataType: "json",
-		});*/
+			dataType: "json"
+		});
+
+		request.done(function (data) {
+			self.parseAnnotation(data,videoId)
+		})
 
 
-	 
 		/*request.done(function(data) {
 			self.parseAnnotation(data.results);
 		});
@@ -640,83 +610,184 @@ $.widget( "ui.videocomponent", {
 		});*/
 	},
 	
-	parseAnnotation: function(data){
-		//console.log('parseAnnotation');
-		//console.log(data);
-		//console.log
-		
-		var annotation = data;
+	parseAnnotation: function(data, videoid){
 
-		self.annotationsList.clear();
+		console.log("parse annotation");
+		console.log(data);
 
-		//console.log(self.annotationsList);
-		
+		let annotation = data;
+
 		self.annotationsList.add({
 			id: annotation.id,
-			videoId: annotation.video_id,
-			start: annotation.start,
-			end: annotation.end,
+			videoID:annotation.videoID,
+			startAnnotation: annotation.startAnnotation,
+			endAnnotation: annotation.endAnnotation,
 			arousal: annotation.arousal,
-			valence: annotation.valence
+			valence: annotation.valence,
 		});
-		
-		self.annotationsList.sort('start', { order: "desc" });
+
+		self.reviseAVGannotation(videoid);
+		self.annotationsList.sort('start', {order: "desc"});
 		
 	},
 	
 	deleteAnnotation: function(annotationId){
+		var url = domain_root + '/api/annotation/'+annotationId;
+		$.getJSON(url, function (data) {
+			let videoId = data.shot;
 
-		var http = new XMLHttpRequest();
-		var url = domain_root + '/api/shots/'+annotationId+'/';
-		var params = 'arousal=&valence=';
-		http.open('PATCH', url, true);
-		http.responseType='json';
+			$.ajax({
+    			url: url,
+    			type: 'DELETE',
+				beforeSend:function(xhr){
+            		xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+        		},
+    			success: function() {
+    				console.log();
+    				self.parseDeleteResponse(annotationId);
+    				self.reviseAVGannotation(videoId);
+    			}
+			});
 
-		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		http.onreadystatechange = function() {
-			if(http.readyState == 4 && http.status == 200) {
-				self.parseDeleteResponse(http.response);
-			}
-		};
-		http.send(params);
-
-		/*request_type = "delete";
-		var self = this;
-		var request = $.ajax({
-			url: 'server/actions.php',
-			type: "POST",
-			data: {
-				"action" : request_type,
-				"annotationId": annotationId
-			},
-			dataType: "json",
 		});
-	 
-		request.done(function(data) {
-			self.parseDeleteResponse(data);
-		});
-	 
-		request.fail(
-			function(jqXHR, textStatus) {
-				alert( "Request failed: " + textStatus );
-		});*/
+
 	},
 	
-	parseDeleteResponse: function(data){
+	parseDeleteResponse: function(id){
 		self = this;
-		console.log('parseDeleteResponse');
-		//console.log(data);
-		//console.log(self.annotationsList)
-		//if (data.deleted) {
-		//var itemId = self.deleteTarget.closest('tr').find('.id').text();
-		self.annotationsList.remove('id', data.id);
-		//}
+		self.annotationsList.remove('id', id);
 	},
-	
+
+	reviseAVGannotation: function(id) {
+
+		$.getJSON(domain_root + '/api/annotation?shot_id='+id, function (data) {
+			if (data.count != 0) {
+				var arousalSum = 0;
+				var valenceSum = 0;
+				for (i = 0; i < data.count; i++) {
+					arousalSum += data.results[i].arousal;
+					valenceSum += data.results[i].valence;
+				}
+				var arousalAVG = arousalSum / data.count;
+				var valenceAVG = valenceSum / data.count;
+				console.log("arousalAVG"+arousalAVG);
+				console.log("valenceAVG"+valenceAVG);
+
+				if (arousalAVG < 4) {
+					arousalAVG = -1;
+				} else if (arousalAVG < 7) {
+					arousalAVG = 0;
+				} else {
+					arousalAVG = 1;
+				}
+
+				if (valenceAVG < 4) {
+					valenceAVG = -1;
+				} else if (valenceAVG < 7) {
+					valenceAVG = 0;
+				} else {
+					valenceAVG = 1;
+				}
+
+
+				// var http = new XMLHttpRequest();
+				var url = domain_root + '/api/shots/' + id + '/';
+
+				// var params = 'arousal_avg='+arousalAVG+'&valence_avg='+valenceAVG;
+				// http.open('PATCH', url, true);
+				// http.responseType = 'json';
+				//
+				// http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				// http.onreadystatechange = function () {
+				// 	/*if (http.readyState == 4 && http.status == 200) {
+				// 		self.parseDeleteResponse(http.response);
+				// 	}*/
+				// };
+				// http.send(params);
+
+				var csrftoken = $.cookie('csrftoken');
+
+				function csrfSafeMethod(method) {
+    				// these HTTP methods do not require CSRF protection
+    				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+				}
+
+				$.ajaxSetup({
+    				beforeSend: function(xhr, settings) {
+        				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            				xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        				}
+    				}
+				});
+
+				console.log()
+
+				$.ajax({
+					headers: {
+            			'X-CSRFTOKEN': '{{ csrf_token }}'
+        			},
+    				type : "PATCH",
+        			dataType: "json",
+        			url: url,
+        			data: {
+        				arousal_avg: arousalAVG,
+						valence_avg: valenceAVG,
+					},
+				})
+
+			} else {
+
+				var url = domain_root + '/api/shots/' + id + '/';
+
+				var csrftoken = $.cookie('csrftoken');
+
+				function csrfSafeMethod(method) {
+					// these HTTP methods do not require CSRF protection
+					return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+				}
+
+				$.ajaxSetup({
+					beforeSend: function (xhr, settings) {
+						if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+							xhr.setRequestHeader("X-CSRFToken", csrftoken);
+						}
+					}
+				});
+
+				$.ajax({
+					headers: {
+						'X-CSRFTOKEN': '{{ csrf_token }}'
+					},
+					type: "PATCH",
+					dataType: "json",
+					url: url,
+					data: {
+						arousal_avg: "",
+						valence_avg: "",
+					},
+				})
+				/*var http = new XMLHttpRequest();
+				var url = domain_root + '/api/shots/' + id + '/';
+				var params = 'arousal_avg=&valence_avg=';
+				console.log(params);
+				http.open('PATCH', url, true);
+				http.responseType = 'json';
+
+				http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				http.onreadystatechange = function () {
+					/*if (http.readyState == 4 && http.status == 200) {
+						self.parseDeleteResponse(http.response);
+					}
+				};
+				http.send(params);*/
+			}
+
+		})
+	},
+
 	updateWidget : function(param, type) {
 		var self = this;
 		var opts = self.options;
-		
 		this._destroy();
 		switch (type) {
 			

@@ -94,6 +94,9 @@ class AnnotationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Annotation.objects.all()
         shot_id = self.request.query_params.get('shot_id', None)
+        user_id = self.request.query_params.get('user_id', None)
         if shot_id is not None:
             queryset = queryset.filter(Q(shot__id=shot_id))
+        if user_id is not None:
+            queryset = queryset.filter(Q(user__id=user_id))
         return queryset

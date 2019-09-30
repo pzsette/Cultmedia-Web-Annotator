@@ -14,7 +14,7 @@ $(document).ready(function() {
                  var uri = data.results[i].uri;
                 var img = data.results[i].thumbnail;
                 //var title = data[i].title;
-                console.log(data);
+                //console.log(data);
                 var url = data.results[i].uri.split("/").pop();
 
                 // content += "<img id=\""+ url+"\" draggable=true ondragstart=drag(event) ondragend=dragend(event) src=\"" + img + "\" width='262' height='100%'>"
@@ -94,6 +94,10 @@ $(document).ready(function() {
 
         }})
     })
+
+    // $('#upload').change(function(){
+    //     alert(0);
+    // })
 });
 
 function allowDrop(ev) {

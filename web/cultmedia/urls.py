@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+#from django.urls import path
 from django.contrib import admin
 from rest_framework.documentation import include_docs_urls
+from django.views.generic.base import TemplateView#
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,4 +25,6 @@ urlpatterns = [
     url(r'^api/', include('api.urls')),
     url(r'^docs/', include_docs_urls(title='Social API', public=True)),
     url(r'^annotator/', include('annotator.urls')),
+    url(r'accounts/', include('accounts.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]

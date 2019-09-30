@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'frontend',
     'annotator',
-    'api'
+    'api',
+    'accounts.apps.AccountsConfig',
+    #'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,8 @@ ROOT_URLCONF = 'cultmedia.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],#
+        #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -169,3 +172,8 @@ PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 FIXTURE_DIRS = (
    os.path.join(PROJECT_DIR, 'fixtures'),
 )
+
+LOGIN_REDIRECT_URL = '/annotator/'
+LOGOUT_REDIRECT_URL = '/frontend/'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

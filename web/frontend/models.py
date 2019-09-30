@@ -3,12 +3,13 @@ from __future__ import unicode_literals
 import subprocess
 import logging
 logger = logging.getLogger(__name__)
-
+from django.contrib.auth import get_user_model
 import urllib.request
 
 from django.db import models
 from django.core.validators import URLValidator, MaxValueValidator, MinValueValidator
 
+User = get_user_model()
 
 class Video(models.Model):
     title = models.CharField(u'Video Title', help_text=u'Video Title', blank=True, null=True, max_length=30)
@@ -25,7 +26,7 @@ class Video(models.Model):
             try:
                 print("Downloading starts...\n")
                 urllib.request.urlretrieve(self.uri, './frontend/videoferracani/' + filename)
-                print("Download completed..!!")
+                print("Download completed!")
                 self.uri = "videoferracani/"+filename
             except Exception as e:
                 print(e)
@@ -71,8 +72,9 @@ class Shot(models.Model):
         ordering = ('id',)
 
 class Annotation(models.Model):
-    shot = models.ForeignKey(Shot, on_delete=models.CASCADE, null = True)
+    shot = models.ForeignKey(Shot, null=True)
     startAnnotation = models.CharField(u'Annotation Start', help_text=u'Annotation Start', blank=True, null=True, max_length=10)
     endAnnotation = models.CharField(u'Annotation End', help_text=u'Annotation End', blank=True, null=True, max_length=10)
     arousal = models.IntegerField(u'Annotation Arousal', help_text=u'Annotation Arousal', blank=True, null=True, default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
     valence = models.IntegerField(u'Annotation Valence', help_text=u'Annotation Valence', blank=True, null=True, default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
+    user = models.ForeignKey(User, null=True)

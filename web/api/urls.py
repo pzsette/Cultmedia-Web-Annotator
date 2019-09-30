@@ -2,8 +2,6 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from . import views
 
-
-
 router = routers.DefaultRouter()
 router.register(r'shots', views.ShotViewSet, 'shots')
 router.register(r'videos', views.VideoViewSet, 'videos')
