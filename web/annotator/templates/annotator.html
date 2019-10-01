@@ -42,14 +42,25 @@
 
        
 <!--		<link rel="stylesheet" type="text/css" href="js/lib/jquery/jquery-ui.css" />-->
-		
 
 		
-		
-		
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-		
-		<script type="text/javascript" src="{% static "annotator/jquery.ui.videocomponent.js" %}"></script>
+
+        <script type="text/javascript">
+			var domain_root = "{{ request.scheme }}://{{ request.META.HTTP_HOST}}";
+			var full_path = "{{ request.path }}";
+			var loggedUserId = "{{ user.id }}";
+		</script>
+
+		<script>
+            console.log(loggedUserId)
+            if (loggedUserId == "None") {
+                console.log("Dentro if")
+                document.location.replace(domain_root+'/accounts/login');
+            }
+        </script>
+
+        <script type="text/javascript" src="{% static "annotator/jquery.ui.videocomponent.js" %}"></script>
 <!--        <script type="text/javascript" src="js/lib/editinplace/jquery.editinplace.js"></script>-->
 
 		<link rel="stylesheet" type="text/css" href="{% static 'annotator/annotator.css' %}" />
