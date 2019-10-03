@@ -33,11 +33,11 @@ def upload(request):
                          'uri': 'videoferracani/'+uploaded_file.name}
         video_post_url = url + 'api/videos/'
         v = requests.post(video_post_url, data=video_payload)
-        print (v.text)
+        video_id = (v.json()['id'])
 
-        shot_payload = {'title': uploaded_file.name, 'video': 0, 'uri': 'videoferracani/'+uploaded_file.name}
+        shot_payload = {'title': uploaded_file.name, 'video': video_id, 'uri': 'videoferracani/'+uploaded_file.name}
         shot_post_url = url + 'api/shots/'
         s = requests.post(shot_post_url, data=shot_payload)
-        print (s.text)
+        print (s.json().id)
 
     return render(request, 'upload.html', context)
