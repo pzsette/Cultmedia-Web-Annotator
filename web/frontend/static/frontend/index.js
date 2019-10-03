@@ -96,9 +96,8 @@ $(document).ready(function() {
     })
 
     $('#upload').click(function(){
-         console.log("upload button pressed")
+         window.open(domain_root+'/frontend/upload','_blank');
     })
-
 
     $('#annotator').click(function(){
         window.open(domain_root+'/annotator','_blank');

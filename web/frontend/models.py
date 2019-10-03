@@ -21,7 +21,7 @@ class Video(models.Model):
 
     def save(self, *args, **kwargs):
 
-        if "frontend/videoferracani/" not in self.uri:
+        if "videoferracani/" not in self.uri:
             filename = self.uri.split('/')[-1]
             try:
                 print("Downloading starts...\n")

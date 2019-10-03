@@ -26,4 +26,6 @@ urlpatterns = [
         'document_root' : settings.MEDIA_ROOT ,
     }),
 
+    url(r'^upload/', views.upload, name='upload'),
+
 ]

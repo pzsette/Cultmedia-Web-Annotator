@@ -2,9 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Upload video</title>
 </head>
 <body>
-
+    <h2>Upload a new video to cultmedia</h2>
+    <form method="post" enctype="multipart/form-data">
+        {%  csrf_token %}
+        <input type="file" name="document"><br>
+        <br/>
+        Description:<br>
+        <input type="text" name="description"><br>
+        <br/>
+        Keywords:<br>
+        <br/>
+        <input type="text" name="keywords"><br>
+        <br/>
+        <button type="submit">Upload file </button>
+    </form>
+    {% if url %}
+        <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
 </body>
 </html>
