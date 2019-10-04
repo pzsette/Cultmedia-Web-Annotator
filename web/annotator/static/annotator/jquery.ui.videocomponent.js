@@ -246,12 +246,11 @@ $.widget( "ui.videocomponent", {
 		var timeline = "<div class='timeline'><div class='timeline__drag'></div><span class='timeline__progress'></span></div>";
 		
 		element.append(videoElement);
-//		element.append(toolsContainer)
 		element.append(controls);
 		element.append(annotations);
 		element.append(timeline);
-		
-		//var filepath_selected_video = videoData.videos[0].path;
+
+
 		var filepath_selected_video = videoData[0].uri;
 		//var id_selected_video = videoData.videos[0].id
 		var id_selected_video = videoData[0].id
@@ -301,7 +300,6 @@ $.widget( "ui.videocomponent", {
 				x: (self.video.currentTime / self.video.duration * self.timeline.offsetWidth).toFixed(4)
 				}
 			);
-//			console.log("update");
 		}
 		
 		self.video.onplay = function() {
@@ -421,7 +419,13 @@ $.widget( "ui.videocomponent", {
   			},
   			onDrag: function() {
     			console.log("drag");
-				self.video.currentTime = this.x / this.maxX * self.video.duration;
+    			var thisX = parseInt(this.x);
+    			var thismaxX = parseInt(this.maxX);
+    			var videoDuration = parseInt(self.video.duration);
+    			var div = thisX/thismaxX;
+				var thisresult = div * videoDuration;
+				self.video.currentTime = thisresult;
+
     			var progress = this.x / self.timeline.offsetWidth;
     				TweenMax.set(self.timelineProgress, {
       				scaleX: progress
@@ -632,7 +636,7 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	deleteAnnotation: function(annotationId){
-		var url = domain_root + '/api/annotation/'+annotationId;
+		let url = domain_root + '/api/annotation/'+annotationId;
 		$.getJSON(url, function (data) {
 			let videoId = data.shot;
 
@@ -692,18 +696,6 @@ $.widget( "ui.videocomponent", {
 
 				// var http = new XMLHttpRequest();
 				var url = domain_root + '/api/shots/' + id + '/';
-
-				// var params = 'arousal_avg='+arousalAVG+'&valence_avg='+valenceAVG;
-				// http.open('PATCH', url, true);
-				// http.responseType = 'json';
-				//
-				// http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				// http.onreadystatechange = function () {
-				// 	/*if (http.readyState == 4 && http.status == 200) {
-				// 		self.parseDeleteResponse(http.response);
-				// 	}*/
-				// };
-				// http.send(params);
 
 				var csrftoken = $.cookie('csrftoken');
 

@@ -50,13 +50,16 @@
 			var domain_root = "{{ request.scheme }}://{{ request.META.HTTP_HOST}}";
 			var full_path = "{{ request.path }}";
 			var loggedUserId = "{{ user.id }}";
+			var approved = "{{ user.is_approved }}";
 		</script>
 
 		<script>
-            console.log(loggedUserId)
+            console.log(loggedUserId);
+            console.log(approved);
             if (loggedUserId == "None") {
-                console.log("Dentro if")
                 document.location.replace(domain_root+'/accounts/login');
+            } else if (approved=="False") {
+                document.location.replace(domain_root+'/accounts/notapproved');
             }
         </script>
 

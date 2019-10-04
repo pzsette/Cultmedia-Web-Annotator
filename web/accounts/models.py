@@ -16,13 +16,14 @@ class CustomUser(AbstractUser):
         return self.email
 
 
-def registered_user(sender, instance, **kwargs):
-    print("New User email: "+instance.email)
-    print("New username: "+instance.username)
+def registered_user(sender, instance, created, **kwargs):
+    if created:
+        print("New User email: "+instance.email)
+        print("New username: "+instance.username)
 
-    message = "Subject: New user registered.\nUser email:" + instance.email + "\nUsername: " + instance.username + "\nGo to cultmedia admin page to approve"
+        message = "Subject: New user registered.\nUser email:" + instance.email + "\nUsername: " + instance.username + "\nGo to cultmedia admin page to approve"
 
-    email = EmailMessage("Subject: New user registered", message, to=['paolobigli@gmail.com'])
-    email.send()
+        email = EmailMessage("Subject: New user registered", message, to=['paolobigli@gmail.com'])
+        email.send()
 
 post_save.connect(registered_user, sender=CustomUser)
