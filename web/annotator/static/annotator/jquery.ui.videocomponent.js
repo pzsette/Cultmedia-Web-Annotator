@@ -519,8 +519,8 @@ $.widget( "ui.videocomponent", {
 	
 	parseVideoDetail: function(data, sourceId) {
 		this._loadPlayer(data);
-		//$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId+'&user_id='+loggedUserId, function (data) {
-		$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId, function (data) {
+		$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId+'&user_id='+loggedUserId, function (data) {
+		//$.getJSON(domain_root + '/api/annotation?shot_id='+sourceId, function (data) {
 			self._initializeAnnotations(data.results);
 			self._initializeSliders();
 		})
@@ -789,9 +789,9 @@ $.widget( "ui.videocomponent", {
 		}
 		self._create();
 	},
-	
 });
 
 $.extend( $.ui.videocomponent, { version: "@VERSION" })
 
 })( jQuery )
+

@@ -23,9 +23,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
 
     url(r'^videoferracani/(?P<path>.*)$',serve, {
-        'document_root' : settings.MEDIA_ROOT ,
+        'document_root': settings.MEDIA_ROOT,
     }),
 
     url(r'^upload/', views.upload, name='upload'),
-
 ]

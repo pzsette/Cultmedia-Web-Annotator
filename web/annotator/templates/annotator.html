@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<title>CULTMEDIA | Video Annotation UI Widget</title>
 
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 <!--
         <script type="text/javascript" src="js/lib/jquery/jquery-2.0.3.js"></script>
         <script type="text/javascript" src="js/lib/jquery/jquery.ui.core.js"></script>
@@ -68,8 +69,7 @@
 
 		<link rel="stylesheet" type="text/css" href="{% static 'annotator/annotator.css' %}" />
 		<script type="text/javascript">
-		
-			
+
 			function loadPlayer(){
 				var showData = false;
 				var editData = false;
@@ -94,13 +94,11 @@
 //					startPoint: 0
 				})
 			}
-			
-		
+
 			$(document).ready(function(){
 				// instantiate our plugin on every element with certain class type
 				loadPlayer();
 			});
-
 		</script>
 	</head>
 	<body id="sketch container">
@@ -110,6 +108,7 @@
 				<div class="serverResponse"></div>
 			</div>
 			<div class="col-xs-2">
+                <h4 id="utente">Utente: {{ user.username }}</h4>
 				<div id="video__annotations">
 					<h3>Annotazioni</h3>
 <!--					<input class="search" placeholder="Search" />-->
@@ -128,8 +127,6 @@
   				</div>
 			</div>
 		</div><!-- ends row -->
-        <p>Hi {{ user.username }}!</p>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "annotator/js/bootstrap.min.js" %}"></script>
 <!--    <script src="js/jquery.mtRangeSlider.js" type="text/javascript"></script>-->

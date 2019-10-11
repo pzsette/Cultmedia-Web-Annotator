@@ -3,13 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style type="text/css">
+        body {
+            background-color: lightblue;
+            font-family: Roboto, sans-serif;
+        }
+
+        .signupbox {
+            text-align: left;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            margin: -200px 0 0 -200px;
+            width:400px;
+            height:500px;
+        }
+
+        #button {
+            object-position: center;
+            font-size: 30px;
+            width: 150px;
+            height: 50px;
+            cursor: pointer;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+        #title {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h2>Sign up</h2>
+<div class="signupbox">
+    <h1 id="title">Annotator</h1>
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Sign up</button>
+    <button id="button" type="submit">Sign up</button>
     </form>
+</div>
+
 </body>
 </html>

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.core.mail import EmailMessage
+from django.contrib.auth import get_user_model
 import smtplib
 import ssl
 
@@ -23,7 +24,9 @@ def registered_user(sender, instance, created, **kwargs):
 
         message = "Subject: New user registered.\nUser email:" + instance.email + "\nUsername: " + instance.username + "\nGo to cultmedia admin page to approve"
 
-        email = EmailMessage("Subject: New user registered", message, to=['paolobigli@gmail.com'])
+        user = get_user_model()
+        admin_email = user.objects.filter(is_superuser=True)[0].email
+        email = EmailMessage("Subject: New user registered", message, to=[admin_email])
         email.send()
 
 post_save.connect(registered_user, sender=CustomUser)

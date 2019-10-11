@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/loginstyle.css">
     <script type="text/javascript">
 			var domain_root = "{{ request.scheme }}://{{ request.META.HTTP_HOST}}";
 			var url = domain_root + '/accounts/signup';
@@ -13,17 +13,47 @@
                 $('.signup_redirect').attr('href', url)
             })
     </script>
+    <style type="text/css">
+        body {
+            background-color: lightblue;
+            font-family: Roboto, sans-serif;
+        }
+
+        .loginbox {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            margin: -150px 0 0 -150px;
+            width:300px;
+            height:300px;
+        }
+        #login {
+            text-align: center;
+        }
+
+        #loginform {
+            text-align: center;
+        }
+
+        .button {
+            font-size: 30px;
+            width: 150px;
+            height: 50px;
+            cursor: pointer;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="loginbox">
-        <h1>Login</h1>
-            <form method="post">
+        <h1 id="login">Annotator</h1>
+            <form id="loginform" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Login</button><br>
+            <button type="submit" class=button>Login</button><br>
             </form>
-
+        <p style="text-align: center">If you haven't an account you can sign up <a class="signup_redirect" href="">here</a></p>
     </div>
-    <p>If you haven't an account you can sign up <a class="signup_redirect" href="">here</a>.</p>
 </body>
 </html>

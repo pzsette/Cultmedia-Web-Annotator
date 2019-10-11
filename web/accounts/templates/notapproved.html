@@ -12,9 +12,26 @@
                 $('.frontend_redirect').attr('href', url)
             })
     </script>
+    <style type="text/css">
+        body {
+            background-color: lightblue;
+            font-family: Roboto, sans-serif;
+        }
+
+        #text {
+            font-size: 20px;
+            top: 30%;
+            left: 50%;
+            position: absolute;
+            text-align: center;
+            margin: -150px 0 0 -150px;
+            width:300px;
+            height:400px;
+        }
+    </style>
 </head>
 <body>
-<p>Your account has not yet approved by the admin</p>
-<p>Click <a class="frontend_redirect" href="">here</a> to go back to Frontend page</p>
+<p id="text">Your account has not yet been approved by the admin. <br>
+    Click <a class="frontend_redirect" href="">here</a> to go back to Frontend page</p>
 </body>
 </html>

@@ -28,16 +28,18 @@ def upload(request):
 
         video_description = request.POST.get('description')
         video_keywords = request.POST.get('keywords')
+        video_duration = requests.POST.get('duration')
         url = request.build_absolute_uri().replace('/frontend/upload', '')
         video_payload = {'title': uploaded_file.name, 'description': video_description, 'keywords': video_keywords,
-                         'uri': 'videoferracani/'+uploaded_file.name}
+                         'duration': video_duration, 'uri': 'videoferracani/'+uploaded_file.name}
         video_post_url = url + 'api/videos/'
         v = requests.post(video_post_url, data=video_payload)
+        print (v.json())
         video_id = (v.json()['id'])
+        print (video_id)
 
         shot_payload = {'title': uploaded_file.name, 'video': video_id, 'uri': 'videoferracani/'+uploaded_file.name}
         shot_post_url = url + 'api/shots/'
-        s = requests.post(shot_post_url, data=shot_payload)
-        print (s.json().id)
+        requests.post(shot_post_url, data=shot_payload)
 
     return render(request, 'upload.html', context)

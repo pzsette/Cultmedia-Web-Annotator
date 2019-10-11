@@ -5,11 +5,11 @@ import logging
 logger = logging.getLogger(__name__)
 from django.contrib.auth import get_user_model
 import urllib.request
-
 from django.db import models
 from django.core.validators import URLValidator, MaxValueValidator, MinValueValidator
 
 User = get_user_model()
+
 
 class Video(models.Model):
     title = models.CharField(u'Video Title', help_text=u'Video Title', blank=True, null=True, max_length=30)
@@ -35,18 +35,19 @@ class Video(models.Model):
     def __str__(self):
         return "%s %s" % (self.title, self.uri)
 
+
 class Shot(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     title = models.CharField(u'Shot Title', help_text=u'Shot Title', blank=True, null=True, max_length=30)
-    #start = models.CharField(u'Shot Start', help_text=u'Shot Start', blank=True, null=True, max_length=10)
-    #dend = models.CharField(u'Shot End', help_text=u'Shot End', blank=True, null=True, max_length=10)
     thumbnail = models.TextField(blank=True, null=True)
-    arousal_avg = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=None, validators=[MaxValueValidator(1), MinValueValidator(-1)])
-    valence_avg = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=None, validators=[MaxValueValidator(1), MinValueValidator(-1)])
+    arousal_avg = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=None,
+                                      validators=[MaxValueValidator(1), MinValueValidator(-1)])
+    valence_avg = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=None,
+                                      validators=[MaxValueValidator(1), MinValueValidator(-1)])
     uri = models.TextField(blank=True, null=True)
     processed = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs ):
+    def save(self, *args, **kwargs):
         if self.thumbnail is None:
 
             filename = self.uri.split('/')[-1]
@@ -71,10 +72,15 @@ class Shot(models.Model):
     class Meta:
         ordering = ('id',)
 
+
 class Annotation(models.Model):
     shot = models.ForeignKey(Shot, null=True)
-    startAnnotation = models.CharField(u'Annotation Start', help_text=u'Annotation Start', blank=True, null=True, max_length=10)
-    endAnnotation = models.CharField(u'Annotation End', help_text=u'Annotation End', blank=True, null=True, max_length=10)
-    arousal = models.IntegerField(u'Annotation Arousal', help_text=u'Annotation Arousal', blank=True, null=True, default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
-    valence = models.IntegerField(u'Annotation Valence', help_text=u'Annotation Valence', blank=True, null=True, default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
+    startAnnotation = models.CharField(u'Annotation Start', help_text=u'Annotation Start', blank=True, null=True,
+                                       max_length=10)
+    endAnnotation = models.CharField(u'Annotation End', help_text=u'Annotation End', blank=True, null=True,
+                                     max_length=10)
+    arousal = models.IntegerField(u'Annotation Arousal', help_text=u'Annotation Arousal', blank=True, null=True,
+                                  default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
+    valence = models.IntegerField(u'Annotation Valence', help_text=u'Annotation Valence', blank=True, null=True,
+                                  default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
     user = models.ForeignKey(User, null=True)

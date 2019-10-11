@@ -8,7 +8,9 @@ import subprocess
 from frontend.models import Video, Shot, Annotation
 from rest_framework import viewsets
 from .serializers import VideosSerializer, AnnotationSerializer, ShotSerializer
-
+import os
+import zipfile
+#import StringIO
 
 def process_videos(request):
     videos = request.GET.get('videos', None)
@@ -20,7 +22,6 @@ def process_videos(request):
         effects = effects.split(",")
         videos = videos.split(",")
         for index, i in enumerate(videos):
-
             duration = '2'
 
             fade_in = ''
@@ -48,6 +49,50 @@ def process_videos(request):
         subprocess.call("(cd ./frontend/videoferracani/ && " + command + ")", shell=True)
 
     return HttpResponse("")
+
+
+def retrieve_videos(request):
+    print ("dentro richiesta")
+    videos = request.GET.get('videos', None)
+    print (videos)
+    # Files (local path) to put in the .zip
+
+    filenames = []
+    videos = videos.split(",")
+    for i in videos:
+        filenames.append("./frontend/videoferracani/"+i)
+    print (filenames);
+    # Folder name in ZIP archive which contains the above files
+    # E.g [thearchive.zip]/somefiles/file2.txt
+    # FIXME: Set this to something better
+    zip_subdir = "video"
+    zip_filename = "%s.zip" % zip_subdir
+
+    # Open StringIO to grab in-memory ZIP contents
+    s = StringIO.StringIO()
+
+    # The zip compressor
+    zf = zipfile.ZipFile(s, "w")
+
+    for fpath in filenames:
+        # Calculate path for file in zip
+        fdir, fname = os.path.split(fpath)
+        zip_path = os.path.join(zip_subdir, fname)
+
+        # Add file, at correct path
+        zf.write(fpath, zip_path)
+
+    # Must close zip for all contents to be written
+    zf.close()
+
+    # Grab ZIP file from in-memory, make response with correct MIME-type
+    resp = HttpResponse(s.getvalue(), mimetype="application/x-zip-compressed")
+    # ..and correct content-disposition
+    resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
+
+    return resp
+
+
 
 class ShotViewSet(viewsets.ModelViewSet):
     serializer_class = ShotSerializer

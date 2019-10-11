@@ -470,3 +470,8 @@ input[type="file"] {
   width: 150px;
 }
 
+#export {
+  left: 7%;
+  height: 42px;
+  width: 150px;
+}
