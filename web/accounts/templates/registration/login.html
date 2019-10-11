@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/loginstyle.css">
     <script type="text/javascript">
 			var domain_root = "{{ request.scheme }}://{{ request.META.HTTP_HOST}}";
-			var url = domain_root + '/accounts/signup'
+			var url = domain_root + '/accounts/signup';
             console.log(url);
             $(document).ready(function () {
                 $('.signup_redirect').attr('href', url)
@@ -14,12 +15,15 @@
     </script>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button><br>
-</form>
+    <div class="loginbox">
+        <h1>Login</h1>
+            <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button><br>
+            </form>
+
+    </div>
     <p>If you haven't an account you can sign up <a class="signup_redirect" href="">here</a>.</p>
 </body>
 </html>
