@@ -11,7 +11,8 @@ RUN rm -R /tmp/ffmpeg
  RUN mkdir /code
  WORKDIR /code
  RUN apt-get update && apt-get install -y \
-  mysql-client \
+  #mysql-client \
+  zip \
   dtrx
  ADD requirements.txt /code/
  RUN pip install -r requirements.txt

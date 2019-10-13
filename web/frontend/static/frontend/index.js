@@ -124,93 +124,23 @@ $(document).ready(function() {
         console.log(effects);
 
         $.ajax({ url: domain_root + "/api/retrieve_videos?videos=" + final, success: function (result) {
-          var req = new XMLHttpRequest();
-          //req.open("GET", domain + "videoferracani/video.zip", true);
-          req.responseType = "blob";
+            var req = new XMLHttpRequest();
+            req.open("GET", domain + "zipvideo/video.zip", true);
+            req.responseType = "blob";
 
-          req.onload = function (event) {
-            var blob = req.response;
-            console.log(blob.size);
-            var link=document.createElement('a');
-            link.href=window.URL.createObjectURL(blob);
-            link.download="video.zip";
-            link.click();
+            req.onload = function (event) {
+                var blob = req.response;
+                console.log(blob.size);
+                var link=document.createElement('a');
+                link.href=window.URL.createObjectURL(blob);
+                link.download="video.zip";
+                link.click();
           };
 
-          req.send();
-
+          eq.send();
         }})
-
-        /*var matrix = [];
-        for(var i=0; i<final.length; i++) {
-            matrix[i] = new Array(2);
-        }
-
-        for(var i=0; i<matrix.length; i++) {
-            matrix[i][0] = final[i];
-            matrix[i][1] = i;
-        }
-
-        console.log(matrix);
-        downloadCSV(matrix);*/
-
     })
-
 });
-
-function downloadCSV(args) {
-        var data, filename, link;
-        var csv = convertArrayOfObjectsToCSV(args);
-        console.log("Hereee");
-        console.log(csv);
-        if (csv == null) return;
-
-        filename = args.filename || 'export.csv';
-
-        if (!csv.match(/^data:text\/csv/i)) {
-            csv = 'data:text/csv;charset=utf-8,' + csv;
-        }
-        data = encodeURI(csv);
-
-        link = document.createElement('a');
-        link.setAttribute('href', data);
-        link.setAttribute('download', filename);
-        link.click();
-}
-
-function convertArrayOfObjectsToCSV(args) {
-        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
-        console.log("mmmm");
-        //console.log(args.data);
-
-        data = args || null;
-        if (data == null || !data.length) {
-            console.log("bhabahabah");
-            return null;
-        }
-
-        columnDelimiter = args.columnDelimiter || ',';
-        lineDelimiter = args.lineDelimiter || '\n';
-
-        keys = Object.keys(data[0]);
-
-        result = '';
-        result += keys.join(columnDelimiter);
-        result += lineDelimiter;
-
-        data.forEach(function(item) {
-            ctr = 0;
-            keys.forEach(function(key) {
-                if (ctr > 0) result += columnDelimiter;
-
-                result += item[key];
-                ctr++;
-            });
-            result += lineDelimiter;
-        });
-
-        return result;
-}
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -219,20 +149,6 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
-
-// function drop(ev) {
-//     ev.preventDefault();
-//     var data = ev.dataTransfer.getData("text");
-//     var nodeCopy = document.getElementById(data).cloneNode(true);
-//     nodeCopy.id = data + "_timeline";
-//     if(ev.target.nodeName=== "IMG"){
-//         ev.target.parentElement.appendChild(nodeCopy);
-//         ev.target.parentElement.removeChild(ev.target.parentElement.childNodes[0]);
-//     } else {
-//         ev.target.appendChild(nodeCopy);
-//     }
-//
-// }
 
 function drop(ev) {
     ev.preventDefault();

@@ -170,6 +170,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/frontend/videoferracani/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/videoferracani')
 
+MEDIA_ROOT2 = os.path.join(BASE_DIR, 'frontend/zipvideo')
+
 
 PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 FIXTURE_DIRS = (

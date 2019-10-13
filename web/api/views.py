@@ -10,7 +10,8 @@ from rest_framework import viewsets
 from .serializers import VideosSerializer, AnnotationSerializer, ShotSerializer
 import os
 import zipfile
-#import StringIO
+from io import BytesIO
+import csv
 
 def process_videos(request):
     videos = request.GET.get('videos', None)
@@ -52,47 +53,35 @@ def process_videos(request):
 
 
 def retrieve_videos(request):
-    print ("dentro richiesta")
+
     videos = request.GET.get('videos', None)
-    print (videos)
-    # Files (local path) to put in the .zip
-
-    filenames = []
     videos = videos.split(",")
+    subprocess.call("mkdir -p ./frontend/zipvideo", shell=True)
+    subprocess.call("rm -rf ./frontend/zipvideo/*", shell=True)
+    subprocess.call("cp ./frontend/static/script.jsx ./frontend/zipvideo", shell=True)
+    createcsv(videos)
+    zipstr = ""
     for i in videos:
-        filenames.append("./frontend/videoferracani/"+i)
-    print (filenames);
-    # Folder name in ZIP archive which contains the above files
-    # E.g [thearchive.zip]/somefiles/file2.txt
-    # FIXME: Set this to something better
-    zip_subdir = "video"
-    zip_filename = "%s.zip" % zip_subdir
+        zipstr += "./" + i + " "
+        subprocess.call("cp ./frontend/videoferracani/" + i + " ./frontend/zipvideo", shell=True)
+    zipstr += " ./videolist.csv ./script.jsx"
 
-    # Open StringIO to grab in-memory ZIP contents
-    s = StringIO.StringIO()
+    subprocess.call("cd ./frontend/zipvideo && zip video.zip " + zipstr, shell=True)
 
-    # The zip compressor
-    zf = zipfile.ZipFile(s, "w")
+    return HttpResponse("")
 
-    for fpath in filenames:
-        # Calculate path for file in zip
-        fdir, fname = os.path.split(fpath)
-        zip_path = os.path.join(zip_subdir, fname)
+def createcsv(videos):
+    csvData = []
+    csvData.append(["filename", "dir"])
 
-        # Add file, at correct path
-        zf.write(fpath, zip_path)
+    for name in videos:
+        csvData.append([name, "path"])
 
-    # Must close zip for all contents to be written
-    zf.close()
+    with open(os.path.join("./frontend/zipvideo", "videolist.csv"), "w+") as csvFile:
+        writer = csv.writer(csvFile)
+        writer.writerows(csvData)
 
-    # Grab ZIP file from in-memory, make response with correct MIME-type
-    resp = HttpResponse(s.getvalue(), mimetype="application/x-zip-compressed")
-    # ..and correct content-disposition
-    resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
-
-    return resp
-
-
+    csvFile.close()
 
 class ShotViewSet(viewsets.ModelViewSet):
     serializer_class = ShotSerializer

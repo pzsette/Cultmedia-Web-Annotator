@@ -27,4 +27,8 @@ urlpatterns = [
     }),
 
     url(r'^upload/', views.upload, name='upload'),
+
+    url(r'^zipvideo/(?P<path>.*)$',serve, {
+        'document_root': settings.MEDIA_ROOT2,
+    }),
 ]
