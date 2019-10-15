@@ -137,7 +137,7 @@ $(document).ready(function() {
                 link.click();
           };
 
-          eq.send();
+          req.send();
         }})
     })
 });

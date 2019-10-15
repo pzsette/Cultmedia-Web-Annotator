@@ -2,11 +2,11 @@
 
 # wait for db server to start
 
-#while ! mysqladmin ping -h"$DB_HOST" --silent; do
-#    echo "Database not ready. Waiting 5 seconds...."
-#   sleep 5
+while ! mysqladmin ping -h"$DB_HOST" --silent; do
+  echo "Database not ready. Waiting 5 seconds...."
+  sleep 5
 
-#done
+done
 echo "Database ready. Starting app"
 sleep 3
 

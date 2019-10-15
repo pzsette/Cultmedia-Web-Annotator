@@ -5,6 +5,8 @@ import logging
 logger = logging.getLogger(__name__)
 from django.contrib.auth import get_user_model
 import urllib.request
+import json
+import requests
 from django.db import models
 from django.core.validators import URLValidator, MaxValueValidator, MinValueValidator
 
@@ -52,16 +54,10 @@ class Shot(models.Model):
 
             filename = self.uri.split('/')[-1]
 
-            #try:
-            #    print("Downloading starts...\n")
-            #    urllib.request.urlretrieve(self.uri, './frontend/videoferracani/' + filename)
-            #   print("Download completed..!!")
-            #except Exception as e:
-            #    print(e)
-
             print("filename: " + filename)
             print("filename[:-3]: " + filename[:-3])
-            cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./videoferracani/" + filename, o="./videoferracani/" + filename[:-3] + "jpg")
+            cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./videoferracani/" + filename, o="./videoferracani/" +
+                                                                                                  filename[:-3] + "jpg")
             subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
             self.thumbnail = filename[:-3] + "jpg"
         super(Shot, self).save(*args, **kwargs)
@@ -84,3 +80,84 @@ class Annotation(models.Model):
     valence = models.IntegerField(u'Annotation Valence', help_text=u'Annotation Valence', blank=True, null=True,
                                   default=None, validators=[MaxValueValidator(10), MinValueValidator(0)])
     user = models.ForeignKey(User, null=True)
+
+    '''def save(self, *args, **kwargs):
+        id = self.shot.id
+        url = "http://0.0.0.0:8000/api/annotation?shot_id="+str(id)
+        response = urllib.request.urlopen(url)
+        str_response = response.read().decode('utf-8')
+        obj = json.loads(str_response)
+
+        arousalSum = 0
+        valenceSum = 0
+        for i in obj["results"]:
+            arousalSum += i["arousal"]
+            valenceSum += i["valence"]
+        arousalAVG = arousalSum / obj["count"];
+        valenceAVG = valenceSum / obj["count"];
+        print ("arousalAVG " + str(arousalAVG))
+        print ("valenceAVG " + str(valenceAVG))
+
+        if arousalAVG < 4:
+            arousalAVG = -1
+        elif arousalAVG < 7:
+            arousalAVG = 0
+        else:
+            arousalAVG = 1
+
+        if valenceAVG < 4:
+            valenceAVG = -1
+        elif valenceAVG < 7:
+            valenceAVG = 0
+        else:
+            valenceAVG = 1
+
+        url = "http://0.0.0.0:8000/"
+        shot_patch_url = url + 'api/videos/' + str(id) + "/"
+        shot_payload = {'arousal_avg': arousalAVG, 'valence_avg': valenceAVG}
+        requests.patch(shot_patch_url, data=shot_payload)
+
+    def delete(self, *args, **kwargs):
+        print ("annotation cancellata")
+        id = self.shot.id
+        url = "http://0.0.0.0:8000/api/annotation?shot_id=" + str(id)
+        response = urllib.request.urlopen(url)
+        str_response = response.read().decode('utf-8')
+        obj = json.loads(str_response)
+
+        if obj["count"] == 0:
+            url = "http://0.0.0.0:8000/"
+            shot_patch_url = url + 'api/videos/' + str(id) + "/"
+            shot_payload = {'arousal_avg': "", 'valence_avg': ""}
+            requests.patch(shot_patch_url, data=shot_payload)
+
+        else:
+            arousalSum = 0
+            valenceSum = 0
+            for i in obj["results"]:
+                print (i["arousal"])
+                arousalSum += i["arousal"]
+                valenceSum += i["valence"]
+            arousalAVG = arousalSum / obj["count"];
+            valenceAVG = valenceSum / obj["count"];
+            print ("arousalAVG " + str(arousalAVG))
+            print ("valenceAVG " + str(valenceAVG))
+
+            if arousalAVG < 4:
+                arousalAVG = -1
+            elif arousalAVG < 7:
+                arousalAVG = 0
+            else:
+                arousalAVG = 1
+
+            if valenceAVG < 4:
+                valenceAVG = -1
+            elif valenceAVG < 7:
+                valenceAVG = 0
+            else:
+                valenceAVG = 1
+
+            url = "http://0.0.0.0:8000/"
+            shot_patch_url = url + 'api/videos/' + str(id) + "/"
+            shot_payload = {'arousal_avg': arousalAVG, 'valence_avg': valenceAVG}
+            requests.patch(shot_patch_url, data=shot_payload)'''

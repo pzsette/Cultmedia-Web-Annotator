@@ -758,20 +758,6 @@ $.widget( "ui.videocomponent", {
 						valence_avg: "",
 					},
 				})
-				/*var http = new XMLHttpRequest();
-				var url = domain_root + '/api/shots/' + id + '/';
-				var params = 'arousal_avg=&valence_avg=';
-				console.log(params);
-				http.open('PATCH', url, true);
-				http.responseType = 'json';
-
-				http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				http.onreadystatechange = function () {
-					/*if (http.readyState == 4 && http.status == 200) {
-						self.parseDeleteResponse(http.response);
-					}
-				};
-				http.send(params);*/
 			}
 
 		})
