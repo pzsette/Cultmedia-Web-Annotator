@@ -56,13 +56,10 @@ class Shot(models.Model):
         if self.thumbnail is None:
 
             filename = self.uri.split('/')[-1]
-
-            print("filename: " + filename)
-            print("filename[:-3]: " + filename[:-3])
             cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./videoferracani/" + filename, o="./videoferracani/" +
                                                                                                   filename[:-3] + "jpg")
             subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
-            self.thumbnail = filename[:-3] + "jpg"
+            self.thumbnail = "videoferracani/"+filename[:-3] + "jpg"
         super(Shot, self).save(*args, **kwargs)
 
     def __str__(self):
