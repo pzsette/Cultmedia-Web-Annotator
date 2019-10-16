@@ -28,7 +28,7 @@ def upload(request):
 
         video_description = request.POST.get('description')
         video_keywords = request.POST.get('keywords')
-        video_duration = requests.POST.get('duration')
+        video_duration = request.POST.get('duration')
         url = request.build_absolute_uri().replace('/frontend/upload', '')
         video_payload = {'title': uploaded_file.name, 'description': video_description, 'keywords': video_keywords,
                          'duration': video_duration, 'uri': 'videoferracani/'+uploaded_file.name}

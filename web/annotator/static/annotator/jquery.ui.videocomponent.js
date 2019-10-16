@@ -630,7 +630,7 @@ $.widget( "ui.videocomponent", {
 			valence: annotation.valence,
 		});
 
-		self.reviseAVGannotation(videoid);
+		//self.reviseAVGannotation(videoid);
 		self.annotationsList.sort('start', {order: "desc"});
 		
 	},
@@ -649,7 +649,7 @@ $.widget( "ui.videocomponent", {
     			success: function() {
     				console.log();
     				self.parseDeleteResponse(annotationId);
-    				self.reviseAVGannotation(videoId);
+    				//self.reviseAVGannotation(videoId);
     			}
 			});
 
@@ -662,7 +662,7 @@ $.widget( "ui.videocomponent", {
 		self.annotationsList.remove('id', id);
 	},
 
-	reviseAVGannotation: function(id) {
+	/*reviseAVGannotation: function(id) {
 
 		$.getJSON(domain_root + '/api/annotation?shot_id='+id, function (data) {
 			if (data.count != 0) {
@@ -761,7 +761,7 @@ $.widget( "ui.videocomponent", {
 			}
 
 		})
-	},
+	},*/
 
 	updateWidget : function(param, type) {
 		var self = this;

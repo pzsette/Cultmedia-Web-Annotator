@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'rest_framework',
     'frontend',
     'annotator',
     'api',
     'accounts.apps.AccountsConfig',
-    #'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -60,10 +60,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'cultmedia.urls'
 
+SITE_ID = 1
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],#
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
