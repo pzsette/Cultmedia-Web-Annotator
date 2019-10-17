@@ -62,7 +62,7 @@ $(document).ready(function() {
     $("#download").click(function(){
         var dwnButton = document.getElementById("download");
         dwnButton.classList.add("dots");
-        dwnButton.innerHTML = '<i class="fas fa-file-download"></i>  DOWNLOAD <span>.</span><span>.</span><span>.</span>';
+        dwnButton.innerHTML = '<i class="fas fa-file-download"></i>  DOWNLOADING <span>.</span><span>.</span><span>.</span>';
         var final = []
         var effects = []
         var videos= document.getElementById("scroller").getElementsByTagName("VIDEO")
