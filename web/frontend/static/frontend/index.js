@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
     console.log("full_path: " + full_path)
@@ -61,8 +60,9 @@ $(document).ready(function() {
     });
 
     $("#download").click(function(){
-        document.getElementById("loading").classList.remove("disappeared");
-        document.getElementById("download").innerHTML = '<i class="fa fa-download"></i> RENDERING...';
+        var dwnButton = document.getElementById("download");
+        dwnButton.classList.add("dots");
+        dwnButton.innerHTML = '<i class="fas fa-file-download"></i>  DOWNLOAD <span>.</span><span>.</span><span>.</span>';
         var final = []
         var effects = []
         var videos= document.getElementById("scroller").getElementsByTagName("VIDEO")
@@ -86,8 +86,8 @@ $(document).ready(function() {
             link.href=window.URL.createObjectURL(blob);
             link.download="final_file.mp4";
             link.click();
-            document.getElementById("loading").classList.add("disappeared");
-            document.getElementById("download").innerHTML = '<i class="fa fa-download"></i> DOWNLOAD';
+            dwnButton.innerHTML = '<i class="fas fa-file-download"></i>  DOWNLOAD'
+            dwnButton.classList.remove('dots')
           };
 
           req.send();
@@ -104,6 +104,9 @@ $(document).ready(function() {
     })
 
     $('#export').click(function(){
+        var expButton = document.getElementById("export");
+        expButton.classList.add("dots");
+        expButton.innerHTML = '<i class="fas fa-file-export"></i>  EXPORTING <span>.</span><span>.</span><span>.</span>';
         var final = []
         var effects = []
         var videos= document.getElementById("scroller").getElementsByTagName("VIDEO")
@@ -138,7 +141,10 @@ $(document).ready(function() {
           };
 
           req.send();
+          expButton.innerHTML = '<i class="fas fa-file-export"></i>  EXPORT'
+          expButton.classList.remove('dots')
         }})
+
     })
 });
 

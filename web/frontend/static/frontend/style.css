@@ -339,6 +339,7 @@ padding: 0px 0px 0px 50px;
   border-radius: 13px;
 }
 
+/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 .btn {
   position: absolute;
   right: 8px;
@@ -392,14 +393,6 @@ padding: 0px 0px 0px 50px;
   transform: translateY(2px);
 }
 
-#loading{
-  position: absolute;
-  top: 50.5%;
-  right: 170px;
-  height: 30px;
-  width: 30px;
-}
-
 .disappeared{
   display: none;
 }
@@ -407,7 +400,7 @@ padding: 0px 0px 0px 50px;
 .spinner-blue-only {
   border-color: #005077;
 }
-
+/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 #search-wrapper{
   background-color: lightblue;
   position: absolute;
@@ -457,6 +450,22 @@ input[type="file"] {
   width: 150px;
 }
 
+/*#loading{
+  position: absolute;
+  top: 50.5%;
+  right: 200px;
+  height: 30px;
+  width: 30px;
+}*/
+
+#loading-exp{
+  position: absolute;
+  top: 50.5%;
+  left: 190px;
+  height: 30px;
+  width: 30px;
+}
+
 #upload {
   top: 10px;
   left: 86%;
@@ -464,14 +473,52 @@ input[type="file"] {
   width: 170px;
 }
 
+/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 #download {
-  left: 86%;
-  height: 42px;
-  width: 170px;
+  left: 77%;
+  height: 50px;
+  width: 200px;
 }
 
+/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 #export {
-  left: 7%;
-  height: 42px;
-  width: 150px;
+  left: 12%;
+  height: 50px;
+  width: 200px;
+}
+
+@keyframes blink {
+
+    0% {
+      opacity: .2;
+    }
+
+    20% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: .2;
+    }
+}
+
+.dots span {
+
+    animation-name: blink;
+
+    animation-duration: 1.4s;
+
+    animation-iteration-count: infinite;
+
+    animation-fill-mode: both;
+}
+
+.dots span:nth-child(2) {
+
+    animation-delay: .2s;
+}
+
+.dots span:nth-child(3) {
+
+    animation-delay: .4s;
 }
