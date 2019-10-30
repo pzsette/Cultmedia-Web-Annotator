@@ -1,214 +1,3 @@
-/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
-
-/*.LogoUnifi{*/
-    /*position: absolute;*/
-    /*width: 60px;*/
-    /*height: 60px;*/
-    /*left: 1%;*/
-    /*top: 1%;*/
-/*}*/
-
-/*.brand-logo{*/
-  /*top: 4%;*/
-  /*left: 1%;*/
-/*}*/
-
-
-/*body{*/
-  /*background: ghostwhite;*/
-  /*font-family: Roboto;*/
-/*}*/
-
-/*.NavbarSito{*/
-  /*background-color: lightblue;*/
-/*}*/
-
-/*#search{*/
-/*position: absolute;*/
-/*top: 16%;*/
-/*left: 15%;*/
-/*width: 40%;*/
-/*background-color: rgb(248, 248, 255);*/
-/*border: 1px;*/
-/*border-bottom: 1px solid rgba(0,0,0,0.87);*/
-/*border-radius: 5px;*/
-/*text-indent: 10px;*/
-/*padding: 0px 0px 0px 50px;*/
-/*}*/
-
-
-/*::-webkit-input-placeholder { !* WebKit browsers *!*/
-    /*color: #999999;*/
-    /*text-indent: 10px;*/
-/*}*/
-
-/*.material-icons.md-36 {*/
-  /*font-size: 36px;*/
-  /*position: absolute;*/
-  /*top: 3%;*/
-  /*left: 16%;*/
-  /*color: black;*/
-/*}*/
-
-/*.browser-default{*/
-  /*position: absolute;*/
-  /*left: 63%;*/
-  /*top: 16%;*/
-  /*width: 15%;*/
-  /*border-bottom: 1px solid rgba(0,0,0,0.87);*/
-  /*background-color: rgb(248, 248, 255);*/
-/*}*/
-
-/*.others{*/
-  /*color: black;*/
-/*}*/
-
-/*.DefaultChoose{*/
-  /*color: #999999;*/
-/*}*/
-
-/*#scroller-wrapper{*/
-  /*background-color: lightblue;*/
-  /*position: absolute;*/
-  /*bottom: 1%;*/
-  /*height: 300px;*/
-  /*width: 99%;*/
-  /*left: 0.5%;*/
-  /*overflow-x: scroll;*/
-  /*border: 2px solid #005077;*/
-  /*border-radius: 5px;*/
-  /*box-shadow: 2px 2px #053248;*/
-
-/*}*/
-
-/*#scroller{*/
-  /*position: absolute;*/
-  /*height: 100%;*/
-  /*white-space: nowrap;*/
-  /*display: flex;*/
-  /*align-items: center;*/
-/*}*/
-
-/*.elem{*/
-  /*height: 154px;*/
-  /*padding: 0;*/
-  /*margin: 0;*/
-  /*overflow: hidden;*/
-  /*width: auto;*/
-  /*display: inline-block;*/
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*padding-left: 10px;*/
-/*}*/
-
-/*.elem:last-child{*/
-  /*padding-right: 10px;*/
-/*}*/
-
-/*#effects{*/
-  /*top:0px;*/
-  /*left: 0px;*/
-  /*width: 65px;*/
-  /*height: 40px;*/
-  /*font-size: 10px;*/
-  /*border: 1px solid rgba(0,0,0,0.87);*/
-  /*background-color: #005077;*/
-  /*color: white;*/
-  /*position: relative;*/
-  /*display: inline;*/
-/*}*/
-
-/*#boxed{*/
-  /*border: 2px solid #005077;*/
-  /*border-radius: 15px;*/
-  /*width: 266px;*/
-  /*height: 100%;*/
-/*}*/
-
-/*#boxed img{*/
-  /*border-radius: 13px;*/
-/*}*/
-
-/*.btn {*/
-  /*position: absolute;*/
-  /*right: 8px;*/
-  /*top: 50%;*/
-  /*background-color: #005077;*/
-  /*border: none;*/
-  /*color: white;*/
-  /*cursor: pointer;*/
-  /*border: 2px solid #005077;*/
-  /*border-radius: 5px;*/
-  /*box-shadow: 2px 2px #053248;*/
-/*}*/
-/*.btn:hover{*/
-  /*background-color: RoyalBlue;*/
-/*}*/
-
-/*.btn:focus{*/
-  /*background-color: #005077;*/
-/*}*/
-
-/*.btn:active{*/
-  /*background-color: #005077;*/
-  /*transform: translateY(2px);*/
-/*}*/
-
-/*#loading{*/
-  /*position: absolute;*/
-  /*top: 50.5%;*/
-  /*right: 170px;*/
-  /*height: 30px;*/
-  /*width: 30px;*/
-/*}*/
-
-/*.disappeared{*/
-  /*display: none;*/
-/*}*/
-
-/*.spinner-blue-only {*/
-  /*border-color: #005077;*/
-/*}*/
-
-/*#search-wrapper{*/
-  /*background-color: lightblue;*/
-  /*position: absolute;*/
-  /*top: 12%;*/
-  /*height: 200px;*/
-  /*width: 99%;*/
-  /*left: 0.5%;*/
-  /*overflow-x: scroll;*/
-  /*border: 2px solid #005077;*/
-  /*border-radius: 5px;*/
-  /*box-shadow: 2px 2px #053248;*/
-
-/*}*/
-
-/*#search-scroller{*/
-  /*position: absolute;*/
-  /*height: 100%;*/
-  /*white-space: nowrap;*/
-  /*display: flex;*/
-  /*align-items: center;*/
-/*}*/
-
-/*.search-elem{*/
-  /*height: 150px;*/
-  /*padding: 0;*/
-  /*margin: 0;*/
-  /*overflow: hidden;*/
-  /*width: auto;*/
-  /*display: inline-block;*/
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*padding-left: 10px;*/
-/*}*/
-
-/*.search-elem:last-child{*/
-  /*padding-right: 10px;*/
-/*}*/
-
-
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 .LogoUnifi{
@@ -224,7 +13,6 @@
   left: 1%;
 }
 
-
 body{
   background: ghostwhite;
   font-family: Roboto;
@@ -234,11 +22,23 @@ body{
   background-color: lightblue;
 }
 
+#awesomplete-search{
+background-color: rgb(248, 248, 255);
+border: 1px;
+border-bottom: 1px solid rgba(0,0,0,0.87);
+border-radius: 5px;
+text-indent: 2px;
+padding: 0px 0px 0px 50px;
+  width: 350px;
+}
+
+#nav-mobile {padding-left: 16%;}
+
 #search{
 position: absolute;
 top: 16%;
 left: 10%;
-width: 35%;
+width: 30%;
 background-color: rgb(248, 248, 255);
 border: 1px;
 border-bottom: 1px solid rgba(0,0,0,0.87);
@@ -256,7 +56,7 @@ padding: 0px 0px 0px 50px;
   font-size: 36px;
   position: absolute;
   top: 3%;
-  left: 11%;
+  margin-left: 2px;
   color: black;
 }
 
@@ -277,11 +77,9 @@ padding: 0px 0px 0px 50px;
   color: #999999;
 }
 
-/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 #scroller-wrapper{
   background-color: lightblue;
   position: absolute;
-  /*bottom: 1%;*/
   bottom: 19%;
   height: 300px;
   width: 99%;
@@ -341,12 +139,11 @@ padding: 0px 0px 0px 50px;
   border-radius: 13px;
 }
 
-/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
+/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE*/
 .btn {
   position: absolute;
-  right: 8px;
-  /*top: 50%;*/
-  top: 88%;
+  right: 0px;
+  top: 86%;
   background-color: #005077;
   border: none;
   color: white;
@@ -368,42 +165,6 @@ padding: 0px 0px 0px 50px;
   transform: translateY(2px);
 }
 
-/*.btn2 {
-  vertical-align: center;
-  position: absolute;
-  width: 180px;
-  right: 20px;
-  top: 10px;
-  height: 46px;
-  background-color: #005077;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border: 2px solid #005077;
-  border-radius: 5px;
-  box-shadow: 2px 2px #053248;
-}
-.btn2:hover{
-  background-color: RoyalBlue;
-}
-
-.btn2:focus{
-  background-color: #005077;
-}
-
-.btn2:active{
-  background-color: #005077;
-  transform: translateY(2px);
-}*/
-
-.disappeared{
-  display: none;
-}
-
-.spinner-blue-only {
-  border-color: #005077;
-}
-
 #search-wrapper{
   background-color: lightblue;
   position: absolute;
@@ -415,7 +176,6 @@ padding: 0px 0px 0px 50px;
   border: 2px solid #005077;
   border-radius: 5px;
   box-shadow: 2px 2px #053248;
-
 }
 
 #search-scroller{
@@ -453,14 +213,6 @@ input[type="file"] {
   width: 150px;
 }
 
-/*#loading{
-  position: absolute;
-  top: 50.5%;
-  right: 200px;
-  height: 30px;
-  width: 30px;
-}*/
-
 #loading-exp{
   position: absolute;
   top: 50.5%;
@@ -476,23 +228,13 @@ input[type="file"] {
   width: 170px;
 }
 
-/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 #download {
-  /*left: 77%;
-  height: 50px;
-  width: 200px;*/
-
   left: 61%;
   height: 70px;
   width: 230px;
 }
 
-/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE */
 #export {
-  /*left: 12%;
-  height: 50px;
-  width: 200px;*/
-
   left: 25%;
   height: 70px;
   width: 230px;
@@ -533,3 +275,75 @@ input[type="file"] {
 
     animation-delay: .4s;
 }
+
+/*#dLabel {
+    top: 10px;
+    height: 43px;
+    width: 200px;
+    left:54%;
+    position: absolute;
+    align-items: center;
+}*/
+
+/*DROPDOWN*/
+
+.itemspace {
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  line-height: 20px;
+}
+
+.pzdropdown {
+  display: none;
+  top: 10px;
+  height: 43px;
+  width: 150px;
+  left:48.5%;
+  position: absolute;
+}
+
+.pzdropdown-content {
+  text-align: center;
+  color: black;
+  top:30px;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px 16px;
+  z-index: 1;
+}
+
+.pzdropdown:hover .pzdropdown-content{
+  display: block;
+}
+
+/*class to fix materialize influnce*/
+
+#pzcheckbox {
+  opacity: 100;
+  position: relative;
+
+}
+
+/*#pzlabel {
+  color: black !important;
+  font-size: 14.5px !important;
+}*/
+
+#pzselect {
+  border-color: black;
+  position: relative;
+  display: block;
+  height: 30px;
+  width: 100px;
+  color: #9e9e9e;
+  left: 17%;
+}
+
+#pzp {
+  line-height: 0px;
+}
+

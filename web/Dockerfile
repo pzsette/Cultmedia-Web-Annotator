@@ -2,7 +2,7 @@ FROM python:3.5
 ENV PYTHONUNBUFFERED 1
 
 WORKDIR /tmp/ffmpeg
-COPY ./install/ffmpeg/ffmpeg-release-64bit-static.tar.xz ./docker-
+COPY ./install/ffmpeg/ffmpeg-release-64bit-static.tar.xz ./
 RUN tar xf ffmpeg-release-64bit-static.tar.xz
 RUN mv ./ffmpeg-3.4.2-64bit-static/ffmpeg /usr/bin/ffmpeg
 

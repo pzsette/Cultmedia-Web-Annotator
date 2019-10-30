@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.core.files.storage import FileSystemStorage
 import requests
+from django.conf import settings
 from django.core import urlresolvers
 
 
@@ -31,14 +32,14 @@ def upload(request):
         video_duration = request.POST.get('duration')
         url = request.build_absolute_uri().replace('/frontend/upload', '')
         video_payload = {'title': uploaded_file.name, 'description': video_description, 'keywords': video_keywords,
-                         'duration': video_duration, 'uri': 'videoferracani/'+uploaded_file.name}
+                         'duration': video_duration, 'uri': settings.MEDIA_URL2+uploaded_file.name}
         video_post_url = url + 'api/videos/'
         v = requests.post(video_post_url, data=video_payload)
         print (v.json())
         video_id = (v.json()['id'])
         print (video_id)
-
-        shot_payload = {'title': uploaded_file.name, 'video': video_id, 'uri': 'videoferracani/'+uploaded_file.name}
+        shot_payload = {'title': uploaded_file.name, 'video': video_id, 'uri': settings.MEDIA_URL2+uploaded_file.name,
+                        'keywords': video_keywords}
         shot_post_url = url + 'api/shots/'
         requests.post(shot_post_url, data=shot_payload)
 

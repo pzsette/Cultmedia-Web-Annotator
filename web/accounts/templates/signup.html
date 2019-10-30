@@ -12,7 +12,7 @@
         .signupbox {
             text-align: left;
             position: absolute;
-            top: 30%;
+            top: 40%;
             left: 50%;
             margin: -200px 0 0 -200px;
             width:400px;
@@ -32,6 +32,12 @@
         #title {
             text-align: center;
         }
+
+        #button-box {
+            position: absolute;
+            align-items: center;
+            left: 30%;
+        }
     </style>
 </head>
 <body>
@@ -40,9 +46,10 @@
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button id="button" type="submit">Sign up</button>
+    <div id="button-box">
+        <button id="button" type="submit">Sign up</button>
+    </div>
     </form>
 </div>
-
 </body>
 </html>

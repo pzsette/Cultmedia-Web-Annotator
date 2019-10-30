@@ -170,6 +170,7 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/static')
 
 MEDIA_URL = '/frontend/videoferracani/'
+MEDIA_URL2 = 'videoferracani/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/videoferracani')
 
 MEDIA_ROOT2 = os.path.join(BASE_DIR, 'frontend/zipvideo')

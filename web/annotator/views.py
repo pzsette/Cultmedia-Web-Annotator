@@ -9,6 +9,3 @@ def annotator(request,):
      context = {
      }
      return render(request, "annotator.html", context)
-
-
-

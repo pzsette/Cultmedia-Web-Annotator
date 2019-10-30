@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^process_videos/$', views.process_videos, name="process_videos"),
     url(r'^retrieve_videos/$', views.retrieve_videos, name="retrieve_videos"),
+    url(r'^get_keywords/$', views.get_keywords, name="get_keywords"),
 ]
