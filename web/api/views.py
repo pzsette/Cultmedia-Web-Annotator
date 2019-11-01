@@ -136,9 +136,11 @@ class ShotViewSet(viewsets.ModelViewSet):
         #indoor
         indoor = self.request.query_params.get('indoor', None)
         if indoor is not None:
-            if indoor=="True":
+            if indoor == "0":
+                queryset = queryset
+            if indoor == "1":
                 queryset = queryset.filter(Q(indoor=True))
-            if indoor=="False":
+            if indoor == "2":
                 queryset = queryset.filter(Q(indoor=False))
 
         #word_list = False
@@ -159,16 +161,31 @@ class ShotViewSet(viewsets.ModelViewSet):
             if nhf == "on":
                 queryset = queryset.filter(Q(nohappyfaces=True))
 
+        #pixelmotion
+        motion = self.request.query_params.get('pixelmotion', None)
+        if motion is not None:
+            queryset = queryset.filter(Q(pixelmotion__gte=motion))
+
         #daytime
         daytime = self.request.query_params.get('daytime', None)
         if daytime is not None:
             print (daytime)
-            if daytime == "0":
+            if daytime == "1":
                 queryset = queryset.filter(Q(daytime=0))
-            elif daytime == "1":
+            elif daytime == "2":
                 queryset = queryset.filter(Q(daytime=1))
             else:
                 queryset = queryset
+
+        #loudness
+        loud = self.request.query_params.get('loudness', None)
+        if loud is not None:
+            queryset = queryset.filter(Q(loudness__lte=loud))
+
+        #duration
+        time = self.request.query_params.get('duration', None)
+        if time is not None:
+            queryset = queryset.filter(Q(duration__lte=time))
 
         #text (q)
         q = self.request.query_params.get('q', None)
@@ -180,6 +197,15 @@ class ShotViewSet(viewsets.ModelViewSet):
             else:
                 query = functools.reduce(operator.and_, (Q(keywords__icontains=x) for x in word_list))
                 queryset = Shot.objects.filter(query)
+
+        #dialogue
+        dialogue = self.request.query_params.get('dialogue', None)
+        if dialogue is not None:
+            if dialogue == "1":
+                queryset = queryset.filter(Q(dialogue="True"))
+            if dialogue == "2":
+                queryset = queryset.filter(Q(dialogue="False"))
+
 
         #mood
         mood = self.request.query_params.get('mood', None)

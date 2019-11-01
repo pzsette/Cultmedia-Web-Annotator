@@ -290,7 +290,7 @@ input[type="file"] {
 .itemspace {
   text-align: center;
   display: block;
-  margin-top: 20px;
+  margin-top: 30px;
   line-height: 20px;
 }
 
@@ -313,7 +313,7 @@ input[type="file"] {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 10px 16px;
-  z-index: 1;
+  z-index: 1000;
 }
 
 .pzdropdown:hover .pzdropdown-content{
@@ -333,12 +333,14 @@ input[type="file"] {
   position: relative;
   display: block;
   height: 30px;
-  width: 100px;
+  width: 150px;
   color: black;
-  left: 17%;
+  left: 3%;
 }
 
 #pzp {
+  font-size: large;
   line-height: 0px;
+  font-weight: bolder;
 }
 

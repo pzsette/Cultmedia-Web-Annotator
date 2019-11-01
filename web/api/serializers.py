@@ -12,7 +12,7 @@ class ShotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shot
         fields = ('id', 'title', 'video', 'thumbnail', 'arousal_avg', 'keywords', 'valence_avg', 'uri', 'indoor',
-                  'daytime', 'colourfulness', 'nohappyfaces')
+                  'daytime', 'colourfulness', 'nohappyfaces', 'pixelmotion', 'duration', 'loudness', 'dialogue')
 
 
 class AnnotationSerializer(serializers.ModelSerializer):

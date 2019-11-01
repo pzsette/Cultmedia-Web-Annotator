@@ -112,13 +112,24 @@ class Shot(models.Model):
     #Other params#
     indoor = models.BooleanField(default=False)
 
-    daytime = models.IntegerField(blank=True, null=True, default=None, validators=[MaxValueValidator(1), MinValueValidator(0)])
+    daytime = models.IntegerField(blank=True, null=True, default=None, validators=[MaxValueValidator(1),
+                                                                                   MinValueValidator(0)])
     #0->day  1->night
 
-    colourfulness = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MaxValueValidator(1), MinValueValidator(0)])
+    colourfulness = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MaxValueValidator(1),
+                                                                                               MinValueValidator(0)])
 
     nohappyfaces = models.BooleanField(default=False)
 
+    pixelmotion = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MaxValueValidator(1),
+                                                                                              MinValueValidator(0)])
+
+    duration = models.CharField(u'Shot Duration', help_text=u'Shot Duration', blank=True, null=True, max_length=5)
+
+    loudness = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MaxValueValidator(1),
+                                                                                             MinValueValidator(0)])
+
+    dialogue = models.BooleanField(default=False)
 
 
     def save(self, *args, **kwargs):

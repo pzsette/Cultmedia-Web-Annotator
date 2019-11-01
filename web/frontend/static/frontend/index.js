@@ -75,7 +75,7 @@ $(document).ready(function() {
             case "1":
                 console.log("primo filtro");
                 mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Hedonic Tone</p> ' +
+                parameters.innerHTML = '<p id="pzp">Piacere</p> ' +
                     '       <div class="itemspace"> ' +
                     '           <label id="pzlabel" style="color:black"><input id="HTCRange" type="range" min="0" max="1" step="0.1" value="0">Min Colourfulness: <span id="HTCValue"></span></label> ' +
                     '       </div> ' +
@@ -135,7 +135,7 @@ $(document).ready(function() {
             case "2":
                 console.log("secondo filtro");
                 mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Energetic Arousal</p>\n' +
+                parameters.innerHTML = '<p id="pzp">Energia</p>\n' +
                     '\n' +
                     '        <div class="itemspace"> ' +
                     '           <select class="pzselect" id="DNSelect">' +
@@ -154,20 +154,24 @@ $(document).ready(function() {
                     '       </div>' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '          <label><input id="EAPRange" type="range" min="0" max="1" step="0.1" value="1"> Max Pixel Motion: <span id="EAPValue"></span></label>\n' +
+                    '          <label style="color: black"><input id="EAPRange" type="range" min="0" max="1" step="0.1" value="0"> Min Pixel Motion: <span id="EAPValue"></span></label>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '          <label><input id="EADRange" type="range" min="10" max="120" step="10" value="120">Max Shot Duration: <span id="EADValue"></span></label>\n' +
+                    '          <label style="color: black"><input id="EADRange" type="range" min="10" max="90" step="10" value="90">Max Shot Duration: <span id="EADValue"></span></label>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '          <label><input id="EALRange" type="range" min="0" max="1" step="0.1" value="1"> Max Loudness: <span id="EALValue"></span></label>\n' +
+                    '          <label style="color: black"><input id="EALRange" type="range" min="0" max="1" step="0.1" value="1"> Max Loudness: <span id="EALValue"></span></label>\n' +
                     '        </div>\n' +
                     '\n' +
-                    '        <div class="itemspace">\n' +
-                    '        <label><input id="pzcheckbox" name="DCheckbox" type="checkbox" align=""><br>Dialogue/Not Dialogue</label>\n' +
-                    '        </div>'
+                    '        <div class="itemspace"> ' +
+                    '           <select class="pzselect" id="DNDSelect">' +
+                    '               <option value="0" selected>Dialogue and Not</option> ' +
+                    '               <option value="1" class="others">Dialogue</option> ' +
+                    '               <option value="2" class="others">Not Dialogue</option> ' +
+                    '           </select>' +
+                    '       </div>'
                 var EAPslider = document.getElementById("EAPRange");
                 var EAPoutput = document.getElementById("EAPValue");
                 EAPoutput.innerHTML = EAPslider.value;
@@ -188,32 +192,89 @@ $(document).ready(function() {
                 EALslider.oninput = function() {EALoutput.innerHTML = this.value};
 
                 $('#IOSelect').change(function () {
-                    /*inserire catch di tutti gli altri elementi della pagina*/
+                    daytimeValue = $("#DNSelect").val();
+                    indoorVal = $('#IOSelect').val();
+                    mpm = $('#EAPRange').val();
+                    msd = $('#EADRange').val();
+                    ml = $('#EALRange').val();
+                    dnd = $('#DNDSelect').val();
 
-                    selectVal = $('#IOSelect').val()
-                    switch (selectVal) {
-                        case "0":
-                            console.log("entrato nel caso 0");
-                            load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=');
-                            console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=')
-                            break;
-                        case "1":
-                            console.log("entrato nel caso 1");
-                            load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=True');
-                            console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=True');
-                            break;
-                        case "2":
-                            console.log("entrato nel caso 2");
-                            load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=False');
-                            console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=False');
-                            break;
-                    }
+                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
+                    load(query);
+                    console.log(query);
                 });
+
+                $('#DNSelect').change(function () {
+                    daytimeValue = $("#DNSelect").val();
+                    indoorVal = $('#IOSelect').val();
+                    mpm = $('#EAPRange').val();
+                    msd = $('#EADRange').val();
+                    ml = $('#EALRange').val();
+                    dnd = $('#DNDSelect').val();
+
+                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
+                    load(query);
+                    console.log(query);
+                });
+
+                $('#EAPRange').change(function () {
+                    daytimeValue = $("#DNSelect").val();
+                    indoorVal = $('#IOSelect').val();
+                    mpm = $('#EAPRange').val();
+                    msd = $('#EADRange').val();
+                    ml = $('#EALRange').val();
+                    dnd = $('#DNDSelect').val();
+
+                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
+                    load(query);
+                    console.log(query);
+                });
+
+                $('#EADRange').change(function () {
+                    daytimeValue = $("#DNSelect").val();
+                    indoorVal = $('#IOSelect').val();
+                    mpm = $('#EAPRange').val();
+                    msd = $('#EADRange').val();
+                    ml = $('#EALRange').val();
+                    dnd = $('#DNDSelect').val();
+
+                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
+                    load(query);
+                    console.log(query);
+                });
+
+                $('#EALRange').change(function () {
+                    daytimeValue = $("#DNSelect").val();
+                    indoorVal = $('#IOSelect').val();
+                    mpm = $('#EAPRange').val();
+                    msd = $('#EADRaange').val();
+                    ml = $('#EALRange').val();
+                    dnd = $('#DNDSelect').val();
+
+                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
+                    load(query);
+                    console.log(query);
+                });
+
+                $('#DNDSelect').change(function () {
+                    daytimeValue = $("#DNSelect").val();
+                    indoorVal = $('#IOSelect').val();
+                    mpm = $('#EAPRange').val();
+                    msd = $('#EADRaange').val();
+                    ml = $('#EALRange').val();
+                    dnd = $('#DNDSelect').val();
+
+                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
+                    load(query);
+                    console.log(query);
+                });
+
+
                 break;
             case "3":
                 console.log("terzo filtro");
                 mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Tense Arousal</p>\n' +
+                parameters.innerHTML = '<p id="pzp">Tensione</p>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
                     '        <label style="color:black"><input id="pzcheckbox" name="NHFCheckbox" type="checkbox" align=""><br>No happy Faces</label>\n' +
