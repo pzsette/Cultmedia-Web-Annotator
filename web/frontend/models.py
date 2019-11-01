@@ -110,7 +110,16 @@ class Shot(models.Model):
     downloaded = models.BooleanField(default=False)
 
     #Other params#
-    indoor = models.BooleanField(default=False);
+    indoor = models.BooleanField(default=False)
+
+    daytime = models.IntegerField(blank=True, null=True, default=None, validators=[MaxValueValidator(1), MinValueValidator(0)])
+    #0->day  1->night
+
+    colourfulness = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MaxValueValidator(1), MinValueValidator(0)])
+
+    nohappyfaces = models.BooleanField(default=False)
+
+
 
     def save(self, *args, **kwargs):
         if settings.MEDIA_URL2 not in self.uri:

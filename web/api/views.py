@@ -136,17 +136,39 @@ class ShotViewSet(viewsets.ModelViewSet):
         #indoor
         indoor = self.request.query_params.get('indoor', None)
         if indoor is not None:
-            print ("indooor is not noooone")
             if indoor=="True":
                 queryset = queryset.filter(Q(indoor=True))
-
+            if indoor=="False":
+                queryset = queryset.filter(Q(indoor=False))
 
         #word_list = False
+
+        #colourfulness
+        color = self.request.query_params.get('colourfulness', None)
+        if color is not None:
+            queryset = queryset.filter(Q(colourfulness__gte=color))
 
         #id
         id = self.request.query_params.get('id', None)
         if id is not None:
             queryset = queryset.filter(Q(id=id))
+
+        #nohappyface
+        nhf = self.request.query_params.get('nohappyfaces', None)
+        if nhf is not None:
+            if nhf == "on":
+                queryset = queryset.filter(Q(nohappyfaces=True))
+
+        #daytime
+        daytime = self.request.query_params.get('daytime', None)
+        if daytime is not None:
+            print (daytime)
+            if daytime == "0":
+                queryset = queryset.filter(Q(daytime=0))
+            elif daytime == "1":
+                queryset = queryset.filter(Q(daytime=1))
+            else:
+                queryset = queryset
 
         #text (q)
         q = self.request.query_params.get('q', None)

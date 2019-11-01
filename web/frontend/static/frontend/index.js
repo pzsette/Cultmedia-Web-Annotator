@@ -56,12 +56,14 @@ $(document).ready(function() {
     });*/
 
     $("#awesomplete-search").keyup(function () {
-        load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() + getMoodQueryset());
-        console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() + getMoodQueryset())
+        load(domain_root + '/api/shots?'+ getMoodQueryset()+'&q=' + $("#awesomplete-search").val());
+        console.log(domain_root + '/api/shots?'+ getMoodQueryset()+'&q=' + $("#awesomplete-search").val());
     });
 
     $("#awesomplete-search").on('awesomplete-selectcomplete',function(){
-        load(domain_root + '/api/shots?q=' +  this.value +'&mood=' + getMoodQueryset());
+        query = domain_root + '/api/shots?'+getMoodQueryset()+'&q=' +  this.value;
+        load(domain_root + '/api/shots?'+getMoodQueryset()+'&q=' +  this.value);
+        console.log(query);
     });
 
     $("#mood-filter").change(function () {
@@ -73,7 +75,25 @@ $(document).ready(function() {
             case "1":
                 console.log("primo filtro");
                 mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Hedonic Tone</p> <div class="itemspace"> <label id="pzlabel"><input id="HTCRange" type="range" min="0" max="1" step="0.1" value="0.5">Colourfulness: <span id="HTCValue"></span></label> </div> <div class="itemspace"> <label id="pzlabel"><input id="pzcheckbox" name="DNCheckbox" type="checkbox"><br>Day/Night</label> </div> <div class="itemspace"> <select id="pzselect"><option value="0" selected>No Mood</option> <option value="1" class="others">Happy</option> <option value="2" class="others">Neutral</option> <option value="3" class="others">Sad</option> </select></div>'
+                parameters.innerHTML = '<p id="pzp">Hedonic Tone</p> ' +
+                    '       <div class="itemspace"> ' +
+                    '           <label id="pzlabel" style="color:black"><input id="HTCRange" type="range" min="0" max="1" step="0.1" value="0">Min Colourfulness: <span id="HTCValue"></span></label> ' +
+                    '       </div> ' +
+                    '       <div class="itemspace"> ' +
+                    '           <select class="pzselect" id="DNSelect">' +
+                    '               <option value="" selected>All Day</option> ' +
+                    '               <option value="0" class="others">Day</option> ' +
+                    '               <option value="1" class="others">Night</option> ' +
+                    '           </select>' +
+                    '       </div>' +
+                    '       <div class="itemspace"> ' +
+                    '           <select class="pzselect" id="moodSelect">' +
+                    '               <option value="0" selected>No Mood</option> ' +
+                    '               <option value="1" class="others">Happy</option> ' +
+                    '               <option value="2" class="others">Neutral</option> ' +
+                    '               <option value="3" class="others">Sad</option> ' +
+                    '           </select>' +
+                    '       </div>'
                 var HTCslider = document.getElementById("HTCRange");
                 var HTCoutput = document.getElementById("HTCValue");
                 HTCoutput.innerHTML = HTCslider.value;
@@ -81,9 +101,34 @@ $(document).ready(function() {
                 HTCoutput.innerHTML = this.value;
                 };
 
-                $("#pzselect").change(function() {
-                    load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood=' + $("#pzselect").val());
-                    console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood=' + $("#pzselect").val());
+                $("#HTCRange").change(function() {
+                    daytimeValue = $("#DNSelect").val();
+                    colorValue =  $("#HTCRange").val();
+                    moodValue = $("#moodSelect").val();
+
+                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
+                    load(query);
+                    console.log(query);
+                });
+
+                $("#DNSelect").change(function() {
+                    daytimeValue = $("#DNSelect").val();
+                    colorValue =  $("#HTCRange").val();
+                    moodValue = $("#moodSelect").val();
+
+                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
+                    load(query);
+                    console.log(query);
+                });
+
+                $("#moodSelect").change(function() {
+                    daytimeValue = $("#DNSelect").val();
+                    colorValue =  $("#HTCRange").val();
+                    moodValue = $("#moodSelect").val();
+
+                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
+                    load(query);
+                    console.log(query);
                 });
 
                 break;
@@ -92,24 +137,32 @@ $(document).ready(function() {
                 mainDiv[0].style.display="block";
                 parameters.innerHTML = '<p id="pzp">Energetic Arousal</p>\n' +
                     '\n' +
+                    '        <div class="itemspace"> ' +
+                    '           <select class="pzselect" id="DNSelect">' +
+                    '               <option value="0" selected>All Day</option> ' +
+                    '               <option value="1" class="others">Day</option> ' +
+                    '               <option value="2" class="others">Night</option> ' +
+                    '           </select>' +
+                    '       </div>' +
+                    '\n' +
+                    '        <div class="itemspace"> ' +
+                    '           <select class="pzselect" id="IOSelect">' +
+                    '               <option value="0" selected>All Position</option> ' +
+                    '               <option value="1" class="others">Indoor</option> ' +
+                    '               <option value="2" class="others">Outdoor</option> ' +
+                    '           </select>' +
+                    '       </div>' +
+                    '\n' +
                     '        <div class="itemspace">\n' +
-                    '        <label><input id="pzcheckbox" name="DNCheckbox" type="checkbox" align=""><br>Day/Night</label>\n' +
+                    '          <label><input id="EAPRange" type="range" min="0" max="1" step="0.1" value="1"> Max Pixel Motion: <span id="EAPValue"></span></label>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '        <label><input id="pzcheckbox" name="IOCheckbox" type="checkbox" align=""><br>Indoor/Outdoor</label>\n' +
+                    '          <label><input id="EADRange" type="range" min="10" max="120" step="10" value="120">Max Shot Duration: <span id="EADValue"></span></label>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '          <label><input id="EAPRange" type="range" min="0" max="1" step="0.1" value="0.5">Pixel Motion: <span id="EAPValue"></span></label>\n' +
-                    '        </div>\n' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '          <label><input id="EADRange" type="range" min="10" max="120" step="10" value="20">Max Shot Duration: <span id="EADValue"></span></label>\n' +
-                    '        </div>\n' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '          <label><input id="EALRange" type="range" min="0" max="1" step="0.1" value="0.5">Loudness: <span id="EALValue"></span></label>\n' +
+                    '          <label><input id="EALRange" type="range" min="0" max="1" step="0.1" value="1"> Max Loudness: <span id="EALValue"></span></label>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
@@ -134,13 +187,26 @@ $(document).ready(function() {
                 EALoutput.innerHTML = EALslider.value;
                 EALslider.oninput = function() {EALoutput.innerHTML = this.value};
 
-                $('[name="IOCheckbox"]').change(function () {
-                    if(this.checked) {
-                        load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=True');
-                        console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=True')
-                    } else {
-                        load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=False');
-                        console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=False')
+                $('#IOSelect').change(function () {
+                    /*inserire catch di tutti gli altri elementi della pagina*/
+
+                    selectVal = $('#IOSelect').val()
+                    switch (selectVal) {
+                        case "0":
+                            console.log("entrato nel caso 0");
+                            load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=');
+                            console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=')
+                            break;
+                        case "1":
+                            console.log("entrato nel caso 1");
+                            load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=True');
+                            console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=True');
+                            break;
+                        case "2":
+                            console.log("entrato nel caso 2");
+                            load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=False');
+                            console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&indoor=False');
+                            break;
                     }
                 });
                 break;
@@ -150,11 +216,11 @@ $(document).ready(function() {
                 parameters.innerHTML = '<p id="pzp">Tense Arousal</p>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '        <label><input id="pzcheckbox" name="NHFCheckbox" type="checkbox" align=""><br>No happy Faces</label>\n' +
+                    '        <label style="color:black"><input id="pzcheckbox" name="NHFCheckbox" type="checkbox" align=""><br>No happy Faces</label>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="itemspace">\n' +
-                    '          <select id="pzselect">\n' +
+                    '          <select class="pzselect" id="moodSelect">\n' +
                     '            <option value="0" selected>No mood</option>\n' +
                     '            <option value="1">Happy</option>\n' +
                     '            <option value="2">Neutral</option>\n' +
@@ -162,11 +228,23 @@ $(document).ready(function() {
                     '          </select>\n' +
                     '        </div>'
 
-                $("#pzselect").change(function() {
-                    load(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood=' + $("#pzselect").val());
-                    console.log(domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood=' + $("#pzselect").val());
+                $("#moodSelect").change(function() {
+                    nhf =  $("#pzcheckbox").val();
+                    moodValue = $("#moodSelect").val();
+                    query = domain_root + '/api/shots?&mood=' + moodValue + '&nohappyfaces='+nhf + '&q=' +  $("#awesomplete-search").val();
+
+                    load(query);
+                    console.log(query);
                 });
 
+                $("#pzcheckbox").change(function() {
+                    nhf =  $("#pzcheckbox").val();
+                    moodValue = $("#moodSelect").val();
+                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood=' + moodValue + '&nohappyfaces='+nhf
+
+                    load(query);
+                    console.log(query);
+                });
                 break;
             case "0":
                 mainDiv[0].style.display="none";
@@ -295,24 +373,35 @@ function dragend(ev){
 function getMoodQueryset() {
     console.log("inside getMoodQueryset");
     filterType = $("#mood-filter").val();
-    console.log(filterType);
+    //console.log(filterType);
     switch (filterType) {
         case "0":
             console.log("inside case 0");
           return '';
         case "1":
             console.log("inside case 1");
-            moodValue = $('#pzselect').val();
-            moodQueryString = "&mood="+moodValue;
+            moodValue = $('#moodSelect').val();
+            daytimeValue = $("#DNSelect").val();
+            colorValue = $("#HTCRange").val();
+            console.log(colorValue);
+            moodQueryString = "&mood="+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
             return moodQueryString;
         case "2":
             console.log("inside case 2");
-            indoorValue = $('[name="IOCheckbox"]').val();
-            return "&indoor="+indoorValue;
+            indoorValue = $('#IOCheckbox').val();
+            switch (indoorValue) {
+                case "0":
+                    return "&mood=";
+                case "1":
+                    return "&mood=True";
+                case "2":
+                    return "&mood=True";
+            }
         case "3":
             console.log("inside case 3");
-            moodValue = $('#pzselect').val();
-            moodQueryString = "&mood="+moodValue;
+            moodValue = $('#moodSelect').val();
+            nhfValue = $('#pzcheckbox').val();
+            moodQueryString = "&mood="+moodValue+'&nohappyfaces='+nhfValue;
             return moodQueryString;
     }
 }

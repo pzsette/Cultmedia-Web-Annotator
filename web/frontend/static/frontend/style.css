@@ -328,18 +328,13 @@ input[type="file"] {
 
 }
 
-/*#pzlabel {
-  color: black !important;
-  font-size: 14.5px !important;
-}*/
-
-#pzselect {
+.pzselect {
   border-color: black;
   position: relative;
   display: block;
   height: 30px;
   width: 100px;
-  color: #9e9e9e;
+  color: black;
   left: 17%;
 }
 
