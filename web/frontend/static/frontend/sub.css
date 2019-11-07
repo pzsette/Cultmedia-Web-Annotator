@@ -1,0 +1,117 @@
+.subWindow{
+	display: block;
+	position: fixed;
+	width: 50%;
+	height: 75vh;
+	top: 12.5%;
+	left: 25%;
+	padding: 5px;
+	z-index: 100;
+	background-color: lightblue;
+	/*border-radius: 15px;*/
+	border: 4px solid #005077;
+	-webkit-box-shadow: 0px 0px 50px -15px rgba(0,0,0,1);
+	-moz-box-shadow: 0px 0px 50px -15px rgba(0,0,0,1);
+	box-shadow: 0px 0px 50px -15px rgba(0,0,0,1);
+}
+.subWindow video{
+	display: block;
+	width: 262px;
+	height: 150px;
+	margin: 5px auto;
+}
+.subWindow p{
+	text-align: center;
+}
+.subEditing{
+	max-height: 43%;
+	overflow: auto;
+}
+.subtitle{
+	display: flex;
+	align-items: center;
+}
+.start, .end {
+	max-width: 60px;
+	margin: 0 3px !important;
+}
+.subText{
+	margin: 0 3px !important;
+}
+input::-webkit-input-placeholder { /* WebKit browsers */
+  text-indent: 0;
+}
+
+input[type='range'] {
+  max-width: 400px;
+  height: 30px;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  display: block;
+  margin: auto;
+}
+input[type='range'],
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 5px;
+  background: #7d96ff;
+  border-radius: 5px;
+}
+input[type='range']::-webkit-slider-thumb {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  margin-top: -8px;
+  background: #7d96ff;
+  border-radius: 50%;
+  border: 2px solid lightblue;
+}
+
+.start:hover, .end:hover{
+	cursor: copy;
+}
+
+.timeWarning{
+	color: red !important;
+    font-weight: bold;
+}
+
+.savebtn{
+	display: block;
+    position: absolute;
+    margin: 5px;
+    bottom: 5px;
+    right: 5px;
+}
+.clearbtn{
+	display: block;
+    position: absolute;
+    margin: 5px;
+    bottom: 5px;
+    right: 65px;
+	background-color: #ff5a36;
+    border-color: #c20000;
+    color: white;
+}
+.clearbtn:hover, .clearbtn:focus{
+	background-color: #c20000;
+}
+.backbtn{
+	display: block;
+    position: absolute;
+    margin: 5px;
+    bottom: 5px;
+    left: 5px;
+}
+.addSub{
+	display: block;
+	margin: 5px auto;
+}
+
+.fade{
+	opacity: 0.5;
+}

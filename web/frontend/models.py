@@ -66,22 +66,24 @@ def addedVideo (sender, instance, created, **kwargs):
     if hasattr(instance, '_dirty'):
         return
 
-    if settings.MEDIA_URL2 not in instance.web_uri:
-        try:
-            filename = instance.uri.split('/')[-1]
-            print("Downloading starts...")
-            urllib.request.urlretrieve(instance.web_uri, './frontend/' + settings.MEDIA_URL2 + filename)
-            print("Download completed!")
+    print(instance.web_uri)
+    if instance.web_uri is not None:
+        if settings.MEDIA_URL2 not in instance.web_uri:
+            try:
+                filename = instance.uri.split('/')[-1]
+                print("Downloading starts...")
+                urllib.request.urlretrieve(instance.web_uri, './frontend/' + settings.MEDIA_URL2 + filename)
+                print("Download completed!")
 
-            print (instance.uri)
-            if ".mp4" not in instance.uri:
-                newfilename = filename[:-3] + "mp4"
-                cmd = "ffmpeg -i " + filename + " " + newfilename
-                subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && " + cmd, shell=True)
-                subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && rm " + filename, shell=True)
-                instance.uri = settings.MEDIA_URL2 + newfilename
-        except Exception as e:
-            print(e)
+                print (instance.uri)
+                if ".mp4" not in instance.uri:
+                    newfilename = filename[:-3] + "mp4"
+                    cmd = "ffmpeg -i " + filename + " " + newfilename
+                    subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && " + cmd, shell=True)
+                    subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && rm " + filename, shell=True)
+                    instance.uri = settings.MEDIA_URL2 + newfilename
+            except Exception as e:
+                print(e)
     instance.downloaded = True
     try:
         instance._dirty = True
@@ -115,7 +117,6 @@ class Shot(models.Model):
     daytime = models.IntegerField(blank=True, null=True, default=None, validators=[MaxValueValidator(1),
                                                                                    MinValueValidator(0)])
     #0->day  1->night
-
     colourfulness = models.DecimalField(max_digits=5, decimal_places=2, default=0, validators=[MaxValueValidator(1),
                                                                                                MinValueValidator(0)])
 
@@ -157,28 +158,29 @@ class Shot(models.Model):
         ordering = ('id',)
 
 def addedShot (sender, instance, created, **kwargs):
+    filename = instance.uri.split('/')[-1]
     if not instance:
         return
     #uso attributo dirty per evitare ricorsione di save()
     if hasattr(instance, '_dirty'):
         return
+    if instance.web_uri is not None:
+        if settings.MEDIA_URL2 not in instance.web_uri:
+            try:
+                filename = instance.uri.split('/')[-1]
+                print("Downloading starts...")
+                urllib.request.urlretrieve(instance.web_uri, './frontend/' + settings.MEDIA_URL2 + filename)
+                print("Download completed!")
 
-    if settings.MEDIA_URL2 not in instance.web_uri:
-        try:
-            filename = instance.uri.split('/')[-1]
-            print("Downloading starts...")
-            urllib.request.urlretrieve(instance.web_uri, './frontend/' + settings.MEDIA_URL2 + filename)
-            print("Download completed!")
-
-            print (instance.uri)
-            if ".mp4" not in instance.uri:
-                newfilename = filename[:-3] + "mp4"
-                cmd = "ffmpeg -i " + filename + " " + newfilename
-                subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && " + cmd, shell=True)
-                subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && rm " + filename, shell=True)
-                instance.uri = settings.MEDIA_URL2 + newfilename
-        except Exception as e:
-            print(e)
+                print (instance.uri)
+                if ".mp4" not in instance.uri:
+                    newfilename = filename[:-3] + "mp4"
+                    cmd = "ffmpeg -i " + filename + " " + newfilename
+                    subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && " + cmd, shell=True)
+                    subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && rm " + filename, shell=True)
+                    instance.uri = settings.MEDIA_URL2 + newfilename
+            except Exception as e:
+                print(e)
     instance.downloaded = True
     #if instance.thumbnail is None:
     newfilename = instance.uri.split('/')[-1]

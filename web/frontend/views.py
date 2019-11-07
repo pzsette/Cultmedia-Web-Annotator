@@ -16,6 +16,14 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def edit_video_view(request):
+    template = loader.get_template('edit_video.html')
+
+    context = {
+
+    }
+    return HttpResponse(template.render(context,request))
+
 
 def upload(request):
     context = {}

@@ -22,11 +22,25 @@ body{
   background-color: lightblue;
 }
 
+#search::-moz-placeholder {
+	color:gray;
+    opacity: 1;
+}
+/*select#mood {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat;
+	background-position-x: 100%;
+	background-position-y: 50%;
+	background-color: white;
+}*/
+/*FINE NAVBAR FINE NAVBAR FINE NAVBAR FINE NAVBAR FINE NAVBAR FINE NAVBAR FINE NAVBAR FINE NAVBAR FINE NAVBAR*/
+
 #awesomplete-search{
 background-color: rgb(248, 248, 255);
 border: 1px;
 border-bottom: 1px solid rgba(0,0,0,0.87);
-border-radius: 5px;
+/*border-radius: 5px;*/
 text-indent: 2px;
 padding: 0px 0px 0px 50px;
   width: 350px;
@@ -41,8 +55,9 @@ left: 10%;
 width: 30%;
 background-color: rgb(248, 248, 255);
 border: 1px;
+/*border-bottom: 1px solid black;
 border-bottom: 1px solid rgba(0,0,0,0.87);
-border-radius: 5px;
+border-radius: 5px;*/
 text-indent: 10px;
 padding: 0px 0px 0px 50px;
 }
@@ -61,6 +76,7 @@ padding: 0px 0px 0px 50px;
 }
 
 .browser-default{
+	border-radius: 0px !important;
   position: absolute;
   left: 50%;
   top: 16%;
@@ -77,7 +93,7 @@ padding: 0px 0px 0px 50px;
   color: #999999;
 }
 
-#scroller-wrapper{
+/*#scroller-wrapper{
   background-color: lightblue;
   position: absolute;
   bottom: 19%;
@@ -89,6 +105,80 @@ padding: 0px 0px 0px 50px;
   border-radius: 5px;
   box-shadow: 2px 2px #053248;
 
+}*/
+
+#timeline-wrapper, #search-wrapper{
+	background-color: lightblue;
+	position: relative;
+	width: 99%;
+	left: 0.5%;
+	overflow-x: scroll;
+	border: 4px solid #005077;/*/
+	/*border-radius: 15px;*/
+	/*box-shadow: 2px 2px 5px black*/
+	margin: 25px 0 25px 0;
+}
+
+#search-wrapper{
+	height: 200px;
+}/*aggiunte ora queste due sopra*/
+
+/*INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER*/
+#timeline-wrapper{
+	height: 300px;
+	margin-top: 19%;
+}
+#timeline{
+	position: absolute;
+	height: 100%;
+	white-space: nowrap;
+	display: flex;
+	padding: 10px 5px;
+}
+.boxed, #plus{
+	border: 2px solid #005077;
+	/*border-radius: 15px;*/
+	width: 266px;
+	height: 152px;
+	margin: 0 5px;
+	overflow: hidden;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	background-color: #8abaca;
+}
+.boxed video{
+	/*border-radius: 15px;*/
+	padding: 2px;
+}
+.contextmenu{
+	position: fixed;
+	padding: 5px;
+	border-radius: 10px;
+    background: white;
+    border: 2px solid black;
+}
+.contextmenu:hover{
+	background-color: black;
+	border-color: white;
+	color: white;
+	cursor: pointer;
+}
+#plus{
+	/*border: 2px dashed #005077;*/
+	border: 2px dashed #005077;
+}
+#plusbtn{
+	border-radius: 50px;
+	background-color: transparent;
+	border: none;
+	margin: auto;
+	color: #005077;
+	cursor: pointer;
+}
+#plusbtn:hover, #plusbtn:focus{
+	color: white;
+	opacity: 0.75;
 }
 
 #scroller{
@@ -139,18 +229,17 @@ padding: 0px 0px 0px 50px;
   border-radius: 13px;
 }
 
-/*DA MODIFICARE PER TORNARE VECCHIA CONFIGURZIONE*/
 .btn {
   position: absolute;
   right: 0px;
-  top: 86%;
+  top: 89%;
   background-color: #005077;
   border: none;
   color: white;
   cursor: pointer;
-  border: 2px solid #005077;
+  /*border: 2px solid #005077;
   border-radius: 5px;
-  box-shadow: 2px 2px #053248;
+  box-shadow: 2px 2px #053248;*/
 }
 .btn:hover{
   background-color: RoyalBlue;
@@ -168,34 +257,44 @@ padding: 0px 0px 0px 50px;
 #search-wrapper{
   background-color: lightblue;
   position: absolute;
-  top: 12%;
+  top: 10%;
   height: 200px;
   width: 99%;
   left: 0.5%;
   overflow-x: scroll;
   border: 2px solid #005077;
-  border-radius: 5px;
-  box-shadow: 2px 2px #053248;
+  /*border-radius: 5px;
+  box-shadow: 2px 2px #053248;*/
+}
+
+select {
+	border-radius: 0px !important;
+}
+
+
+/**/
+#search::-moz-placeholder {
+	color:gray;
+    opacity: 1;
 }
 
 #search-scroller{
-  position: absolute;
-  height: 100%;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
+	position: absolute;
+	height: 100%;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	padding: 0 5px;
 }
-
 .search-elem{
-  height: 150px;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  width: auto;
-  display: inline-block;
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
+	height: 150px;
+	margin: 0;
+	overflow: hidden;
+	width: auto;
+	display: inline-block;
+	display: flex;
+	align-items: center;
+	padding: 0 5px;
 }
 
 .search-elem:last-child{
@@ -229,15 +328,22 @@ input[type="file"] {
 }
 
 #download {
-  left: 61%;
-  height: 70px;
-  width: 230px;
+  left: 43%;
+  height: 50px;
+  width: 200px;
 }
 
 #export {
   left: 25%;
-  height: 70px;
-  width: 230px;
+  height: 50px;
+  width: 200px;
+}
+
+#clear {
+  left: 61%;
+  background-color: #b32d00;
+  height: 50px;
+  width: 200px;
 }
 
 @keyframes blink {
@@ -295,30 +401,66 @@ input[type="file"] {
 }
 
 .pzdropdown {
-  display: none;
+  display: block;
   top: 10px;
   height: 43px;
   width: 150px;
-  left:48.5%;
+  left:49%;
   position: absolute;
 }
 
 .pzdropdown-content {
+    margin-left: -250px;
+  width: 600px;
+  height: 460px;
   text-align: center;
-  color: black;
-  top:30px;
+  color: #005077;
+  top:50px;
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 10px 16px;
+  padding: 5px 5px;
   z-index: 1000;
 }
 
-.pzdropdown:hover .pzdropdown-content{
+/*.pzdropdown:hover .pzdropdown-content{
   display: block;
+}*/
+
+.leftpane {
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    border-right: 1px solid #005077;
+    width: 33%;
+    height: 100%;
+    float: left;
+    border-collapse: collapse;
 }
+
+.middlepane {
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    width: 34%;
+    height: 100%;
+    float: left;
+    border-right: 1px solid #005077;
+    border-left: 1px solid #005077;
+    border-collapse: collapse;
+}
+
+.rightpane {
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    width: 33%;
+    height: 100%;
+    position: relative;
+    float: right;
+    border-left: 1px solid #005077;
+    border-collapse: collapse;
+}
+
 
 /*class to fix materialize influnce*/
 
@@ -344,3 +486,182 @@ input[type="file"] {
   font-weight: bolder;
 }
 
+/*/
+
+ */
+.effects{
+	top:0px;
+	left: 0px;
+	width: 70px;
+	height: 40px;
+	margin-top: 61px;
+	font-size: 10px;
+	border: 1px solid #005077;
+	color: white;
+	border-radius: 10px;
+	position: relative;
+	display: inline;
+}
+.effects:focus {
+	border-radius: 0;
+}
+select.effects {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat;
+	background-position-x: 100%;
+	background-position-y: 50%;
+	background-color: #005077;
+}
+
+.controls{
+	display: flex;
+	justify-content: space-around;
+	padding: 10px 20px 0 20px;
+	max-width: 276px;
+	flex-wrap: wrap;
+}
+.textbtn, .subbtn, .audiobtn, .textCheckbtn, .audioCheckbtn, .record, .stopRecord, .loadAudio, .savebtn, .clearbtn, .backbtn, .addSub{
+	margin: 0 auto;
+	cursor: pointer;
+	border-radius: 50px;
+	background-color: #8abaca;
+	border: 2px solid #005077;
+	height: 50px;
+	width: 50px;
+	color: black;
+	padding: 0;
+}
+.textbtn:hover, .textbtn:focus,
+.audiobtn:hover, .audiobtn:focus,
+.subbtn:hover, .subbtn:focus,
+.savebtn:hover, .savebtn:focus,
+.clearbtn:hover, .clearbtn:focus,
+.backbtn:hover, .backbtn:focus,
+.addsub:hover, .addSub:focus,
+.textCheckbtn:hover, .textCheckbtn:focus,
+.audioCheckbtn:hover, .audioCheckbtn:focus,
+.record:hover, .record:focus, .stopRecord:hover, .stopRecord:focus,
+.loadAudio:hover, .loadAudio:focus{
+	background-color: #7d96ff;
+}
+.setted{
+	background-color: yellow;
+	border-color: #415646;
+}
+.setted:hover{
+	background-color: yellow;
+}
+.audiobtn.warning{
+	background-color: #ffff53;
+	border-color: #c7a900;
+}
+.audiobtn.warning:hover{
+	background-color: #ffda00;
+}
+.record, .stopRecord{
+	height: 40px;
+	width: 40px;
+	margin: 5px;
+}
+.record.recording {
+	-webkit-animation: pulse 1s infinite ease-in-out;
+	-o-animation: pulse 1s infinite ease-in-out;
+	-ms-animation: pulse 1s infinite ease-in-out;
+	-moz-animation: pulse 1s infinite ease-in-out;
+	animation: pulse 1s infinite ease-in-out;
+}
+
+.textContent{
+	width: 167px !important;
+	background-color: #8abaca !important;
+	height: 46px !important;
+	border: 2px solid #005077 !important;
+	margin: 0 5px !important;
+	text-indent: 5px;
+}
+.audioSelect{
+	width: auto;
+	border: 1px solid RoyalBlue;
+	background-color: #005077;
+	color:white;
+	position: relative;
+	display: inline;
+	border-radius: 10px;
+	line-height: 1.30;
+	height: 50px;
+	margin: auto;
+}
+.audioSelect:focus{
+	border-radius: 0;
+}
+option:hover{
+	background-color: lightblue;
+}
+audio {
+	width: 276px;
+	height: 25px;
+	margin-top:5px;
+}
+.formAudio {
+	margin: 5px;
+	height: 50px;
+	width: 276px;
+}
+.loadAudio{
+	padding: 11px 12px;
+	display: block;
+}
+.loadAudio input {
+	display: none;
+}
+.loadAudio span {
+	font-size: 1.3em;
+	margin: 7px;
+}
+.audioFileName{
+	max-width: 276px;
+	overflow: hidden;
+	text-align: center;
+	margin-top:5px;
+	line-height: 25px;
+}
+.textCheckbtn, .textContent, .audioCheckbtn, .record, .stopRecord, .recordingConsole, .formAudio, .audioSelect, .audioFileName{
+	display: none;
+}
+
+@-webkit-keyframes pulse {
+	0% { -webkit-transform: scale(0.9); opacity: 0.7; }
+	50% { -webkit-transform: scale(1); opacity: 1; }
+	100% { -webkit-transform: scale(0.9); opacity: 0.7; }
+}
+
+@keyframes pulse {
+	0% { transform: scale(0.9); opacity: 0.7; }
+	50% { transform: scale(1); opacity: 1; }
+	100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/*SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR*/
+/* width */
+::-webkit-scrollbar {
+	height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+	/*border-radius: 10px;*/
+	margin: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+	/*border-radius: 10px*/
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}

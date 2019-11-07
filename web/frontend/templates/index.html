@@ -4,9 +4,13 @@
 <head>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
   <script src="{% static 'frontend/index.js' %}"></script>
+  <script src="{% static 'frontend/sub.js' %}"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link href="{% static 'awesomplete/awesomplete.css' %}" type="text/css" rel="stylesheet">
   <script src="{% static 'awesomplete/awesomplete.js' %}" type="text/javascript"></script>
   <script src="{% static 'awesomplete/awesomplete-init.js' %}" type="text/javascript"></script>
@@ -18,11 +22,53 @@
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" type="text/css" href="{% static 'frontend/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/sub.css' %}">
   <meta charset="utf-8">
   <title></title>
   <script type="text/javascript">
 			var domain_root = "{{ request.scheme }}://{{ request.META.HTTP_HOST}}";
 			var full_path = "{{ request.path }}";
+
+			/**
+		 *createControls generate the console with button related to video
+		 *@param {string} videoId - video's id related to buttons
+		 *@return {string} html needed to create the console
+		 */
+            function createControls(videoId){
+                var content = "";
+                content +=
+                "		<div class=\"controls\">" +
+                    //Text
+                "		<button id=\"" + videoId + "_text\" class=\"textbtn waves-effect waves-light\"><i class=\"fa fa-font fa-2x\"></i></button>" +
+                "		<button id=\"" + videoId + "_textCheck\" class=\"textCheckbtn waves-effect waves-light\"><i class=\"fa fa-check-circle fa-2x\"></i></button>" +
+                "		<input id=\"" + videoId + "_textContent\" maxlength=\"25\" class=\"textContent\" type=\"text\" placeholder=\"Type your title\"\>" +
+                    //Subtitles
+                "		<button id=\"" + videoId + "_sub\" class=\"subbtn waves-effect waves-light\"><i class=\"fas fa-align-center fa-2x\"></i></button>" +
+                    //Audio
+                "		<button id=\"" + videoId + "_audio\" class=\"audiobtn waves-effect waves-light\"><i class=\"fa fa-volume-up fa-2x\"></i></button>" +
+                "		<button id=\"" + videoId + "_audioCheck\" class=\"audioCheckbtn waves-effect waves-light\"><i class=\"fa fa-check-circle fa-2x\"></i></button>" +
+                " 		<select id=\"" + videoId + "_audioSelect\" class=\"audioSelect\"> " +
+                "			<option value=\"0\" class=\"option\" selected> " + " Original audio " + " </option> " +
+                "			<option value=\"1\" class=\"option\"> " + " Without audio " + " </option> " +
+                "			<option value=\"2\" class=\"option\"> " + " Recorded audio " + " </option> " +
+                "			<option value=\"3\" class=\"option\"> " + " Uploaded audio " + "</option> " +
+                "		</select> " +
+
+                "		<div class=\"recordingConsole\"> " +
+                "			<button id=\"" + videoId + "_record\" class = \"record  waves-effect waves-light\" disabled><i class=\"fa fa-play\"></i></button>" +
+                "			<button id=\"" + videoId + "_stopRecord\" class=\"stopRecord  waves-effect waves-light\" disabled><i class=\"fa fa-stop\"></i></button> " +
+                "		</div>" +
+                "		{% csrf_token %} " +
+                "		<audio id=\"" + videoId + "_recordedAudio\" class=\"recordedAudio\"></audio>" +
+
+                "		<form id=\"" + videoId + "_formAudio\" enctype=\"multipart/form-data\" class=\"formAudio\" > " +
+                "			{% csrf_token %} " +
+                "			<label class=\"waves-effect waves-light loadAudio\" for=\"" + videoId + "_loadedAudio\"><i class=\"fa fa-upload fa-2x\"></i><input type=\"file\" name=\"audio\" id=\"" + videoId + "_loadedAudio\"></label>" +
+                "		</form>" +
+                "		<div class=\"audioFileName\"></div>" +
+                "		</div>"
+                return content;
+            }
   </script>
     <script>
       function fileUpload() {
@@ -41,19 +87,94 @@
             <label class="label-icon" for="search" style="margin-left: 2px"><i class="material-icons md-36">search</i></label>
         </form>
       </li>
-      <li>
+      <!--<li>
           <select id="mood-filter" class="browser-default" style="left:38%; width:10%; top:10px; height:43px" >
-          <option value="0" selected>Filter type</option>
+          <option value="0" selected>Filtro</option>
           <option value="1" class="others">Piacere</option>
           <option value="2" class="others">Energia</option>
           <option value="3" class="others">Tensione</option>
           </select>
-      </li>
+      </li>-->
       <li>
           <div class="pzdropdown">
-            <p style="line-height: 15px;margin-left: 7px; color: black">Scegli Parametri</p>
+            <button onclick="myFunction()" style="top:0%; height:45px; width:200px; background-color:#ff6600" class="btn waves-effect waves-light">Filters</button>
             <div id="dropelement" class="pzdropdown-content">
+                <div class="leftpane">
+                    <p id="pzp">Valence</p>
+                    <div class="itemspace">
+                        <label id="pzlabel" style="color:black"><input id="HTCRange" type="range" min="0" max="1" step="0.1" value="0">Min Colourfulness: <span id="HTCValue"></span></label>
+                    </div>
+                    <div class="itemspace">
+                        <select class="pzselect" id="DNPSelect">
+                            <option value="0" selected>Tutto il giorno</option>
+                            <option value="1" class="others">Giorno</option>
+                            <option value="2" class="others">Notte</option>
+                        </select>
+                    </div>
+                    <div class="itemspace">
+                        <select class="pzselect" id="PMoodSelect">
+                            <option value="0" selected>No mood</option>
+                            <option value="1" class="others">Happy</option>
+                            <option value="2" class="others">Neutral</option>
+                            <option value="3" class="others">Sad</option>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="middlepane">
+                    <p id="pzp">Energy</p>
+                    <div class="itemspace">
+                        <select class="pzselect" id="DNESelect">
+                            <option value="0" selected>Time</option>
+                            <option value="1" class="others">Day</option>
+                            <option value="2" class="others">Night</option>
+                        </select>
+                    </div>
+
+                    <div class="itemspace">
+                        <select class="pzselect" id="IOSelect">
+                            <option value="0" selected>Location</option>
+                            <option value="1" class="others">Spazio chiuso</option>
+                            <option value="2" class="others">Spazio aperto</option>
+                        </select>
+                    </div>
+
+                    <div class="itemspace">
+                        <label style="color: black"><input id="EAPRange" type="range" min="0" max="1" step="0.1" value="0"> Min Pixel-Motion: <span id="EAPValue"></span></label>
+                    </div>
+
+                    <div class="itemspace">
+                        <label style="color: black"><input id="EADRange" type="range" min="10" max="90" step="10" value="90">Max Durata: <span id="EADValue"></span></label>
+                    </div>
+
+                    <div class="itemspace">
+                        <label style="color: black"><input id="EALRange" type="range" min="0" max="1" step="0.1" value="1"> Max Loudness: <span id="EALValue"></span></label>
+                    </div>
+
+                    <div class="itemspace">
+                        <select class="pzselect" id="DNDSelect">
+                            <option value="0" selected>Dialoghi e Non</option>
+                            <option value="1" class="others">Dialoghi</option>
+                            <option value="2" class="others">Senza Dialoghi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rightpane">
+                    <p id="pzp">Tense</p>
+                    <div class="itemspace">
+                        <label style="color:black"><input id="pzcheckbox" name="NHFCheckbox" type="checkbox" align=""><br>No happy faces</label>
+                    </div>
+
+                    <div class="itemspace">
+                        <select class="pzselect" id="TMoodSelect">
+                            <option value="0" selected>No mood</option>
+                            <option value="1">Happy</option>
+                            <option value="2">Neutral</option>
+                            <option value="3">Sad</option>
+                        </select>
+                    </div>
+                </div>
             </div>
           </div>
       </li>
@@ -63,14 +184,59 @@
 <div id="search-wrapper">
   <div id="search-scroller"></div>
 </div>
+<div id="timeline-wrapper">
+  <div id="timeline">
+	<div id="plus"><button id="plusbtn" class="waves-effect waves-light"><i class="fa fa-plus-circle fa-4x"></i></button></div>
+  </div>
+</div>
+
 <button id="annotator" class="btn waves-effect waves-light"><i class="fa fa-film"></i> Annotator</button>
 <button id="upload" class="btn waves-effect waves-light"><i class="fas fa-upload"></i> Upload</button>
 <button id="download" class="btn waves-effect waves-light"><i class="fas fa-file-download"></i> Download</button>
 <button id="export" class="btn waves-effect waves-light"><i class="fas fa-file-export"></i> Export</button>
+<button id="clear" class="btn waves-effect waves-light"><i class="fa fa-eraser"></i> Clear</button>
 
 <div id="scroller-wrapper">
   <div id="scroller"></div>
 </div>
 
 </body>
+<script>
+    function myFunction() {
+        dropDiv = document.getElementsByClassName("pzdropdown-content");
+        if (dropDiv[0].style.display == "none") {
+            dropDiv[0].style.display = "block";
+        } else {
+            dropDiv[0].style.display = "none";
+        }
+    }
+
+    var HTCslider = document.getElementById("HTCRange");
+    var HTCoutput = document.getElementById("HTCValue");
+    HTCoutput.innerHTML = HTCslider.value;
+    HTCslider.oninput = function() {
+        HTCoutput.innerHTML = this.value;
+    };
+
+    var EAPslider = document.getElementById("EAPRange");
+    var EAPoutput = document.getElementById("EAPValue");
+    EAPoutput.innerHTML = EAPslider.value;
+    EAPslider.oninput = function() {
+      EAPoutput.innerHTML = this.value;
+    };
+
+    var EADslider = document.getElementById("EADRange");
+    var EADoutput = document.getElementById("EADValue");
+    EADoutput.innerHTML = EADslider.value;
+    EADslider.oninput = function() {
+      EADoutput.innerHTML = this.value;
+    };
+
+    var EALslider = document.getElementById("EALRange");
+    var EALoutput = document.getElementById("EALValue");
+    EALoutput.innerHTML = EALslider.value;
+    EALslider.oninput = function() {
+        EALoutput.innerHTML = this.value
+    };
+</script>
 </html>

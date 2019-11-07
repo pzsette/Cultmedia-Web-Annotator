@@ -258,3 +258,14 @@ input:focus {
   overflow: auto !important;
   height: 300px;
 }
+
+#utente{
+    margin-left: 45px;
+    font-size: 20px;
+}
+
+#back{
+    border-radius: 4px;
+    margin-left: 33px;
+    width: 150px;
+}
