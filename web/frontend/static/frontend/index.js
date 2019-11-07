@@ -526,7 +526,7 @@ $(document).ready(function() {
 			$audioSelect.val('0').change();
 		}
 		else {
-			navigator.mediaDevices.getUserMedia({audio: true, video:false})
+			navigator.mediaDevices.getUserMedia({audio: true})
 				.then(stream => {
 					handlerFunction(stream, $audioSelect.siblings(".recordedAudio"));
 					$(".record").prop("disabled", false);

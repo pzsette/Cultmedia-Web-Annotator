@@ -22,7 +22,7 @@ function openWindow(videoId){
 	$("#"+videoId+"\\.mp4").clone().appendTo($subWindow);
 	
 	$(".subWindow video").eq(0).on('loadedmetadata', function(){
-		$(this).after("<input type=\"range\" min=\"0\" max=\""+this.duration+"\" step=\"0.2\" value=\"0.0\"><p>00:00.0</p>");
+		$(this).after("<input id='subRange' type=\"range\" min=\"0\" max=\""+this.duration+"\" step=\"0.2\" value=\"0.0\"><p>00:00.0</p>");
 		var content = 
 			"<div class=\"subEditing\"></div>" +
 			"<button class=\"addSub waves-effect waves-light\" onclick=\"addSub()\"><i class=\"fa fa-plus-circle fa-2x\"></i></button>";
@@ -165,21 +165,27 @@ $(document).ready(function(){
 	});
 
 	$("body").on('click', ".start", function(){
-		$(this).val(secToDuration($("input[type=range]").val()));
+		$(this).val(secToDuration($("#subRange").val()));
 		controlTime();
 	});
 
 	$("body").on('click', ".end", function(){
-		$(this).val(secToDuration($("input[type=range]").val()));
+		$(this).val(secToDuration($("#subRange").val()));
 		controlTime();
 	});
 
-
-	$("body").on('input', "input[type=range]", function(){
+	$("body").on('input', "#subRange", function(){
 		var value = $(this).val();
 		$(this).next("p").html(secToDuration(value));
 		$(this).prev('video')[0].currentTime = value;
 	});
+
+	/*$("body").on('input', "input[type=range]", function(){
+		var value = $(this).val();
+		console.log(value);
+		$(this).next("p").html(secToDuration(value));
+		$(this).prev('video')[0].currentTime = value;
+	});*/
 
 	$("body").on('keyup', ".subText", function(e){
 		if(e.keyCode == 13){
