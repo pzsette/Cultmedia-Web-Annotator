@@ -398,18 +398,14 @@ $(document).ready(function() {
 	});
 
 	$("body").on('click', ".audioCheckbtn", function(){
-		console.log("cliccato");
 		$(this).siblings().hide();
 		$(this).siblings(".textbtn, .audiobtn, .subbtn").show();
 		$(this).hide();
 		switch($(this).siblings(".audioSelect").val()){
 			case "0":
-				console.log("rimuovo setted");
-				$(this).siblings(".audiobtn").removeClass("setted");
-				break;
+
 			case "1":
 				$(this).siblings(".audiobtn").removeClass("warning");
-				$(this).siblings(".audiobtn").addClass("setted");
 				break;
 			case "2":
 				$(this).siblings().find(".stopRecord").click();
@@ -425,7 +421,7 @@ $(document).ready(function() {
 				if($(this).siblings(".formAudio").find("input[type=file]").val() != ""){
 					$(this).siblings(".audioFileName").show();
 					$(this).siblings(".audiobtn").removeClass("warning");
-					$(this).siblings(".audiobtn").addClass("setted");
+					//$(this).siblings(".audiobtn").addClass("setted");
 				}
 				else{
 					$(this).siblings(".audiobtn").addClass("warning");

@@ -169,9 +169,15 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/static')
 
-MEDIA_URL = '/frontend/videoferracani/'
-MEDIA_URL2 = 'videoferracani/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/videoferracani')
+mediafolder = os.getenv('MEDIA_FOLDER')
+
+#MEDIA_URL = '/frontend/videoferracani/'
+#MEDIA_URL2 = 'videoferracani/'*/
+
+MEDIA_URL = '/frontend/'+mediafolder+'/'
+MEDIA_URL2 = mediafolder+'/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/'+mediafolder)
 
 MEDIA_ROOT2 = os.path.join(BASE_DIR, 'frontend/zipvideo')
 

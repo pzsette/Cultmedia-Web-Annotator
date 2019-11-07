@@ -13,6 +13,7 @@ services:
     build: ./web/.
     #command: python manage.py runserver 0.0.0.0:8000
     command: ./run_web.sh
+    env_file: ./social.env
     volumes:
       - ./web:/code
     ports:
