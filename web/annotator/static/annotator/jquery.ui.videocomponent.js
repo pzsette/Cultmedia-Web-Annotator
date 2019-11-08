@@ -169,12 +169,6 @@ $.widget( "ui.videocomponent", {
 		};
 		self.annotationsList = new List('video__annotations', options, annotationsData);
 		self.addListCallbacks();
-//		self.annotationsList.add({
-//  			start: "5.5",
-//  			end: "5.5",
-//			arousal: "1.3",
-//			valence: "2.5"
-//		});
 	},
 	
 	addListCallbacks : function(){
@@ -456,24 +450,6 @@ $.widget( "ui.videocomponent", {
 		$.getJSON(domain_root+'/api/shots', function (data) {
 			self.parseVideosList(data.results);
 		})
-		/*var self = this;
-		request_type = "load";
-		var self = this;
-		var request = $.ajax({
-			url: 'server/',
-			type: "POST",
-			data: {"action" : request_type},
-			dataType: "json",
-		});
-	 
-		request.done(function(data) {
-			self.parseVideosList(data);
-		});
-	 
-		request.fail(
-			function(jqXHR, textStatus) {
-				alert( "Request failed: " + textStatus );
-		});*/
 	},
 	
 	parseVideosList : function(data) {
@@ -495,23 +471,6 @@ $.widget( "ui.videocomponent", {
 		$.getJSON(domain_root + '/api/shots?id='+sourceId, function (data) {
 			self.parseVideoDetail(data.results, sourceId);
 		})
-		/*request_type = "load";
-		var self = this;
-		var request = $.ajax({
-			url: 'server/actions.php',
-			type: "POST",
-			data: {"action" : request_type, "sourceId" : sourceId},
-			dataType: "json",
-		});
-	 
-		request.done(function(data) {
-			self.parseVideoDetail(data);
-		});
-	 
-		request.fail(
-			function(jqXHR, textStatus) {
-				alert( "Request failed: " + textStatus );
-		});*/
 	},
 	
 	parseVideoDetail: function(data, sourceId) {
@@ -528,15 +487,6 @@ $.widget( "ui.videocomponent", {
 	},
 	
 	addAnnotation: function(video_id, start, end, arousal, valence)  {
-//		console.log(self.currentShotStart)
-//		console.log('ADD ANNOTATION');
-
-		/*console.log("video_id: " + video_id);
-		console.log("start: " + start);
-		console.log("end: " + end);
-		console.log("arousal: " + arousal);
-		console.log("valence: " + valence);*/
-		
 		if((start != null) && (end != null)) {
 			console.log("video_id: " + video_id);
 			console.log("start: " + start);
@@ -559,13 +509,6 @@ $.widget( "ui.videocomponent", {
 		self = this
 
 		const Url = domain_root + '/api/annotation/';
-		/*const data = {
-			shot:videoId,
-			startAnnotation:start,
-			endAnnotation:end,
-			arousal:arousal,
-			valence:valence,
-		};*/
 
 		var csrftoken = $.cookie('csrftoken');
 
@@ -599,16 +542,6 @@ $.widget( "ui.videocomponent", {
 		request.done(function (data) {
 			self.parseAnnotation(data,videoId)
 		})
-
-
-		/*request.done(function(data) {
-			self.parseAnnotation(data.results);
-		});
-	 
-		request.fail(
-			function(jqXHR, textStatus) {
-				alert( "Request failed: " + textStatus );
-		});*/
 	},
 	
 	parseAnnotation: function(data, videoid){
@@ -658,107 +591,6 @@ $.widget( "ui.videocomponent", {
 		self = this;
 		self.annotationsList.remove('id', id);
 	},
-
-	/*reviseAVGannotation: function(id) {
-
-		$.getJSON(domain_root + '/api/annotation?shot_id='+id, function (data) {
-			if (data.count != 0) {
-				var arousalSum = 0;
-				var valenceSum = 0;
-				for (i = 0; i < data.count; i++) {
-					arousalSum += data.results[i].arousal;
-					valenceSum += data.results[i].valence;
-				}
-				var arousalAVG = arousalSum / data.count;
-				var valenceAVG = valenceSum / data.count;
-				console.log("arousalAVG"+arousalAVG);
-				console.log("valenceAVG"+valenceAVG);
-
-				if (arousalAVG < 4) {
-					arousalAVG = -1;
-				} else if (arousalAVG < 7) {
-					arousalAVG = 0;
-				} else {
-					arousalAVG = 1;
-				}
-
-				if (valenceAVG < 4) {
-					valenceAVG = -1;
-				} else if (valenceAVG < 7) {
-					valenceAVG = 0;
-				} else {
-					valenceAVG = 1;
-				}
-
-
-				// var http = new XMLHttpRequest();
-				var url = domain_root + '/api/shots/' + id + '/';
-
-				var csrftoken = $.cookie('csrftoken');
-
-				function csrfSafeMethod(method) {
-    				// these HTTP methods do not require CSRF protection
-    				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-				}
-
-				$.ajaxSetup({
-    				beforeSend: function(xhr, settings) {
-        				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            				xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        				}
-    				}
-				});
-
-				console.log()
-
-				$.ajax({
-					headers: {
-            			'X-CSRFTOKEN': '{{ csrf_token }}'
-        			},
-    				type : "PATCH",
-        			dataType: "json",
-        			url: url,
-        			data: {
-        				arousal_avg: arousalAVG,
-						valence_avg: valenceAVG,
-					},
-				})
-
-			} else {
-
-				var url = domain_root + '/api/shots/' + id + '/';
-
-				var csrftoken = $.cookie('csrftoken');
-
-				function csrfSafeMethod(method) {
-					// these HTTP methods do not require CSRF protection
-					return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-				}
-
-				$.ajaxSetup({
-					beforeSend: function (xhr, settings) {
-						if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-							xhr.setRequestHeader("X-CSRFToken", csrftoken);
-						}
-					}
-				});
-
-				$.ajax({
-					headers: {
-						'X-CSRFTOKEN': '{{ csrf_token }}'
-					},
-					type: "PATCH",
-					dataType: "json",
-					url: url,
-					data: {
-						arousal_avg: "",
-						valence_avg: "",
-					},
-				})
-			}
-
-		})
-	},*/
 
 	updateWidget : function(param, type) {
 		var self = this;

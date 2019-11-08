@@ -48,7 +48,7 @@ padding: 0px 0px 0px 50px;
 
 #nav-mobile {padding-left: 16%;}
 
-#search{
+#search {
 position: absolute;
 top: 16%;
 left: 10%;
@@ -125,7 +125,7 @@ padding: 0px 0px 0px 50px;
 
 /*INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER INIZIO TIMELINE-WRAPPER*/
 #timeline-wrapper{
-	height: 300px;
+	height: 330px;
 	margin-top: 19%;
 }
 #timeline{

@@ -47,7 +47,7 @@ def upload(request):
         video_id = (v.json()['id'])
         print (video_id)
         shot_payload = {'title': uploaded_file.name, 'video': video_id, 'uri': settings.MEDIA_URL2+uploaded_file.name,
-                        'keywords': video_keywords}
+                        'keywords': video_keywords, 'duration': video_duration, 'keywords': video_keywords}
         shot_post_url = url + 'api/shots/'
         requests.post(shot_post_url, data=shot_payload)
 

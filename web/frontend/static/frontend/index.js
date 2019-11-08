@@ -653,7 +653,7 @@ $(document).ready(function() {
 	/**
 	 *MOOD - PIACERE
 	 */
-	$("#PmoodSelect").change(function() {
+	$("#PMoodSelect").change(function() {
                     daytimeValue = $("#DNPSelect").val();
                     colorValue =  $("#HTCRange").val();
                     moodValue = $("#PMoodSelect").val();

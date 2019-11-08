@@ -151,7 +151,8 @@ class Shot(models.Model):
 
     def delete(self, *args, **kwargs):
         filename = self.uri.split('/')[-1]
-        subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename, shell=True)
+        filethumb = filename[:-3] + "jpg"
+        subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename + "&& rm "+filethumb, shell=True)
         super(Shot, self).delete(*args, **kwargs)
 
     class Meta:
@@ -164,7 +165,7 @@ def addedShot (sender, instance, created, **kwargs):
     #uso attributo dirty per evitare ricorsione di save()
     if hasattr(instance, '_dirty'):
         return
-    if instance.web_uri is not None:
+    if instance.downloaded is False:
         if settings.MEDIA_URL2 not in instance.web_uri:
             try:
                 filename = instance.uri.split('/')[-1]
@@ -182,13 +183,13 @@ def addedShot (sender, instance, created, **kwargs):
             except Exception as e:
                 print(e)
     instance.downloaded = True
-    #if instance.thumbnail is None:
-    newfilename = instance.uri.split('/')[-1]
-    cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./" + settings.MEDIA_URL2 + newfilename,
-                                                      o="./" + settings.MEDIA_URL2 +
-                                                        filename[:-3] + "jpg")
-    subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
-    instance.thumbnail = settings.MEDIA_URL2 + filename[:-3] + "jpg"
+    if instance.thumbnail is None:
+        newfilename = instance.uri.split('/')[-1]
+        cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./" + settings.MEDIA_URL2 + newfilename,
+                                                          o="./" + settings.MEDIA_URL2 +
+                                                            filename[:-3] + "jpg")
+        subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
+        instance.thumbnail = settings.MEDIA_URL2 + filename[:-3] + "jpg"
     try:
         instance._dirty = True
         instance.save()
@@ -243,7 +244,7 @@ class Annotation(models.Model):
         else:
             valenceAVG = 1
 
-        shot_patch_url = baseurl + 'api/shots/' + str(id) + "/"
+        shot_patch_url = baseurl + 'api/shots/' + str(id)+'/'
         shot_payload = {'arousal_avg': arousalAVG, 'valence_avg': valenceAVG}
         requests.patch(shot_patch_url, data=shot_payload)
 
@@ -261,7 +262,7 @@ class Annotation(models.Model):
 
         if obj["count"] == 0:
             print("0 annotationi su questo shot")
-            shot_patch_url = baseurl + 'api/shots/' + str(id) + "/"
+            shot_patch_url = baseurl + 'api/shots/?id=' + str(id)
             shot_payload = {'arousal_avg': "", 'valence_avg': ""}
             requests.patch(shot_patch_url, data=shot_payload)
 
@@ -292,6 +293,8 @@ class Annotation(models.Model):
             else:
                 valenceAVG = 1
 
-            shot_patch_url = baseurl + 'api/shots/' + str(id) + "/"
+            shot_patch_url = baseurl + 'api/shots/'+str(id)+'/'
             shot_payload = {'arousal_avg': arousalAVG, 'valence_avg': valenceAVG}
+            print (arousalAVG)
+            print (valenceAVG)
             requests.patch(shot_patch_url, data=shot_payload)

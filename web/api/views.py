@@ -383,6 +383,11 @@ class ShotViewSet(viewsets.ModelViewSet):
         queryset = Shot.objects.all()
         queryset = queryset.filter(Q(downloaded=True))
 
+        # id
+        id = self.request.query_params.get('id', None)
+        if id is not None:
+            queryset = queryset.filter(Q(id=id))
+
 
         #indoor
         indoor = self.request.query_params.get('indoor', None)
@@ -400,11 +405,6 @@ class ShotViewSet(viewsets.ModelViewSet):
         color = self.request.query_params.get('colourfulness', None)
         if color is not None:
             queryset = queryset.filter(Q(colourfulness__gte=color))
-
-        #id
-        id = self.request.query_params.get('id', None)
-        if id is not None:
-            queryset = queryset.filter(Q(id=id))
 
         #nohappyface
         nhf = self.request.query_params.get('nohappyfaces', None)
@@ -480,7 +480,7 @@ class ShotViewSet(viewsets.ModelViewSet):
                 c2 = Q(arousal_avg=-1) & Q(valence_avg=-1)
                 c3 = Q(arousal_avg=0) & Q(valence_avg=-1)
                 queryset = queryset.filter(c1 | c2 | c3)
-        return queryset[:100]
+        return queryset
 
         '''queryset = Shot.objects.all()
         q = self.request.query_params.get('q', None)
