@@ -138,6 +138,8 @@ class Shot(models.Model):
             self.web_uri = self.uri
             filename = self.uri.split('/')[-1]
             self.uri = settings.MEDIA_URL2 + filename
+        else:
+            self.downloaded = True
         '''if self.thumbnail is None:
             filename = self.uri.split('/')[-1]
             cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./"+settings.MEDIA_URL2 + filename, o="./"+settings.MEDIA_URL2+

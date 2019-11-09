@@ -24,7 +24,6 @@ def edit_video_view(request):
     }
     return HttpResponse(template.render(context,request))
 
-
 def upload(request):
     context = {}
     if request.method == 'POST':
@@ -35,18 +34,19 @@ def upload(request):
         name = fs.save(uploaded_file.name, uploaded_file)
         context['url'] = fs.url(name)
 
+        video_title = request.POST.get('title')
         video_description = request.POST.get('description')
         video_keywords = request.POST.get('keywords')
         video_duration = request.POST.get('duration')
         url = request.build_absolute_uri().replace('/frontend/upload', '')
-        video_payload = {'title': uploaded_file.name, 'description': video_description, 'keywords': video_keywords,
+        video_payload = {'title': video_title, 'description': video_description, 'keywords': video_keywords,
                          'duration': video_duration, 'uri': settings.MEDIA_URL2+uploaded_file.name}
         video_post_url = url + 'api/videos/'
         v = requests.post(video_post_url, data=video_payload)
         print (v.json())
         video_id = (v.json()['id'])
         print (video_id)
-        shot_payload = {'title': uploaded_file.name, 'video': video_id, 'uri': settings.MEDIA_URL2+uploaded_file.name,
+        shot_payload = {'title': video_title, 'video': video_id, 'uri': settings.MEDIA_URL2+uploaded_file.name,
                         'keywords': video_keywords, 'duration': video_duration, 'keywords': video_keywords}
         shot_post_url = url + 'api/shots/'
         requests.post(shot_post_url, data=shot_payload)

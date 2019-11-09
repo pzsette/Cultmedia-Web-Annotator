@@ -225,6 +225,10 @@ def process_edited_videos(request):
         videos = videos.split(",")
         texts = texts.split(",")
         audios = audios.split(",")
+
+        print ("audio")
+        print (audios)
+        print (videos)
         subtitles = subtitles.split("||,")
 
         for index, i in enumerate(videos):
@@ -336,15 +340,32 @@ def process_edited_videos(request):
 
 def retrieve_videos(request):
     videos = request.GET.get('videos', None)
+    audiosToExport = request.GET.get('audios', None)
+
     videos = videos.split(",")
+    audiosToExport = audiosToExport.split(",")
+    videosToExport = []
+    for i in range(len(videos)):
+        videosToExport.append(videos[i]+".mp4")
     subprocess.call("mkdir -p ./frontend/zipvideo", shell=True)
     subprocess.call("rm -rf ./frontend/zipvideo/*", shell=True)
     subprocess.call("cp ./frontend/static/script.jsx ./frontend/zipvideo", shell=True)
-    createcsv(videos)
+    print("VIDEOS")
+    print (videos)
+    print ("AUDIOSTOEXPORT")
+    print (audiosToExport)
+    print ("VIDEOSTOEXPORT")
+    print (videosToExport)
+    createcsv(videosToExport)
     zipstr = ""
-    for i in videos:
-        zipstr += "./" + i + " "
-        subprocess.call("cp ./frontend/"+settings.MEDIA_URL2 + i + " ./frontend/zipvideo", shell=True)
+    for i in range(len(videosToExport)):
+        zipstr += "./" + videosToExport[i] + " "
+        subprocess.call("cp ./frontend/"+settings.MEDIA_URL2 + videosToExport[i] + " ./frontend/zipvideo", shell=True)
+        if audiosToExport[i] == "2" or audiosToExport[i] == "3":
+            subprocess.call("cp ./frontend/" + settings.MEDIA_URL2 + videos[i]+"_audio.wav" + " ./frontend/zipvideo",
+                            shell=True)
+            zipstr += "./" + videos[i]+"_audio.wav" + " "
+
     zipstr += " ./videolist.csv ./script.jsx"
 
     subprocess.call("cd ./frontend/zipvideo && zip video.zip " + zipstr, shell=True)

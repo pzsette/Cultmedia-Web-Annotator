@@ -534,6 +534,7 @@ $(document).ready(function() {
 		}
     }
 
+    //prende audio registrato
     function handlerFunction(stream, $recordedAudio) {
 		var position = findSpotPosition($recordedAudio.parents(".spot"));
         rec[position] = new MediaRecorder(stream);
@@ -1111,13 +1112,17 @@ $(document).ready(function() {
         //var effects = [];
         //var videos= document.getElementById("scroller").getElementsByTagName("VIDEO")
 		var videos = encodeURIComponent(localStorage.getItem("videos").split(","));
+		var audios = encodeURIComponent(localStorage.getItem("audios").split(","));
+
+		audios = decodeURIComponent(audios).split(",");
 		videos = decodeURIComponent(videos).split(",");
         console.log(videos);
+        console.log(audios);
         //var effectsElements = document.getElementById("scroller").getElementsByTagName("SELECT");
-        for (var i = 0; i < videos.length; i++) {
+        /*for (var i = 0; i < videos.length; i++) {
             videos[i] += ".mp4"
-        }
-        console.log(videos);
+        }*/
+        //console.log(videos);
         /*for (var i = 0; i < videos.length-1; i++){
             effects.push(effectsElements[i].value);
         }*/
@@ -1125,12 +1130,12 @@ $(document).ready(function() {
         /*for (var i=0; i < final.length; i++) {
             final[i] = final[i].replace("_timeline", "");
         }*/
-        console.log("Final:");
-        console.log(final);
+        /*console.log("Final:");
+        console.log(final);*/
         //console.log("Effects:");
         //console.log(effects);
 
-        $.ajax({ url: domain_root + "/api/retrieve_videos?videos=" + videos, success: function (result) {
+        $.ajax({ url: domain_root + "/api/retrieve_videos?videos=" + videos+"&audios="+audios, success: function (result) {
             var req = new XMLHttpRequest();
             req.open("GET", domain + "zipvideo/video.zip", true);
             req.responseType = "blob";

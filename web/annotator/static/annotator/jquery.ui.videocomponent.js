@@ -165,7 +165,7 @@ $.widget( "ui.videocomponent", {
 		self = this;
 		var options = {
   			valueNames: [ 'startAnnotation', 'endAnnotation', 'arousal', 'valence', 'id' ],
-			item: '<tr><td class="id" style="display:none;"></td><td class="remove"><button class="remove-item-btn"><i class="fas fa-backspace"></i></button></td><td class="startAnnotation"></td><td class="endAnnotation"></td><td class="arousal"></td><td class="valence"></td></tr>'
+			item: '<tr><td class="id" style="display:none;"></td><td class="remove"><button class="remove-item-btn"><i class="far fa-trash-alt"></i></button></td><td class="startAnnotation"></td><td class="endAnnotation"></td><td class="arousal"></td><td class="valence"></td></tr>'
 		};
 		self.annotationsList = new List('video__annotations', options, annotationsData);
 		self.addListCallbacks();
