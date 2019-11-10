@@ -18,9 +18,6 @@
 
 $(document).ready(function() {
 
-    console.log("awesomplate full_path: " + full_path)
-    console.log("awesomplate domain_root: " + domain_root)
-
     var domain = domain_root + full_path;
 
     var ajax = new XMLHttpRequest();

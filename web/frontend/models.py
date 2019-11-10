@@ -13,7 +13,6 @@ from django.core.validators import URLValidator, MaxValueValidator, MinValueVali
 from django.db.models.signals import post_delete
 from django.db.models.signals import post_save
 from django.contrib.sites.models import Site
-from background_task import background
 
 User = get_user_model()
 
@@ -98,7 +97,7 @@ post_save.connect(addedVideo, sender=Video)
 class Shot(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     title = models.CharField(u'Shot Title', help_text=u'Shot Title', blank=True, null=True, max_length=30)
-    thumbnail = models.TextField(blank=True, null=True)
+    thumbnail = models.TextField(blank=True, null=True, default=None)
     arousal_avg = models.IntegerField(u'Shot Arousal', help_text=u'Shot Arousal', blank=True, null=True, default=None,
                                       validators=[MaxValueValidator(1), MinValueValidator(-1)])
     valence_avg = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=None,
@@ -154,7 +153,8 @@ class Shot(models.Model):
     def delete(self, *args, **kwargs):
         filename = self.uri.split('/')[-1]
         filethumb = filename[:-3] + "jpg"
-        subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename + "&& rm "+filethumb, shell=True)
+        fileaudio = filename[:-4] + "_audio.wav"
+        subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename + "&& rm "+filethumb+" && rm "+fileaudio, shell=True)
         super(Shot, self).delete(*args, **kwargs)
 
     class Meta:

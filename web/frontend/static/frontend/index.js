@@ -1107,17 +1107,13 @@ $(document).ready(function() {
         $(this).prop("disabled", true);
         $(this).html("<i class=\"fa fa-download\"></i> RENDERING...");
         expButton.classList.add("dots");
-        //expButton.innerHTML = '<i class="fas fa-file-export"></i>  EXPORTING <span>.</span><span>.</span><span>.</span>';
         var final = [];
-        //var effects = [];
-        //var videos= document.getElementById("scroller").getElementsByTagName("VIDEO")
+
 		var videos = encodeURIComponent(localStorage.getItem("videos").split(","));
 		var audios = encodeURIComponent(localStorage.getItem("audios").split(","));
 
 		audios = decodeURIComponent(audios).split(",");
 		videos = decodeURIComponent(videos).split(",");
-        console.log(videos);
-        console.log(audios);
         //var effectsElements = document.getElementById("scroller").getElementsByTagName("SELECT");
         /*for (var i = 0; i < videos.length; i++) {
             videos[i] += ".mp4"
@@ -1130,10 +1126,6 @@ $(document).ready(function() {
         /*for (var i=0; i < final.length; i++) {
             final[i] = final[i].replace("_timeline", "");
         }*/
-        /*console.log("Final:");
-        console.log(final);*/
-        //console.log("Effects:");
-        //console.log(effects);
 
         $.ajax({ url: domain_root + "/api/retrieve_videos?videos=" + videos+"&audios="+audios, success: function (result) {
             var req = new XMLHttpRequest();
@@ -1150,8 +1142,6 @@ $(document).ready(function() {
           };
           $("#export").html("<i class=\"fa fa-download\"></i> EXPORT").prop("disabled", false);
           req.send();
-          //expButton.innerHTML = '<i class="fas fa-file-export"></i>  EXPORT'
-          //expButton.classList.remove('dots')
         }})
 
     });

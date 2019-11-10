@@ -176,7 +176,6 @@ $.widget( "ui.videocomponent", {
   		// Needed to add new buttons to jQuery-extended object
   		$(document).on('click', '.remove-item-btn', function() {
 			var itemId = $(this).closest('tr').find('.id').text();
-//			self.annotationsList.remove('id', itemId);
 			self.deleteAnnotation(itemId);
 	  	});
 	},
@@ -187,7 +186,6 @@ $.widget( "ui.videocomponent", {
   		$(document).on('click', '.video-item', function() {
 			var itemId = $(this).closest('tr').find('.id').text();
 			console.log("tendina");
-//			self.annotationsList.remove('id', itemId);
 			console.log(itemId);
 			self.updateWidget(itemId, 'sourceId');
 	  	});
@@ -239,7 +237,6 @@ $.widget( "ui.videocomponent", {
 
 
 		var filepath_selected_video = videoData[0].uri;
-		//var id_selected_video = videoData.videos[0].id
 		var id_selected_video = videoData[0].id
 		
 		self.currentVideoId = id_selected_video;
