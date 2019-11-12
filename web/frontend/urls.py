@@ -22,7 +22,7 @@ from django.views.static import serve
 urlpatterns = [
     url(r'^$', views.index, name='index'),
 
-    url(r'^videoferracani/(?P<path>.*)$',serve, {
+    url(r'^'+settings.MEDIA_URL2+'(?P<path>.*)$',serve, {
         'document_root': settings.MEDIA_ROOT,
     }),
 

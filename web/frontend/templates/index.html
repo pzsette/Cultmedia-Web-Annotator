@@ -87,14 +87,14 @@
             <label class="label-icon" for="search" style="margin-left: 2px"><i class="material-icons md-36">search</i></label>
         </form>
       </li>
-      <!--<li>
-          <select id="mood-filter" class="browser-default" style="left:38%; width:10%; top:10px; height:43px" >
-          <option value="0" selected>Filtro</option>
-          <option value="1" class="others">Piacere</option>
-          <option value="2" class="others">Energia</option>
-          <option value="3" class="others">Tensione</option>
+      <li>
+          <select id="mood-selector" class="browser-default" style="left:38%; width:10%; top:10px; height:45px" >
+          <option value="0" selected>No mood</option>
+          <option value="1" class="others">Happy</option>
+          <option value="2" class="others">Neutral</option>
+          <option value="3" class="others">Sad</option>
           </select>
-      </li>-->
+      </li>
       <li>
           <div class="pzdropdown">
             <button onclick="myFunction()" style="top:0%; height:45px; width:200px; background-color:#ff6600" class="btn waves-effect waves-light">Filters</button>
@@ -105,20 +105,16 @@
                         <label id="pzlabel" style="color:black"><input id="HTCRange" type="range" min="0" max="1" step="0.1" value="0">Min Colourfulness: <span id="HTCValue"></span></label>
                     </div>
                     <div class="itemspace">
-                        <select class="pzselect" id="DNPSelect">
-                            <option value="0" selected>Time</option>
-                            <option value="1" class="others">Day</option>
-                            <option value="2" class="others">Night</option>
-                        </select>
+                        <label style="color:black"><input id="pzcheckbox" name="HFCheckbox" type="checkbox" align=""><br>Happy faces</label>
                     </div>
-                    <div class="itemspace">
+                    <!--<div class="itemspace">
                         <select class="pzselect" id="PMoodSelect">
                             <option value="0" selected>No Mood</option>
                             <option value="1" class="others">Happy</option>
                             <option value="2" class="others">Neutral</option>
                             <option value="3" class="others">Sad</option>
                         </select>
-                    </div>
+                    </div>-->
                 </div>
 
                 <div class="middlepane">
@@ -166,13 +162,13 @@
                         <label style="color:black"><input id="pzcheckbox" name="NHFCheckbox" type="checkbox" align=""><br>No happy faces</label>
                     </div>
 
-                    <div class="itemspace">
+                    <!--<div class="itemspace">
                         <select class="pzselect" id="TMoodSelect">
                             <option value="0" selected>No Mood</option>
                             <option value="1">Happy</option>
                             <option value="2">Neutral</option>
                             <option value="3">Sad</option>
-                        </select>
+                        </select>-->
                     </div>
                 </div>
             </div>

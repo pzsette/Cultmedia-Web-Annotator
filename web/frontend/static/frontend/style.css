@@ -76,7 +76,6 @@ padding: 0px 0px 0px 50px;
 }
 
 .browser-default{
-	border-radius: 0px !important;
   position: absolute;
   left: 50%;
   top: 16%;
@@ -405,7 +404,7 @@ input[type="file"] {
   top: 10px;
   height: 43px;
   width: 150px;
-  left:49%;
+  left:53%;
   position: absolute;
 }
 

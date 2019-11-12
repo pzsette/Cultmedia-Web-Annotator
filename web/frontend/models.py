@@ -185,7 +185,7 @@ def addedShot (sender, instance, created, **kwargs):
             except Exception as e:
                 print(e)
     instance.downloaded = True
-    if instance.thumbnail is None:
+    if ".jpg" not in instance.thumbnail:
         newfilename = instance.uri.split('/')[-1]
         cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./" + settings.MEDIA_URL2 + newfilename,
                                                           o="./" + settings.MEDIA_URL2 +

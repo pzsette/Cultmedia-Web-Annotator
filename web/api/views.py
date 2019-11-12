@@ -15,6 +15,7 @@ import os
 import glob
 import zipfile
 from io import BytesIO
+from django.conf import settings
 import csv
 import json
 import operator
@@ -52,12 +53,12 @@ def get_keywords(request):
 
 #added now
 def handle_uploaded_file(f, id):
-    with open('./frontend/videoferracani/' + id + '_audio.wav', 'wb+') as destination:
+    with open('./frontend/'+settings.MEDIA_URL2 + id + '_audio.wav', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
 def process_edited_videos(request):
-    debug = open('./frontend/videoferracani/debug.txt', 'w+')
+    debug = open('./frontend/'+settings.MEDIA_URL2+'debug.txt', 'w+')
 
     videos = request.GET.get('videos', None)
     effects = request.GET.get('effects', None)
@@ -66,7 +67,7 @@ def process_edited_videos(request):
     subtitles = request.GET.get('subtitles', None)
 
     if videos is not None:
-        f = open('./frontend/videoferracani/file.txt', 'w+')
+        f = open('./frontend/'+settings.MEDIA_URL2+'file.txt', 'w+')
 
         effects = effects.split(",")
         videos = videos.split(",")
@@ -81,7 +82,7 @@ def process_edited_videos(request):
         for index, i in enumerate(videos):
 
             video_subtitles = subtitles[index].split("||")
-            ass = open('./frontend/videoferracani/' + i + '.ass', 'w+')
+            ass = open('./frontend/'+settings.MEDIA_URL2 + i + '.ass', 'w+')
             ass.write(
                 "[Script Info]\r\n; This is an Advanced Sub Station Alpha v4+ script.\r\nTitle: phpiI4Eu4\r\nScriptType: v4.00+\r\nCollisions: Normal\r\nPlayDepth: 0\r\n\r\n")
             ass.write(
@@ -114,52 +115,52 @@ def process_edited_videos(request):
             filename = i + ".mp4"
             scale_cmd = 'ffmpeg -y -i ' + filename + ' -filter_complex [0:v]scale="480:270",setdar=dar=16/9' + fade_in + fade_out + '[Scaled] -map [Scaled] -map 0:a -r 24 -acodec aac -ab 256k -ar 48000 -ac 2 ' + filename.replace(
                 ".mp4", "_scaled.mp4")
-            subprocess.call("(cd ./frontend/videoferracani/ && " + scale_cmd + ")", shell=True)
+            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + scale_cmd + ")", shell=True)
 
             if (audios[index] == "2") or (audios[index] == "3"):
                 command_a = 'ffmpeg -y -f lavfi -i anullsrc=channel_layout=5.1:sample_rate=48000 -t 60 silence.ac3'
-                subprocess.call("(cd ./frontend/videoferracani/ && " + command_a + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_a + ")", shell=True)
                 command_a = "ffmpeg -y -t 60 -i " + i + "_audio.wav -i silence.ac3 -filter_complex [0:a][1:a]concat=n=2:v=0:a=1 output.wav"
-                subprocess.call("(cd ./frontend/videoferracani/ && " + command_a + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_a + ")", shell=True)
 
                 command_audio = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                                    "_scaled.mp4") + ' -i output.wav -map 0:0 -map 1:0 -vcodec copy -acodec aac -ab 256k -ar 48000 -ac 2 -shortest ' + filename.replace(
                     ".mp4", "_scaled_changed_audio.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + command_audio + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_audio + ")", shell=True)
                 final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                            "_scaled_changed_audio.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                     ".mp4", "_scaled.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + final + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
             elif (audios[index] == "1"):
                 command_audio = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                                    "_scaled.mp4") + ' -i silence.ac3 -map 0:0 -map 1:0 -vcodec copy -acodec aac -ab 256k -ar 48000 -ac 2 -shortest ' + filename.replace(
                     ".mp4", "_scaled_changed_audio.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + command_audio + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_audio + ")", shell=True)
                 final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                            "_scaled_changed_audio.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                     ".mp4", "_scaled.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + final + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
             elif (audios[index] == "0"):
                 command_audio = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                                    "_scaled.mp4") + ' -map 0:0 -map 1:0 -vcodec copy -acodec aac -ab 256k -ar 48000 -ac 2 -shortest ' + filename.replace(
                     ".mp4", "_scaled_changed_audio.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + command_audio + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_audio + ")", shell=True)
                 final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                            "_scaled_changed_audio.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                     ".mp4", "_scaled.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + final + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
 
             command = "ffmpeg -y -f lavfi -i anullsrc=channel_layout=5.1:sample_rate=48000 -t 60 silence.ac3"
-            subprocess.call("(cd ./frontend/videoferracani/ && " + command + ")", shell=True)
+            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command + ")", shell=True)
 
             command_sub = "ffmpeg -y -i " + filename.replace(".mp4",
                                                              "_scaled.mp4") + " -vf 'ass=" + i + ".ass' " + filename.replace(
                 ".mp4", "_scaled_sub.mp4")
-            subprocess.call("(cd ./frontend/videoferracani/ && " + command_sub + ")", shell=True)
+            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_sub + ")", shell=True)
             final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                        "_scaled_sub.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                 ".mp4", "_scaled.mp4")
-            subprocess.call("(cd ./frontend/videoferracani/ && " + final + ")", shell=True)
+            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
 
             if texts[index] == '':
                 f.write('file ' + filename.replace(".mp4", "_scaled.mp4") + '\r\n')
@@ -168,15 +169,15 @@ def process_edited_videos(request):
                                texts[
                                    index] + ':x=(w-text_w)/2:y=10:fontsize=24:fontcolor=white:borderw=2" -c:a copy ' + filename.replace(
                     ".mp4", "_scaled_text.mp4")
-                subprocess.call("(cd ./frontend/videoferracani/ && " + command_text + ")", shell=True)
+                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_text + ")", shell=True)
                 f.write('file ' + filename.replace(".mp4", "_scaled_text.mp4") + '\r\n')
 
         f.close()
 
         command = "ffmpeg -y -f concat -i file.txt -c copy final_file.mp4"
-        subprocess.call("(cd ./frontend/videoferracani/ && " + command + ")", shell=True)
+        subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command + ")", shell=True)
 
-        unnecessaryFile = glob.glob("./frontend/videoferracani/*_scaled*.mp4")
+        unnecessaryFile = glob.glob("./frontend/"+settings.MEDIA_URL2+"*_scaled*.mp4")
         for file in unnecessaryFile:
             os.remove(file)
 
@@ -280,6 +281,8 @@ class ShotViewSet(viewsets.ModelViewSet):
             print (nhf)
             if (nhf == 'true'):
                 queryset = queryset.filter(Q(nohappyfaces=True))
+            elif (nhf == "false"):
+                queryset = queryset.filter(Q(nohappyfaces=False))
 
         #pixelmotion
         motion = self.request.query_params.get('pixelmotion', None)

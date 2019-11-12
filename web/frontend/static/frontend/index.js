@@ -613,61 +613,89 @@ $(document).ready(function() {
 	 *COLOURFULNESS - PIACERE
 	 */
 	$("#HTCRange").change(function() {
-                    daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+                    hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
-                    //daytimeValue = $("#DNESelect").val();
+                    daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
 
 	/**
-	 *DAYTIME - PIACERE
+	 *HAPPY FACE - PIACERE
 	 */
-	$("#DNPSelect").change(function() {
-                    daytimeValue = $("#DNPSelect").val();
+	$('[name="HFCheckbox"]').change(function() {
+					moodValue = $("#mood-selector").val();
+
+					hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
-                    //daytimeValue = $("#DNESelect").val();
+                    daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue+ '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
 
 	/**
-	 *MOOD - PIACERE
+	 *MOOD
 	 */
-	$("#PMoodSelect").change(function() {
-                    daytimeValue = $("#DNPSelect").val();
+	$("#mood-selector").change(function() {
+					moodValue = $("#mood-selector").val();
+
+					hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
-                    //daytimeValue = $("#DNESelect").val();
+                    daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -676,19 +704,28 @@ $(document).ready(function() {
 	 *DAYTIME- ENERGIA
 	 */
 	$('#DNESelect').change(function () {
-                    //daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+					hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -697,19 +734,28 @@ $(document).ready(function() {
 	 *LUOGO - ENERGIA
 	 */
 	$('#IOSelect').change(function () {
-                    //daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+                    hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -718,19 +764,28 @@ $(document).ready(function() {
 	 *PIXELMOTION - ENERGIA
 	 */
 	$('#EAPRange').change(function () {
-                    //daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+                    hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue+ '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -739,19 +794,28 @@ $(document).ready(function() {
 	 *DURATA - ENERGIA
 	 */
 	$('#EADRange').change(function () {
-                    //daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+					hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -760,19 +824,28 @@ $(document).ready(function() {
 	 *LOUDNESS - ENERGIA
 	 */
 	$('#EALRange').change(function () {
-                    //daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+					hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -781,19 +854,28 @@ $(document).ready(function() {
 	 *DIALOGHI - ENERGIA
 	 */
 	$('#DNDSelect').change(function () {
-                    //daytimeValue = $("#DNPSelect").val();
+					moodValue = $("#mood-selector").val();
+
+					hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
                     //moodValue = $("#TMoodSelect").val();
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+					if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
@@ -801,31 +883,41 @@ $(document).ready(function() {
 	/**
 	 *FACCE FELICI - TENSIONE
 	 */
-	$("#pzcheckbox").change(function() {
-                    //daytimeValue = $("#DNPSelect").val();
+	$('[name="NHFCheckbox"]').change(function() {
+					moodValue = $("#mood-selector").val();
+
+                    hf = $('[name ="HFCheckbox"]').prop('checked');
                     colorValue =  $("#HTCRange").val();
-                    //moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
                     indoorVal = $('#IOSelect').val();
                     mpm = $('#EAPRange').val();
                     msd = $('#EADRange').val();
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").prop('checked');
-                    moodValue = $("#TMoodSelect").val();
+                    nhf =  $('[name="NHFCheckbox"]').prop('checked');
+                    //moodValue = $("#TMoodSelect").val();
 
-                    console.log(nhf);
+                    if (hf == true && nhf == false) {
+						checkValue = false;
+					} else if (hf == false && nhf == true) {
+						checkValue = true;
+					} else {
+						checkValue = "All"
+					}
 
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
+                    console.log(checkValue);
+
+
+                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
 	});
 
-	/**
+	/*/**
 	 *MOOD - TENSIONE
-	 */
+
 	$("#TMoodSelect").change(function() {
-                    //daytimeValue = $("#DNPSelect").val();
+
                     colorValue =  $("#HTCRange").val();
                     //moodValue = $("#PMoodSelect").val();
                     daytimeValue = $("#DNESelect").val();
@@ -840,7 +932,7 @@ $(document).ready(function() {
                     query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
                     load(query);
                     console.log(query);
-	});
+	});*/
 
 
 	/*$("#mood-filter").change(function () {
@@ -1201,21 +1293,26 @@ $(document).ready(function() {
 });
 
 function getMoodQueryset() {
+	moodValue = $("#mood-selector").val();
 
-    daytimeValue = $("#DNPSelect").val();
+	hf = $('[name ="HFCheckbox"]').prop('checked');
+    daytimeValue = $("#DNESelect").val();
 	colorValue =  $("#HTCRange").val();
-	moodValue = $("#PMoodSelect").val();
-
-	//daytimeValue = $("#DNESelect").val();
 	indoorVal = $('#IOSelect').val();
 	mpm = $('#EAPRange').val();
 	msd = $('#EADRange').val();
 	ml = $('#EALRange').val();
 	dnd = $('#DNDSelect').val();
+	nhf = $('[name ="NHFCheckbox"]').prop('checked');
 
-	nhf =  $("#pzcheckbox").prop('checked');
-	//moodValue = $("#TMoodSelect").val();
+	if (hf == true && nhf == false) {
+		checkValue = false;
+	} else if (hf == false && nhf == true) {
+		checkValue = true;
+	} else {
+		checkValue = "All"
+	}
 
-	emotionQuery = 'mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf;
+	emotionQuery = 'mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+checkValue;
 	return emotionQuery;
 }
