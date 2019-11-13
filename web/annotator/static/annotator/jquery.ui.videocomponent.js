@@ -217,13 +217,13 @@ $.widget( "ui.videocomponent", {
 
 		var annotations = "<div class='annotations row'>" +
 			
-			"<div class='screen__container col-xs-2'><p>Inizio</p><div class='start__screen'><canvas width='100' height='100'></canvas></div><p class='timecode'>Istante<p></div>" +
+			"<div class='screen__container col-xs-2'><p>Start</p><div class='start__screen'><canvas width='100' height='100'></canvas></div><p class='timecode'>Istante<p></div>" +
 			
 			"<div class='time__bar col-xs-1'><div class='bar'></div></div>" +
 			
-			"<div class='screen__container col-xs-2'><p>Fine</p><div class='end__screen'><canvas width='100' height='100'></canvas></div><p class='timecode'>time<p></div>" + 
+			"<div class='screen__container col-xs-2'><p>End</p><div class='end__screen'><canvas width='100' height='100'></canvas></div><p class='timecode'>time<p></div>" +
 			
-			"<div class='emotions__container col-xs-4'><div id='flat-slider-arousal'><div id='custom-handle-arousal' class='ui-slider-handle'></div><label>Coinvolgimento</label></div><div id='flat-slider-valence'><div id='custom-handle-valence' class='ui-slider-handle'></div><label>Positivit&agrave;</label></div></div>" +
+			"<div class='emotions__container col-xs-4'><div id='flat-slider-arousal'><div id='custom-handle-arousal' class='ui-slider-handle'></div><label>Arousal</label></div><div id='flat-slider-valence'><div id='custom-handle-valence' class='ui-slider-handle'></div><label>Valence</label></div></div>" +
 			
 			"<div class='button__container col-xs-2'><button class='btn btn-success btn-lg btn-block add_annotation'><i class='far fa-plus-square'></i></button></div>" +
 			
