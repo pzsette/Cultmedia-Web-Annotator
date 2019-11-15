@@ -98,7 +98,7 @@
       <li>
           <div class="pzdropdown">
             <button onclick="myFunction()" style="top:0%; height:45px; width:200px; background-color:#ff6600" class="btn waves-effect waves-light">Filters</button>
-            <div id="dropelement" class="pzdropdown-content">
+            <div id="dropelement" class="pzdropdown-content" style="display: none;">
                 <div class="leftpane">
                     <p id="pzp">Valence</p>
                     <div class="itemspace">
@@ -172,7 +172,6 @@
                     </div>
                 </div>
             </div>
-          </div>
       </li>
     </ul>
   </div>
@@ -199,7 +198,9 @@
 </body>
 <script>
     function myFunction() {
+        console.log("drop");
         dropDiv = document.getElementsByClassName("pzdropdown-content");
+        console.log(dropDiv[0].style.display);
         if (dropDiv[0].style.display == "none") {
             dropDiv[0].style.display = "block";
         } else {

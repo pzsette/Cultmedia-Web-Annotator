@@ -408,14 +408,13 @@ input[type="file"] {
   position: absolute;
 }
 
-.pzdropdown-content {
-    margin-left: -250px;
+.pzdropdown-content {margin-left: -250px;
   width: 600px;
   height: 460px;
   text-align: center;
   color: #005077;
   top:50px;
-  display: none;
+  /*display: none;*/
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -431,7 +430,7 @@ input[type="file"] {
 .leftpane {
     padding: 0px 20px 0px 20px;
     text-align: center;
-    border-right: 1px solid #005077;
+    border-right: 2px solid #005077;
     width: 33%;
     height: 100%;
     float: left;
@@ -444,8 +443,6 @@ input[type="file"] {
     width: 34%;
     height: 100%;
     float: left;
-    border-right: 1px solid #005077;
-    border-left: 1px solid #005077;
     border-collapse: collapse;
 }
 
@@ -456,10 +453,9 @@ input[type="file"] {
     height: 100%;
     position: relative;
     float: right;
-    border-left: 1px solid #005077;
+    border-left: 2px solid #005077;
     border-collapse: collapse;
 }
-
 
 /*class to fix materialize influnce*/
 
