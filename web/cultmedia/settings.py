@@ -175,11 +175,12 @@ mediafolder = os.getenv('MEDIA_FOLDER')
 #MEDIA_URL = '/frontend/videoferracani/'
 #MEDIA_URL2 = 'videoferracani/'*/
 
-MEDIA_URL = '/frontend/'+mediafolder+'/'
-MEDIA_URL2 = mediafolder+'/'
+MEDIA_URL = '/media/'
+#MEDIA_ROOT = 'data/media'
+#MEDIA_URL = '/frontend/'+mediafolder+'/'
+MEDIA_ROOT = '/data/web/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/'+mediafolder)
-
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/'+mediafolder)
 MEDIA_ROOT2 = os.path.join(BASE_DIR, 'frontend/zipvideo')
 
 

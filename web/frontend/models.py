@@ -22,33 +22,33 @@ class Video(models.Model):
     description = models.TextField(u'Video Description', help_text=u'Video Description', blank=True, null=True)
     duration = models.CharField(u'Video Duration', help_text=u'Video Duration', blank=True, null=True, max_length=10)
     created = models.DateTimeField(auto_now_add=True)
-    uri = models.TextField(blank=True, null=True)
+    filename = models.TextField(blank=True, null=True)
     web_uri = models.TextField(blank=True, null=True)
     downloaded = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        if settings.MEDIA_URL2 not in self.uri:
-            self.web_uri = self.uri
-            filename = self.uri.split('/')[-1]
-            self.uri = settings.MEDIA_URL2 + filename
-        super(Video, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+    #    if settings.MEDIA_URL2 not in self.uri:
+    #        self.web_uri = self.uri
+    #        filename = self.uri.split('/')[-1]
+    #        self.uri = settings.MEDIA_URL2 + filename
+    #    super(Video, self).save(*args, **kwargs)
 
-        '''if settings.MEDIA_URL2 not in self.uri:
-            filename = self.uri.split('/')[-1]
-            try:
-                print("Downloading starts...")
-                urllib.request.urlretrieve(self.uri, './frontend/'+settings.MEDIA_URL2 + filename)
-                print("Download completed!")
-                self.uri = settings.MEDIA_URL2+filename
-                print (self.uri)
-                if ".mp4" not in self.uri:
-                    newfilename = filename[:-3]+"mp4"
-                    cmd = "ffmpeg -i "+filename+" "+newfilename
-                    subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && " + cmd, shell=True)
-                    subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename, shell=True)
-                    self.uri = settings.MEDIA_URL2 + newfilename
-            except Exception as e:
-                print(e)'''
+    '''if settings.MEDIA_URL2 not in self.uri:
+        filename = self.uri.split('/')[-1]
+        try:
+            print("Downloading starts...")
+            urllib.request.urlretrieve(self.uri, './frontend/'+settings.MEDIA_URL2 + filename)
+            print("Download completed!")
+            self.uri = settings.MEDIA_URL2+filename
+            print (self.uri)
+            if ".mp4" not in self.uri:
+                newfilename = filename[:-3]+"mp4"
+                cmd = "ffmpeg -i "+filename+" "+newfilename
+                subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && " + cmd, shell=True)
+                subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename, shell=True)
+                self.uri = settings.MEDIA_URL2 + newfilename
+        except Exception as e:
+            print(e)'''
 
     def delete(self, *args, **kwargs):
         filename = self.uri.split('/')[-1]
@@ -56,7 +56,7 @@ class Video(models.Model):
         super(Video, self).delete(*args, **kwargs)
 
     def __str__(self):
-        return "%s %s" % (self.title, self.uri)
+        return "%s %s" % (self.title, self.filename)
 
 def addedVideo (sender, instance, created, **kwargs):
     if not instance:
@@ -91,7 +91,7 @@ def addedVideo (sender, instance, created, **kwargs):
         del instance._dirty
 
 
-post_save.connect(addedVideo, sender=Video)
+#post_save.connect(addedVideo, sender=Video)
 
 
 class Shot(models.Model):
@@ -102,7 +102,7 @@ class Shot(models.Model):
                                       validators=[MaxValueValidator(1), MinValueValidator(-1)])
     valence_avg = models.IntegerField(u'Shot Valence', help_text=u'Shot Valence', blank=True, null=True, default=None,
                                       validators=[MaxValueValidator(1), MinValueValidator(-1)])
-    uri = models.TextField(blank=True, null=True)
+    filename = models.TextField(blank=True, null=True)
 
     keywords = models.CharField(u'Shot Keywords', help_text=u'Shot Keywords', blank=True, null=True, max_length=100,
                                 default=None)
@@ -132,20 +132,20 @@ class Shot(models.Model):
     dialogue = models.BooleanField(default=False)
 
 
-    def save(self, *args, **kwargs):
-        if settings.MEDIA_URL2 not in self.uri:
-            self.web_uri = self.uri
-            filename = self.uri.split('/')[-1]
-            self.uri = settings.MEDIA_URL2 + filename
-        else:
-            self.downloaded = True
-        '''if self.thumbnail is None:
-            filename = self.uri.split('/')[-1]
-            cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./"+settings.MEDIA_URL2 + filename, o="./"+settings.MEDIA_URL2+
-                                                                                                  filename[:-3] + "jpg")
-            subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
-            self.thumbnail = settings.MEDIA_URL2+filename[:-3] + "jpg"'''
-        super(Shot, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+    #   if settings.MEDIA_URL2 not in self.uri:
+    #       self.web_uri = self.uri
+    #        filename = self.uri.split('/')[-1]
+    #        self.uri = settings.MEDIA_URL2 + filename
+    #    else:
+    #        self.downloaded = True
+    '''if self.thumbnail is None:
+        filename = self.uri.split('/')[-1]
+        cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./"+settings.MEDIA_URL2 + filename, o="./"+settings.MEDIA_URL2+
+                                                                                              filename[:-3] + "jpg")
+        subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
+        self.thumbnail = settings.MEDIA_URL2+filename[:-3] + "jpg"'''
+    #    super(Shot, self).save(*args, **kwargs)
 
     def __str__(self):
         return "shot id: " + str(self.id)
@@ -198,7 +198,7 @@ def addedShot (sender, instance, created, **kwargs):
     finally:
         del instance._dirty
 
-post_save.connect(addedShot, sender=Shot)
+#post_save.connect(addedShot, sender=Shot)
 
 class Annotation(models.Model):
     shot = models.ForeignKey(Shot, null=True)

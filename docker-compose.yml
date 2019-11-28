@@ -15,6 +15,7 @@ services:
     command: ./run_web.sh
     env_file: ./social.env
     volumes:
+      - ./data/web/media:/data/media
       - ./web:/code
     ports:
       - "8000:8000"

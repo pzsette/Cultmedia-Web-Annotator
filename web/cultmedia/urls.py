@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-#from django.urls import path
 from django.contrib import admin
 from rest_framework.documentation import include_docs_urls
-from django.views.generic.base import TemplateView#
+from django.views.generic.base import TemplateView
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +28,4 @@ urlpatterns = [
     url(r'^annotator/', include('annotator.urls')),
     url(r'accounts/', include('accounts.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

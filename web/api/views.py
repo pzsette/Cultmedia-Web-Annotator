@@ -53,12 +53,12 @@ def get_keywords(request):
 
 #added now
 def handle_uploaded_file(f, id):
-    with open('./frontend/'+settings.MEDIA_URL2 + id + '_audio.wav', 'wb+') as destination:
+    with open('..'+settings.MEDIA_ROOT + id + '_audio.wav', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
 def process_edited_videos(request):
-    debug = open('./frontend/'+settings.MEDIA_URL2+'debug.txt', 'w+')
+    debug = open('.'+settings.MEDIA_URL2+'debug.txt', 'w+')
 
     videos = request.GET.get('videos', None)
     effects = request.GET.get('effects', None)
@@ -115,7 +115,7 @@ def process_edited_videos(request):
             filename = i + ".mp4"
             scale_cmd = 'ffmpeg -y -i ' + filename + ' -filter_complex [0:v]scale="480:270",setdar=dar=16/9' + fade_in + fade_out + '[Scaled] -map [Scaled] -map 0:a -r 24 -acodec aac -ab 256k -ar 48000 -ac 2 ' + filename.replace(
                 ".mp4", "_scaled.mp4")
-            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + scale_cmd + ")", shell=True)
+            subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + scale_cmd + ")", shell=True)
 
             if (audios[index] == "2") or (audios[index] == "3"):
                 command_a = 'ffmpeg -y -f lavfi -i anullsrc=channel_layout=5.1:sample_rate=48000 -t 60 silence.ac3'
@@ -236,6 +236,7 @@ def createcsv(videos):
 class ShotViewSet(viewsets.ModelViewSet):
     serializer_class = ShotSerializer
 
+
     def destroy(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
@@ -248,6 +249,7 @@ class ShotViewSet(viewsets.ModelViewSet):
             request='delete',
             )
         )
+
     def get_queryset(self):
         queryset = Shot.objects.all()
         queryset = queryset.filter(Q(downloaded=True))

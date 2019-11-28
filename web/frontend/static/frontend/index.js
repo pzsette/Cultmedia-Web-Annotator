@@ -243,17 +243,23 @@ $(document).ready(function() {
             var content = "";
             for (var i in data.results) {
                 content += "<div class='search-elem'>";
-                var uri = data.results[i].uri;
+
+                //var uri = data.results[i].uri;
+                var mediafolder = data.results[i].media_url;
+                var name = data.results[i].filename;
                 var img = data.results[i].thumbnail;
 
-                var uri_tmp = uri.replace("0.0.0.0","localhost");
+                /*var uri_tmp = uri.replace("0.0.0.0","localhost");
                 uri = uri_tmp;
                 var img_tmp = img.replace("0.0.0.0","localhost");
-                img = img_tmp;
+                img = img_tmp;*/
 
-                var url = data.results[i].uri.split("/").pop();
+                //var url = data.results[i].uri.split("/").pop();
 
-                content += "<video controls id=\""+ url +"\" draggable=false ondragstart=drag(event) onloadedmetadata=\"$(this).prop('draggable', true);\" ondragend=dragend(event) poster=\"" + img + "\" width='262' height='100%'>" +
+                var uri = domain_root + mediafolder + name;
+                var img = domain_root + mediafolder + img;
+
+                content += "<video controls id=\""+ name +"\" draggable=false ondragstart=drag(event) onloadedmetadata=\"$(this).prop('draggable', true);\" ondragend=dragend(event) poster=\"" + img + "\" width='262' height='100%'>" +
                 "<source src=\""+ uri +"\" type=\"video/mp4\">" +
                 "</video>";
                 content += "</div>"

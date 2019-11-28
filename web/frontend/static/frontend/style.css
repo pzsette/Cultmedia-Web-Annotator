@@ -414,7 +414,6 @@ input[type="file"] {
   text-align: center;
   color: #005077;
   top:50px;
-  /*display: none;*/
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -422,10 +421,6 @@ input[type="file"] {
   padding: 5px 5px;
   z-index: 1000;
 }
-
-/*.pzdropdown:hover .pzdropdown-content{
-  display: block;
-}*/
 
 .leftpane {
     padding: 0px 20px 0px 20px;
