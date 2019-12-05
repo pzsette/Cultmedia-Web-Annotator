@@ -58,7 +58,7 @@ def handle_uploaded_file(f, id):
             destination.write(chunk)
 
 def process_edited_videos(request):
-    debug = open('.'+settings.MEDIA_URL2+'debug.txt', 'w+')
+    debug = open('..'+settings.MEDIA_ROOT+'debug.txt', 'w+')
 
     videos = request.GET.get('videos', None)
     effects = request.GET.get('effects', None)
@@ -67,7 +67,7 @@ def process_edited_videos(request):
     subtitles = request.GET.get('subtitles', None)
 
     if videos is not None:
-        f = open('./frontend/'+settings.MEDIA_URL2+'file.txt', 'w+')
+        f = open('..'+settings.MEDIA_ROOT+'file.txt', 'w+')
 
         effects = effects.split(",")
         videos = videos.split(",")
@@ -82,7 +82,7 @@ def process_edited_videos(request):
         for index, i in enumerate(videos):
 
             video_subtitles = subtitles[index].split("||")
-            ass = open('./frontend/'+settings.MEDIA_URL2 + i + '.ass', 'w+')
+            ass = open('..'+settings.MEDIA_ROOT + i + '.ass', 'w+')
             ass.write(
                 "[Script Info]\r\n; This is an Advanced Sub Station Alpha v4+ script.\r\nTitle: phpiI4Eu4\r\nScriptType: v4.00+\r\nCollisions: Normal\r\nPlayDepth: 0\r\n\r\n")
             ass.write(
@@ -119,48 +119,48 @@ def process_edited_videos(request):
 
             if (audios[index] == "2") or (audios[index] == "3"):
                 command_a = 'ffmpeg -y -f lavfi -i anullsrc=channel_layout=5.1:sample_rate=48000 -t 60 silence.ac3'
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_a + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_a + ")", shell=True)
                 command_a = "ffmpeg -y -t 60 -i " + i + "_audio.wav -i silence.ac3 -filter_complex [0:a][1:a]concat=n=2:v=0:a=1 output.wav"
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_a + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_a + ")", shell=True)
 
                 command_audio = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                                    "_scaled.mp4") + ' -i output.wav -map 0:0 -map 1:0 -vcodec copy -acodec aac -ab 256k -ar 48000 -ac 2 -shortest ' + filename.replace(
                     ".mp4", "_scaled_changed_audio.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_audio + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_audio + ")", shell=True)
                 final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                            "_scaled_changed_audio.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                     ".mp4", "_scaled.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + final + ")", shell=True)
             elif (audios[index] == "1"):
                 command_audio = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                                    "_scaled.mp4") + ' -i silence.ac3 -map 0:0 -map 1:0 -vcodec copy -acodec aac -ab 256k -ar 48000 -ac 2 -shortest ' + filename.replace(
                     ".mp4", "_scaled_changed_audio.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_audio + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_audio + ")", shell=True)
                 final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                            "_scaled_changed_audio.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                     ".mp4", "_scaled.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + final + ")", shell=True)
             elif (audios[index] == "0"):
                 command_audio = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                                    "_scaled.mp4") + ' -map 0:0 -map 1:0 -vcodec copy -acodec aac -ab 256k -ar 48000 -ac 2 -shortest ' + filename.replace(
                     ".mp4", "_scaled_changed_audio.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_audio + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_audio + ")", shell=True)
                 final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                            "_scaled_changed_audio.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                     ".mp4", "_scaled.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + final + ")", shell=True)
 
             command = "ffmpeg -y -f lavfi -i anullsrc=channel_layout=5.1:sample_rate=48000 -t 60 silence.ac3"
-            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command + ")", shell=True)
+            subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command + ")", shell=True)
 
             command_sub = "ffmpeg -y -i " + filename.replace(".mp4",
                                                              "_scaled.mp4") + " -vf 'ass=" + i + ".ass' " + filename.replace(
                 ".mp4", "_scaled_sub.mp4")
-            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_sub + ")", shell=True)
+            subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_sub + ")", shell=True)
             final = 'ffmpeg -y -i ' + filename.replace(".mp4",
                                                        "_scaled_sub.mp4") + ' -vcodec copy -acodec copy ' + filename.replace(
                 ".mp4", "_scaled.mp4")
-            subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + final + ")", shell=True)
+            subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + final + ")", shell=True)
 
             if texts[index] == '':
                 f.write('file ' + filename.replace(".mp4", "_scaled.mp4") + '\r\n')
@@ -169,15 +169,15 @@ def process_edited_videos(request):
                                texts[
                                    index] + ':x=(w-text_w)/2:y=10:fontsize=24:fontcolor=white:borderw=2" -c:a copy ' + filename.replace(
                     ".mp4", "_scaled_text.mp4")
-                subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command_text + ")", shell=True)
+                subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command_text + ")", shell=True)
                 f.write('file ' + filename.replace(".mp4", "_scaled_text.mp4") + '\r\n')
 
         f.close()
 
         command = "ffmpeg -y -f concat -i file.txt -c copy final_file.mp4"
-        subprocess.call("(cd ./frontend/"+settings.MEDIA_URL2+" && " + command + ")", shell=True)
+        subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + command + ")", shell=True)
 
-        unnecessaryFile = glob.glob("./frontend/"+settings.MEDIA_URL2+"*_scaled*.mp4")
+        unnecessaryFile = glob.glob(".."+settings.MEDIA_ROOT+"*_scaled*.mp4")
         for file in unnecessaryFile:
             os.remove(file)
 
@@ -195,9 +195,9 @@ def retrieve_videos(request):
     videosToExport = []
     for i in range(len(videos)):
         videosToExport.append(videos[i]+".mp4")
-    subprocess.call("mkdir -p ./frontend/zipvideo", shell=True)
-    subprocess.call("rm -rf ./frontend/zipvideo/*", shell=True)
-    subprocess.call("cp ./frontend/static/script.jsx ./frontend/zipvideo", shell=True)
+    subprocess.call("mkdir -p .."+settings.MEDIA_ROOT+"zipvideo", shell=True)
+    subprocess.call("rm -rf .."+settings.MEDIA_ROOT+"zipvideo/*", shell=True)
+    subprocess.call("cp ./frontend/static/script.jsx .."+settings.MEDIA_ROOT+"zipvideo", shell=True)
     print("VIDEOS")
     print (videos)
     print ("AUDIOSTOEXPORT")
@@ -208,16 +208,14 @@ def retrieve_videos(request):
     zipstr = ""
     for i in range(len(videosToExport)):
         zipstr += "./" + videosToExport[i] + " "
-        subprocess.call("cp ./frontend/"+settings.MEDIA_URL2 + videosToExport[i] + " ./frontend/zipvideo", shell=True)
+        subprocess.call("cp .."+settings.MEDIA_ROOT + videosToExport[i] + " .." + settings.MEDIA_ROOT+"zipvideo", shell=True)
         if audiosToExport[i] == "2" or audiosToExport[i] == "3":
-            subprocess.call("cp ./frontend/" + settings.MEDIA_URL2 + videos[i]+"_audio.wav" + " ./frontend/zipvideo",
+            subprocess.call("cp .." + settings.MEDIA_ROOT + videos[i] + "_audio.wav" + " .."+ settings.MEDIA_ROOT +"zipvideo",
                             shell=True)
             zipstr += "./" + videos[i]+"_audio.wav" + " "
 
     zipstr += " ./videolist.csv ./script.jsx"
-
-    subprocess.call("cd ./frontend/zipvideo && zip video.zip " + zipstr, shell=True)
-
+    subprocess.call("cd .."+settings.MEDIA_ROOT+"/zipvideo && zip video.zip " + zipstr, shell=True)
     return HttpResponse("")
 
 def createcsv(videos):
@@ -227,7 +225,7 @@ def createcsv(videos):
     for name in videos:
         csvData.append([name, "path"])
 
-    with open(os.path.join("./frontend/zipvideo", "videolist.csv"), "w+") as csvFile:
+    with open(os.path.join(".."+settings.MEDIA_ROOT+"zipvideo", "videolist.csv"), "w+") as csvFile:
         writer = csv.writer(csvFile)
         writer.writerows(csvData)
 

@@ -13,11 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 from django.contrib import admin
 
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -103,7 +100,6 @@ DATABASES = {
             'COLLATION': 'utf8mb4_unicode_ci',
         }
     }
-
 }
 
 #aggiunta
@@ -167,21 +163,16 @@ USE_TZ = True
 #]
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 mediafolder = os.getenv('MEDIA_FOLDER')
 
-#MEDIA_URL = '/frontend/videoferracani/'
-#MEDIA_URL2 = 'videoferracani/'*/
-
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = 'data/media'
-#MEDIA_URL = '/frontend/'+mediafolder+'/'
-MEDIA_ROOT = '/data/web/media/'
+MEDIA_ROOT = '/data/media/'
 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/'+mediafolder)
 MEDIA_ROOT2 = os.path.join(BASE_DIR, 'frontend/zipvideo')
+
+print ("media root", MEDIA_ROOT)
 
 
 PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))

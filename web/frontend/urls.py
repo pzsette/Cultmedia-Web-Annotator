@@ -17,14 +17,10 @@ from django.conf.urls import url
 from django.conf import settings
 from . import views
 from django.views.static import serve
-
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-
-    url(r'^'+settings.MEDIA_URL2+'(?P<path>.*)$',serve, {
-        'document_root': settings.MEDIA_ROOT,
-    }),
 
     url(r'^upload/', views.upload, name='upload'),
 

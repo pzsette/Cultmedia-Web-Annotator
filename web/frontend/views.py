@@ -43,12 +43,9 @@ def upload(request):
                          'duration': video_duration, 'filename': uploaded_file.name}
         video_post_url = url + 'api/videos/'
         v = requests.post(video_post_url, data=video_payload)
-        print (v.json())
         video_id = (v.json()['id'])
-        print (video_id)
         shot_payload = {'title': video_title, 'video': video_id, 'filename': uploaded_file.name,
                         'keywords': video_keywords, 'duration': video_duration, 'keywords': video_keywords}
         shot_post_url = url + 'api/shots/'
-        requests.post(shot_post_url, data=shot_payload)
-
+        s = requests.post(shot_post_url, data=shot_payload)
     return render(request, 'upload.html', context)

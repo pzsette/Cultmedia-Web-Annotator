@@ -37,6 +37,7 @@ $.widget( "ui.videocomponent", {
 	currentShotArousal : 5,
 	currentShotValence : 5,
 
+
 	_create: function() {
 		var self = this;
 
@@ -210,7 +211,7 @@ $.widget( "ui.videocomponent", {
 										"<tr>" +
 											"<th class='id'>Id</th>" +
 											"<th class='title'>Titolo</th>" +
-											"<th class='path'>Percorso</th></tr>" +
+											"<th class='path'>Filename</th></tr>" +
 									"</thead>" +
 									"<tbody class='list'>" +
 						"</tbody></table></div></div></div>";
@@ -235,12 +236,15 @@ $.widget( "ui.videocomponent", {
 		element.append(annotations);
 		element.append(timeline);
 
+		var mediafolder = videoData[0].media_url
+		console.log("MEDIA")
+		console.log(mediafolder)
 
-		var filepath_selected_video = videoData[0].uri;
+		var filepath_selected_video = videoData[0].filename;
 		var id_selected_video = videoData[0].id
 		
 		self.currentVideoId = id_selected_video;
-		var videoSource = "<source src='../"+"frontend/" + filepath_selected_video + "' type='video/mp4'>";
+		var videoSource = "<source src='.."+mediafolder + filepath_selected_video + "' type='video/mp4'>";
 		$('.video-player').append(videoSource);
 		
 		self.video = document.getElementsByTagName('video')[0],
@@ -452,8 +456,8 @@ $.widget( "ui.videocomponent", {
 	parseVideosList : function(data) {
 		self = this;
 		var options = {
-  			valueNames: [ 'id', 'title', 'uri' ],
-			item: '<tr class="video-item"><td class="id"></td><td class="title"></td><td class="uri"></td></tr>'
+  			valueNames: [ 'id', 'title', 'filename' ],
+			item: '<tr class="video-item"><td class="id"></td><td class="title"></td><td class="filename"></td></tr>'
 		};
 		setTimeout(function(){
 			self.videosList = new List('video__list', options, data);

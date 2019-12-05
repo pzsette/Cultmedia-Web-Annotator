@@ -51,8 +51,7 @@ class Video(models.Model):
             print(e)'''
 
     def delete(self, *args, **kwargs):
-        filename = self.uri.split('/')[-1]
-        subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename, shell=True)
+        subprocess.call("cd .."+settings.MEDIA_ROOT+" && rm "+self.filename, shell=True)
         super(Video, self).delete(*args, **kwargs)
 
     def __str__(self):
@@ -132,13 +131,15 @@ class Shot(models.Model):
     dialogue = models.BooleanField(default=False)
 
 
-    #def save(self, *args, **kwargs):
-    #   if settings.MEDIA_URL2 not in self.uri:
-    #       self.web_uri = self.uri
-    #        filename = self.uri.split('/')[-1]
-    #        self.uri = settings.MEDIA_URL2 + filename
-    #    else:
-    #        self.downloaded = True
+    def save(self, *args, **kwargs):
+        if ".mp4" in str(self.web_uri) and self.downloaded is False:
+            self.web_uri = self.uri
+            name = self.web_uri.split('/')[-1]
+            self.filename = name
+        else:
+            self.downloaded = True
+        super(Shot, self).save(*args, **kwargs)
+
     '''if self.thumbnail is None:
         filename = self.uri.split('/')[-1]
         cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./"+settings.MEDIA_URL2 + filename, o="./"+settings.MEDIA_URL2+
@@ -151,54 +152,54 @@ class Shot(models.Model):
         return "shot id: " + str(self.id)
 
     def delete(self, *args, **kwargs):
-        filename = self.uri.split('/')[-1]
-        filethumb = filename[:-3] + "jpg"
-        fileaudio = filename[:-4] + "_audio.wav"
-        subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename + "&& rm "+filethumb+" && rm "+fileaudio, shell=True)
+        #filename = self.uri.split('/')[-1]
+        #filethumb = filename[:-3] + "jpg"
+        fileaudio = self.filename[:-4] + "_audio.wav"
+        subprocess.call("cd .." + settings.MEDIA_ROOT+" && rm " + str(self.filename) + "&& rm "+str(self.thumbnail)+" && rm "+fileaudio, shell=True)
         super(Shot, self).delete(*args, **kwargs)
 
     class Meta:
         ordering = ('id',)
 
 def addedShot (sender, instance, created, **kwargs):
-    filename = instance.uri.split('/')[-1]
+    #filename = instance.uri.split('/')[-1]
     if not instance:
         return
     #uso attributo dirty per evitare ricorsione di save()
     if hasattr(instance, '_dirty'):
         return
     if instance.downloaded is False:
-        if settings.MEDIA_URL2 not in instance.web_uri:
+        #if settings.MEDIA_URL2 not in instance.web_uri:
             try:
                 filename = instance.uri.split('/')[-1]
                 print("Downloading starts...")
-                urllib.request.urlretrieve(instance.web_uri, './frontend/' + settings.MEDIA_URL2 + filename)
+                urllib.request.urlretrieve(instance.web_uri, '..' + settings.MEDIA_ROOT + name)
                 print("Download completed!")
 
-                print (instance.uri)
-                if ".mp4" not in instance.uri:
-                    newfilename = filename[:-3] + "mp4"
-                    cmd = "ffmpeg -i " + filename + " " + newfilename
-                    subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && " + cmd, shell=True)
-                    subprocess.call("cd ./frontend/" + settings.MEDIA_URL2 + " && rm " + filename, shell=True)
-                    instance.uri = settings.MEDIA_URL2 + newfilename
+                if ".mp4" not in instance.filename:
+                    newfilename = instance.filename[:-3] + "mp4"
+                    cmd = "ffmpeg -i " + instance.filename + " " + newfilename
+                    subprocess.call("cd .." + settings.MEDIA_ROOT + " && " + cmd, shell=True)
+                    subprocess.call("cd .." + settings.MEDIA_ROOT + " && rm " + filename, shell=True)
+                    instance.filename = newfilename
             except Exception as e:
                 print(e)
     instance.downloaded = True
-    if ".jpg" not in instance.thumbnail:
-        newfilename = instance.uri.split('/')[-1]
-        cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./" + settings.MEDIA_URL2 + newfilename,
-                                                          o="./" + settings.MEDIA_URL2 +
-                                                            filename[:-3] + "jpg")
-        subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
-        instance.thumbnail = settings.MEDIA_URL2 + filename[:-3] + "jpg"
+    if ".jpg" not in str(instance.thumbnail):
+        '''cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q=".." + settings.MEDIA_ROOT + instance.filename,
+                                                          o=".." + settings.MEDIA_ROOT +
+                                                            instance.filename[:-3] + "jpg")'''
+        cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q=instance.filename,
+                                                          o=instance.filename[:-3] + "jpg")
+        subprocess.call("(cd .."+settings.MEDIA_ROOT+" && " + cmd + ")", shell=True)
+        instance.thumbnail = instance.filename[:-3] + "jpg"
     try:
         instance._dirty = True
         instance.save()
     finally:
         del instance._dirty
 
-#post_save.connect(addedShot, sender=Shot)
+post_save.connect(addedShot, sender=Shot)
 
 class Annotation(models.Model):
     shot = models.ForeignKey(Shot, null=True)

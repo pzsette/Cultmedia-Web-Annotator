@@ -116,7 +116,7 @@ function memorizeText($spot){
 	var id = $spot.get(0).id;
 	var txt = $spot.find("#" + id + "_textContent").val();
 	texts[findSpotPosition($spot)] = txt;
-	localStorage.setItem("texts", texts);
+
 }
 /**
  *memorizeAudio will save the sequence of all texts
@@ -220,6 +220,7 @@ function findSpotPosition($spot){
 
 $(document).ready(function() {
 	var init = false;
+	var mediafolder = "";
 	/**
 	 *Enable horizontal scrolling with mouse wheel
 	 */
@@ -245,7 +246,7 @@ $(document).ready(function() {
                 content += "<div class='search-elem'>";
 
                 //var uri = data.results[i].uri;
-                var mediafolder = data.results[i].media_url;
+                mediafolder = data.results[i].media_url;
                 var name = data.results[i].filename;
                 var img = data.results[i].thumbnail;
 
@@ -630,7 +631,6 @@ $(document).ready(function() {
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
                     nhf =  $('[name="NHFCheckbox"]').prop('checked');
-                    //moodValue = $("#TMoodSelect").val();
 
 					if (hf == true && nhf == false) {
 						checkValue = false;
@@ -660,7 +660,6 @@ $(document).ready(function() {
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
                     nhf =  $('[name="NHFCheckbox"]').prop('checked');
-                    //moodValue = $("#TMoodSelect").val();
 
 					if (hf == true && nhf == false) {
 						checkValue = false;
@@ -691,7 +690,6 @@ $(document).ready(function() {
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
                     nhf =  $('[name="NHFCheckbox"]').prop('checked');
-                    //moodValue = $("#TMoodSelect").val();
 
 					if (hf == true && nhf == false) {
 						checkValue = false;
@@ -721,7 +719,6 @@ $(document).ready(function() {
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
                     nhf =  $('[name="NHFCheckbox"]').prop('checked');
-                    //moodValue = $("#TMoodSelect").val();
 
 					if (hf == true && nhf == false) {
 						checkValue = false;
@@ -751,7 +748,6 @@ $(document).ready(function() {
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
                     nhf =  $('[name="NHFCheckbox"]').prop('checked');
-                    //moodValue = $("#TMoodSelect").val();
 
 					if (hf == true && nhf == false) {
 						checkValue = false;
@@ -781,7 +777,6 @@ $(document).ready(function() {
                     ml = $('#EALRange').val();
                     dnd = $('#DNDSelect').val();
                     nhf =  $('[name="NHFCheckbox"]').prop('checked');
-                    //moodValue = $("#TMoodSelect").val();
 
 					if (hf == true && nhf == false) {
 						checkValue = false;
@@ -919,275 +914,6 @@ $(document).ready(function() {
                     console.log(query);
 	});
 
-	/*/**
-	 *MOOD - TENSIONE
-
-	$("#TMoodSelect").change(function() {
-
-                    colorValue =  $("#HTCRange").val();
-                    //moodValue = $("#PMoodSelect").val();
-                    daytimeValue = $("#DNESelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-                    nhf =  $("#pzcheckbox").val();
-                    moodValue = $("#TMoodSelect").prop('checked');
-
-                    query = domain_root + '/api/shots?mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue + '&indoor='+indoorVal+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&nohappyfaces='+nhf + '&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-	});*/
-
-
-	/*$("#mood-filter").change(function () {
-        //load(domain_root + '/api/shots?q=' +  $("#search").val() +'&mood=' + $("#mood").val());
-        filterType = $("#mood-filter").val();
-        mainDiv= document.getElementsByClassName("pzdropdown")
-        parameters = document.getElementById("dropelement");
-        switch (filterType) {
-            case "1":
-                console.log("primo filtro");
-                mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Piacere</p> ' +
-                    '       <div class="itemspace"> ' +
-                    '           <label id="pzlabel" style="color:black"><input id="HTCRange" type="range" min="0" max="1" step="0.1" value="0">Min Colourfulness: <span id="HTCValue"></span></label> ' +
-                    '       </div> ' +
-                    '       <div class="itemspace"> ' +
-                    '           <select class="pzselect" id="DNSelect">' +
-                    '               <option value="0" selected>Tutto il giorno</option> ' +
-                    '               <option value="1" class="others">Giorno</option> ' +
-                    '               <option value="2" class="others">Notte</option> ' +
-                    '           </select>' +
-                    '       </div>' +
-                    '       <div class="itemspace"> ' +
-                    '           <select class="pzselect" id="moodSelect">' +
-                    '               <option value="0" selected>No mood</option> ' +
-                    '               <option value="1" class="others">Happy</option> ' +
-                    '               <option value="2" class="others">Neutral</option> ' +
-                    '               <option value="3" class="others">Sad</option> ' +
-                    '           </select>' +
-                    '       </div>'
-                var HTCslider = document.getElementById("HTCRange");
-                var HTCoutput = document.getElementById("HTCValue");
-                HTCoutput.innerHTML = HTCslider.value;
-                HTCslider.oninput = function() {
-                HTCoutput.innerHTML = this.value;
-                };
-
-                $("#HTCRange").change(function() {
-                    daytimeValue = $("#DNSelect").val();
-                    colorValue =  $("#HTCRange").val();
-                    moodValue = $("#moodSelect").val();
-
-                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
-                    load(query);
-                    console.log(query);
-                });
-
-                $("#DNSelect").change(function() {
-                    daytimeValue = $("#DNSelect").val();
-                    colorValue =  $("#HTCRange").val();
-                    moodValue = $("#moodSelect").val();
-
-                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
-                    load(query);
-                    console.log(query);
-                });
-
-                $("#moodSelect").change(function() {
-                    daytimeValue = $("#DNSelect").val();
-                    colorValue =  $("#HTCRange").val();
-                    moodValue = $("#moodSelect").val();
-
-                    query = domain_root + '/api/shots?q=' +  $("#awesomplete-search").val() +'&mood='+moodValue+"&daytime="+daytimeValue+"&colourfulness="+colorValue;
-                    load(query);
-                    console.log(query);
-                });
-
-                break;
-            case "2":
-                console.log("secondo filtro");
-                mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Energia</p>\n' +
-                    '\n' +
-                    '        <div class="itemspace"> ' +
-                    '           <select class="pzselect" id="DNSelect">' +
-                    '               <option value="0" selected>Tutto il giorno</option> ' +
-                    '               <option value="1" class="others">Giorno</option> ' +
-                    '               <option value="2" class="others">Notte</option> ' +
-                    '           </select>' +
-                    '       </div>' +
-                    '\n' +
-                    '        <div class="itemspace"> ' +
-                    '           <select class="pzselect" id="IOSelect">' +
-                    '               <option value="0" selected>Luogo</option> ' +
-                    '               <option value="1" class="others">Spazio chiuso</option> ' +
-                    '               <option value="2" class="others">Spazio aperto</option> ' +
-                    '           </select>' +
-                    '       </div>' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '          <label style="color: black"><input id="EAPRange" type="range" min="0" max="1" step="0.1" value="0"> Min Pixel-Motion: <span id="EAPValue"></span></label>\n' +
-                    '        </div>\n' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '          <label style="color: black"><input id="EADRange" type="range" min="10" max="90" step="10" value="90">Max Durata: <span id="EADValue"></span></label>\n' +
-                    '        </div>\n' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '          <label style="color: black"><input id="EALRange" type="range" min="0" max="1" step="0.1" value="1"> Max Loudness: <span id="EALValue"></span></label>\n' +
-                    '        </div>\n' +
-                    '\n' +
-                    '        <div class="itemspace"> ' +
-                    '           <select class="pzselect" id="DNDSelect">' +
-                    '               <option value="0" selected>Dialoghi e Non</option> ' +
-                    '               <option value="1" class="others">Dialoghi</option> ' +
-                    '               <option value="2" class="others">Senza Dialoghi</option> ' +
-                    '           </select>' +
-                    '       </div>'
-                var EAPslider = document.getElementById("EAPRange");
-                var EAPoutput = document.getElementById("EAPValue");
-                EAPoutput.innerHTML = EAPslider.value;
-                EAPslider.oninput = function() {
-                  EAPoutput.innerHTML = this.value;
-                }
-
-                var EADslider = document.getElementById("EADRange");
-                var EADoutput = document.getElementById("EADValue");
-                EADoutput.innerHTML = EADslider.value;
-                EADslider.oninput = function() {
-                  EADoutput.innerHTML = this.value;
-                }
-
-                var EALslider = document.getElementById("EALRange");
-                var EALoutput = document.getElementById("EALValue");
-                EALoutput.innerHTML = EALslider.value;
-                EALslider.oninput = function() {EALoutput.innerHTML = this.value};
-
-                $('#IOSelect').change(function () {
-                    daytimeValue = $("#DNSelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-
-                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-                });
-
-                $('#DNSelect').change(function () {
-                    daytimeValue = $("#DNSelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-
-                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-                });
-
-                $('#EAPRange').change(function () {
-                    daytimeValue = $("#DNSelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-
-                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-                });
-
-                $('#EADRange').change(function () {
-                    daytimeValue = $("#DNSelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-
-                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-                });
-
-                $('#EALRange').change(function () {
-                    daytimeValue = $("#DNSelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRaange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-
-                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-                });
-
-                $('#DNDSelect').change(function () {
-                    daytimeValue = $("#DNSelect").val();
-                    indoorVal = $('#IOSelect').val();
-                    mpm = $('#EAPRange').val();
-                    msd = $('#EADRaange').val();
-                    ml = $('#EALRange').val();
-                    dnd = $('#DNDSelect').val();
-
-                    query = domain_root + '/api/shots?indoor='+indoorVal+'&daytime='+daytimeValue+'&pixelmotion='+mpm+'&duration='+msd+'&loudness='+ml+'&dialogue='+dnd+'&q='+$("#awesomplete-search").val();
-                    load(query);
-                    console.log(query);
-                });
-
-
-                break;
-            case "3":
-                console.log("terzo filtro");
-                mainDiv[0].style.display="block";
-                parameters.innerHTML = '<p id="pzp">Tensione</p>\n' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '        <label style="color:black"><input id="pzcheckbox" name="NHFCheckbox" type="checkbox" align=""><br>No facce felici</label>\n' +
-                    '        </div>\n' +
-                    '\n' +
-                    '        <div class="itemspace">\n' +
-                    '          <select class="pzselect" id="moodSelect">\n' +
-                    '            <option value="0" selected>No mood</option>\n' +
-                    '            <option value="1">Felice</option>\n' +
-                    '            <option value="2">Neutro</option>\n' +
-                    '            <option value="3">Triste</option>\n' +
-                    '          </select>\n' +
-                    '        </div>'
-
-                $("#moodSelect").change(function() {
-                    nhf =  $("#pzcheckbox").val();
-                    moodValue = $("#moodSelect").val();
-                    query = domain_root + '/api/shots?&mood=' + moodValue + '&nohappyfaces='+nhf + '&q=' +  $("#awesomplete-search").val();
-
-                    load(query);
-                    console.log(query);
-                });
-
-                $("#pzcheckbox").change(function() {
-                    nhf =  $("#pzcheckbox").val();
-                    moodValue = $("#moodSelect").val();
-                    query = domain_root + '/api/shots?mood=' + moodValue + '&nohappyfaces='+nhf+'&q=' +  $("#awesomplete-search").val()
-
-                    load(query);
-                    console.log(query);
-                });
-                break;
-            case "0":
-                mainDiv[0].style.display="none";
-                console.log("no filtro");
-                break;
-        }
-    });*/
 	/**
 	 *event attached to progect handling
 	 */
@@ -1212,22 +938,10 @@ $(document).ready(function() {
 
 		audios = decodeURIComponent(audios).split(",");
 		videos = decodeURIComponent(videos).split(",");
-        //var effectsElements = document.getElementById("scroller").getElementsByTagName("SELECT");
-        /*for (var i = 0; i < videos.length; i++) {
-            videos[i] += ".mp4"
-        }*/
-        //console.log(videos);
-        /*for (var i = 0; i < videos.length-1; i++){
-            effects.push(effectsElements[i].value);
-        }*/
-
-        /*for (var i=0; i < final.length; i++) {
-            final[i] = final[i].replace("_timeline", "");
-        }*/
 
         $.ajax({ url: domain_root + "/api/retrieve_videos?videos=" + videos+"&audios="+audios, success: function (result) {
             var req = new XMLHttpRequest();
-            req.open("GET", domain + "zipvideo/video.zip", true);
+            req.open("GET", domain_root + mediafolder + "zipvideo/video.zip", true);
             req.responseType = "blob";
 
             req.onload = function (event) {
@@ -1272,7 +986,9 @@ $(document).ready(function() {
 				$.ajax({url: domain_root + "/api/process_edited_videos/?videos=" + videos + "&effects=" + effects + "&audios=" + audios + "&texts=" + texts + "&subtitles=" + subtitles
 					, success: function (result) {
 						var req = new XMLHttpRequest();
-						req.open("GET", domain + "videoferracani/final_file.mp4", true);
+						final_file_uri = domain_root + mediafolder + "final_file.mp4";
+						console.log(final_file_uri);
+						req.open("GET", final_file_uri, true);
 						req.responseType = "blob";
 						req.onload = function (event) {
 							var blob = req.response;
