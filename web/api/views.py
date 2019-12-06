@@ -80,6 +80,8 @@ def process_edited_videos(request):
         subtitles = subtitles.split("||,")
 
         for index, i in enumerate(videos):
+            print("index")
+            print (index)
 
             video_subtitles = subtitles[index].split("||")
             ass = open('..'+settings.MEDIA_ROOT + i + '.ass', 'w+')

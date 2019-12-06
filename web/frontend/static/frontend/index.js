@@ -116,7 +116,7 @@ function memorizeText($spot){
 	var id = $spot.get(0).id;
 	var txt = $spot.find("#" + id + "_textContent").val();
 	texts[findSpotPosition($spot)] = txt;
-
+	localStorage.setItem("texts", texts);
 }
 /**
  *memorizeAudio will save the sequence of all texts

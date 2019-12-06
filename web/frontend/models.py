@@ -132,8 +132,8 @@ class Shot(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if ".mp4" in str(self.web_uri) and self.downloaded is False:
-            self.web_uri = self.uri
+        if '/' in self.web_uri and self.downloaded is False:
+            print ("web_uri not null")
             name = self.web_uri.split('/')[-1]
             self.filename = name
         else:
@@ -169,21 +169,23 @@ def addedShot (sender, instance, created, **kwargs):
     if hasattr(instance, '_dirty'):
         return
     if instance.downloaded is False:
+        print ("downloaded falso")
         #if settings.MEDIA_URL2 not in instance.web_uri:
-            try:
-                filename = instance.uri.split('/')[-1]
+        try:
+            if '/' in instance.web_uri:
+                filename = instance.web_uri.split('/')[-1]
                 print("Downloading starts...")
-                urllib.request.urlretrieve(instance.web_uri, '..' + settings.MEDIA_ROOT + name)
+                urllib.request.urlretrieve(instance.web_uri, '..' + settings.MEDIA_ROOT + filename)
                 print("Download completed!")
 
-                if ".mp4" not in instance.filename:
-                    newfilename = instance.filename[:-3] + "mp4"
-                    cmd = "ffmpeg -i " + instance.filename + " " + newfilename
-                    subprocess.call("cd .." + settings.MEDIA_ROOT + " && " + cmd, shell=True)
-                    subprocess.call("cd .." + settings.MEDIA_ROOT + " && rm " + filename, shell=True)
-                    instance.filename = newfilename
-            except Exception as e:
-                print(e)
+            if ".mp4" not in instance.filename:
+                newfilename = instance.filename[:-3] + "mp4"
+                cmd = "ffmpeg -i " + instance.filename + " " + newfilename
+                subprocess.call("cd .." + settings.MEDIA_ROOT + " && " + cmd, shell=True)
+                subprocess.call("cd .." + settings.MEDIA_ROOT + " && rm " + filename, shell=True)
+                instance.filename = newfilename
+        except Exception as e:
+            print(e)
     instance.downloaded = True
     if ".jpg" not in str(instance.thumbnail):
         '''cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q=".." + settings.MEDIA_ROOT + instance.filename,

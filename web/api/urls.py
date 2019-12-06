@@ -11,7 +11,6 @@ router.register(r'annotation', views.AnnotationViewSet, 'annotation')
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    #url(r'^process_videos/$', views.process_videos, name="process_videos"),
     url(r'^retrieve_videos/$', views.retrieve_videos, name="retrieve_videos"),
     url(r'^get_keywords/$', views.get_keywords, name="get_keywords"),
     url(r'^process_edited_videos/$', views.process_edited_videos, name="process_edited_videos"),#

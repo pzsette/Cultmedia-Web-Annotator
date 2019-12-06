@@ -26,7 +26,7 @@ urlpatterns = [
 
     url(r'^edit-video/$', views.edit_video_view, name='edit-video'),
 
-    url(r'^zipvideo/(?P<path>.*)$',serve, {
-        'document_root': settings.MEDIA_ROOT2,
-    }),
+    #url(r'^zipvideo/(?P<path>.*)$',serve, {
+    #    'document_root': settings.MEDIA_ROOT2,
+    #}),
 ]

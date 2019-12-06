@@ -312,7 +312,6 @@ $(document).ready(function() {
         $("#scroller").html(content);
 
     }
-
     createEmptyTimeline(50);*/
 
     /**

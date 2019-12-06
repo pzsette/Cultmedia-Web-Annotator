@@ -167,10 +167,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 mediafolder = os.getenv('MEDIA_FOLDER')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/data/media/'
+MEDIA_URL = mediafolder+'/'
+MEDIA_ROOT = '/data'+mediafolder+'/'
 
-MEDIA_ROOT2 = os.path.join(BASE_DIR, 'frontend/zipvideo')
 
 print ("media root", MEDIA_ROOT)
 
