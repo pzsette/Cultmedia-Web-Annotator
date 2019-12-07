@@ -324,7 +324,6 @@ $(document).ready(function() {
 			if(localStorage.getItem("audios") != null) {
 				var audios = localStorage.getItem("audios").split(",");
 				var $spots = $(".spot");
-				//var audioSelects = document.getElementById("timeline").getElementsByClassName("audioSelect");
 				for (var i = 0; i <= audios.length - 1; i++) {
 					if(audios[i] != ""){
 						$spots.eq(i).find(".audioSelect").val(audios[i]);

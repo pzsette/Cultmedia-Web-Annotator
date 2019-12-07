@@ -26,30 +26,6 @@ class Video(models.Model):
     web_uri = models.TextField(blank=True, null=True)
     downloaded = models.BooleanField(default=False)
 
-    #def save(self, *args, **kwargs):
-    #    if settings.MEDIA_URL2 not in self.uri:
-    #        self.web_uri = self.uri
-    #        filename = self.uri.split('/')[-1]
-    #        self.uri = settings.MEDIA_URL2 + filename
-    #    super(Video, self).save(*args, **kwargs)
-
-    '''if settings.MEDIA_URL2 not in self.uri:
-        filename = self.uri.split('/')[-1]
-        try:
-            print("Downloading starts...")
-            urllib.request.urlretrieve(self.uri, './frontend/'+settings.MEDIA_URL2 + filename)
-            print("Download completed!")
-            self.uri = settings.MEDIA_URL2+filename
-            print (self.uri)
-            if ".mp4" not in self.uri:
-                newfilename = filename[:-3]+"mp4"
-                cmd = "ffmpeg -i "+filename+" "+newfilename
-                subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && " + cmd, shell=True)
-                subprocess.call("cd ./frontend/"+settings.MEDIA_URL2+" && rm "+filename, shell=True)
-                self.uri = settings.MEDIA_URL2 + newfilename
-        except Exception as e:
-            print(e)'''
-
     def delete(self, *args, **kwargs):
         subprocess.call("cd .."+settings.MEDIA_ROOT+" && rm "+self.filename, shell=True)
         super(Video, self).delete(*args, **kwargs)
@@ -88,7 +64,6 @@ def addedVideo (sender, instance, created, **kwargs):
         instance.save()
     finally:
         del instance._dirty
-
 
 #post_save.connect(addedVideo, sender=Video)
 
@@ -139,14 +114,6 @@ class Shot(models.Model):
         else:
             self.downloaded = True
         super(Shot, self).save(*args, **kwargs)
-
-    '''if self.thumbnail is None:
-        filename = self.uri.split('/')[-1]
-        cmd = "ffmpeg -ss 1 -i {q} -vframes 1 {o}".format(q="./"+settings.MEDIA_URL2 + filename, o="./"+settings.MEDIA_URL2+
-                                                                                              filename[:-3] + "jpg")
-        subprocess.call("(cd ./frontend/ && " + cmd + ")", shell=True)
-        self.thumbnail = settings.MEDIA_URL2+filename[:-3] + "jpg"'''
-    #    super(Shot, self).save(*args, **kwargs)
 
     def __str__(self):
         return "shot id: " + str(self.id)
