@@ -9,3 +9,11 @@ The main user interfaces are two:
 
 Every user has its own account to store its annotations.
 The two fundamental technologies used to realize this project are Docker and the web framework Django.
+
+### Video editor
+
+![Alt text](composer.png?raw=true "Annotator")
+
+### Annotator
+
+![Alt text](annotator.png?raw=true "Annotator")
