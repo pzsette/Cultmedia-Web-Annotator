@@ -9,7 +9,7 @@ nose
 tabulate
 urllib3
 beautifulsoup4
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 require
 Pillow
 coreapi==2.3.3
